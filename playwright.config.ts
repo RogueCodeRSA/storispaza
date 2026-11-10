@@ -5,10 +5,13 @@ export default defineConfig({
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 1 : 0,
-  use: { baseURL: "http://127.0.0.1:3100", trace: "retain-on-failure" },
+  use: { baseURL: "http://127.0.0.1:3100", trace: "retain-on-failure", launchOptions: { args: ["--use-fake-ui-for-media-stream", "--use-fake-device-for-media-stream"] } },
   projects: [{ name: "chromium", use: { ...devices["Desktop Chrome"] } }, { name: "mobile", use: { ...devices["Pixel 7"] } }],
-  webServer: {
+  webServer: [{
     command: "npm run start -- --port 3100", url: "http://127.0.0.1:3100", reuseExistingServer: false,
     env: { AI_PROVIDER: "mock", OPENAI_API_KEY: "", NEXT_TELEMETRY_DISABLED: "1" },
-  },
+  }, {
+    command: "npm run start -- --port 3200", url: "http://127.0.0.1:3200", reuseExistingServer: false,
+    env: { AI_PROVIDER: "real", AI_ADAPTER: "openai", ENABLE_LIVE_AI: "1", OPENAI_API_KEY: "", NEXT_TELEMETRY_DISABLED: "1" },
+  }],
 });

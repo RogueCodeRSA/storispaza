@@ -1,8 +1,14 @@
 # Approved StoriSpaza plan
 
-Approved 2026-11-10 with amendments. **M1 is authorized; M0 is complete.** Pitch date: **not set**. Stop after the M1 report; M2 requires separate approval.
+Approved 2026-11-10, amended 2026-11-11. **M2 is authorized.** Creator selected OpenAI within $2/session and $10 development caps and confirmed hosted CI passed. Stop after M2's report; M3 requires approval. Pitch date: **not set**.
 
-## Provider strategy amendment — free now, OpenAI later
+## M2 activation amendment
+
+OpenAI replaces the prior Cloudflare-first choice for M2; Cloudflare stays deferred. Retain adapter isolation, reusable contract tests and per-asset provenance/history. Access probe passed before implementation (37 input / 13 output tokens, $0.00023 at published rates); after credential rotation a second identical probe also passed ($0.00023). Prior probe spend $0.00046 must be carried into development accounting. Both are rate-derived amounts, not independently verified invoices.
+
+Real text-to-six-pages and English voice capture/transcription are M2 only; translation, illustration and narration remain unavailable. Paid tests require explicit opt-in and safe usage-only reporting; stop on billing/model/access failures without fallback. No raw prompts, transcripts or keys in logs/commits. The creator confirmed revocation/replacement after a credential was discovered in a tracked example and diagnostic output; blank the example and preserve only ignored local configuration.
+
+## Historical provider preparation — superseded by M2 activation above
 
 The creator authorized adapter isolation, per-asset provenance, reusable provider contract tests and SWITCHING_PROVIDERS.md. Implement this preparation on codex/provider-contract-foundation without starting live M2. M1 is complete. Live M2 remains conditional on a bounded explicit-opt-in access/usage check; the creator pushes branches/runs hosted CI, and failed CI requires their confirmation before branching M2.
 
@@ -19,7 +25,7 @@ Cloudflare Workers AI is the intended free provider. It is not implemented or ac
 
 Deliver a polished six-page English/Sesotho storytelling journey for Grade R–3 teachers, parents and families. *The Girl Who Spoke to Electricity* is set meaningfully in Soweto. Electrical powers are fantasy; real science is safe and adult-supervised. The 3–5 minute pitch runs on reviewed fixtures without any external network/API dependency.
 
-One strict-TypeScript Next.js App Router app, Tailwind, Zod, Vitest and Playwright. Localhost only, no accounts, SQLite/local files. Creator-recorded narration in both languages; no Sesotho voice-to-story or synthetic Sesotho speech claims. You review Sesotho, cultural details, science, recordings and supplied opening/response phrases. Billing/model access unconfirmed.
+One strict-TypeScript Next.js App Router app, Tailwind, Zod, Vitest and Playwright. Localhost only, no accounts, SQLite/local files. Creator-recorded narration in both languages; no Sesotho voice-to-story or synthetic Sesotho speech claims. You review Sesotho, cultural details, science, recordings and supplied opening/response phrases. M2 text/English transcription access is smoke-tested; later operations remain unverified.
 
 US$10 development total; US$2 per generation session. Reserve estimates before dispatch, reconcile actuals, retain uncertain reservations. App allowances cannot guarantee provider billing. Time: 38 hours build/review/test/docs plus two contingency hours; final six reserved for hardening/rehearsal. Human review waiting time is additional.
 

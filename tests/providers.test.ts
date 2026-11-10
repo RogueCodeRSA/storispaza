@@ -46,7 +46,7 @@ describe("providers and API boundaries", () => {
     expect(response.status).toBe(200);
     expect(response.headers.get("cache-control")).toBe("no-store");
     expect(await response.json()).toMatchObject({ provenance: "mock-fixture", fixtureStatus: "provisional", humanReviewed: false });
-    expect(await healthGET().json()).toMatchObject({ milestone: "M1", realOperationsEnabled: false });
+    expect(await healthGET().json()).toMatchObject({ milestone: "M2", realOperationsEnabled: false });
     const error = errorResponse(new Error("private key or transcript"));
     expect(error.status).toBe(500);
     expect(JSON.stringify(await error.json())).not.toContain("private key");

@@ -1,5 +1,17 @@
 # AI safety and data lifecycle
 
+## M2 current data flows and limits
+
+Live capture was authorized after the creator confirmed hosted CI and bounded access checks. Only text structuring and English transcription are enabled by the OpenAI adapter; Cloudflare and later operations remain deferred. M0/M1 sections below are historical, not descriptions of current `/create` behavior.
+
+Capture consent temporarily holds an adult English recording in browser memory; upload has the same gate. Separate transmission consent sends normalized WAV to the loopback server and configured provider. The server bounds and validates bytes/duration, forwards in memory and clears owned buffers on success/error; it creates no recording file. Browser audio remains replayable until Delete or leaving the page. Deletion revokes its URL and stops tracks; editable transcript/idea copies have separate Clear/edit controls. This is application reference/buffer cleanup, not a guarantee of physical-memory erasure or provider deletion. No recording retention/redistribution option is implemented in M2.
+
+An editable transcript is not automatically sent for story generation. Explicit copying to the idea and text-transmission consent precede that separate operation. Only an explicit consented Save persists the generated story in unencrypted browser storage; it excludes audio and the raw transcript field. Text deliberately incorporated into the idea/story may naturally persist in the story draft. Delete saved story removes the browser copy. No story content is written to the server database by these routes; only expiring session IDs and usage/accounting metadata persist.
+
+Responses uses `store:false`; audio uses direct transcription without a persistent Files upload. Local cleanup does not override endpoint-specific provider retention/account policies ([official data controls](https://developers.openai.com/api/docs/guides/your-data)); account retention settings were not independently audited. Avoid personal data. Keys stay server-side in ignored `.env.local`; SDK logging is off, errors are redacted, and paid tests report usage only. A key accidentally placed in the tracked example appeared in diagnostic output; the creator confirmed revocation/replacement. The example is blank and final secret scanning is required.
+
+All results remain unreviewed/private. Edits invalidate approvals; no publication/export approval is added by M2. Cultural details are editable assumptions, not verified facts; electrical-safety prompt guidance requires subsequent human review. No invented traditional phrases, Sesotho recognition, voice cloning or synthetic Sesotho speech. Paid failures retain reservations without retry/fallback. Synthetic English smoke evidence does not establish real microphone/accent quality, fluent Sesotho quality or educational outcomes.
+
 ## Provider preparation amendment
 
 Only mock operations work. Both intended live entries remain deferred and send no requests. Actual account ID/token stay only in ignored .env.local; adapter code will own credential loading. Do not log or commit keys, raw recording prompts, transcripts, SDK exception bodies or vendor response headers. Shared boundary errors are redacted; undeclared response fields are stripped.

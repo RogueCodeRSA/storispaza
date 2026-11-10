@@ -2,7 +2,9 @@
 
 ## Current state and boundary
 
-This preparation change implements a working mock adapter, vendor-neutral validation/guard contracts, producer provenance and reusable tests. The registered Cloudflare and OpenAI entries are **deferred placeholders**, not live integrations. Neither reads credentials, sends requests or demonstrates model quality. OpenAI research remains in DECISIONS.md as a **future adapter**; do not implement it during the free-now phase.
+M2 activates OpenAI for story structuring and English transcription after creator authorization, hosted-CI confirmation and bounded access checks. Cloudflare remains a **deferred placeholder**; its free-account setup below is optional future work. The OpenAI adapter implements strict output, usage conversion and no retry/fallback. Every registered adapter runs the reusable offline contract suite; only explicitly opted-in paid smoke tests use a real network. Later translation/image/narration operations are unavailable.
+
+For authorized local M2, preserve existing ignored `.env.local` credentials and set `AI_PROVIDER=real`, `AI_ADAPTER=openai`, `ENABLE_LIVE_AI=1`. Approved model defaults are in the blank `.env.example`; changing models requires revised price estimates/tests before dispatch. `/create` is the live editor; `/studio` and the standalone download remain the mock delivery path in mock mode. Keep the app on loopback. Default tests never call a provider.
 
 `AI_PROVIDER=mock` remains the default offline mode. Live-mode selection uses `AI_PROVIDER=real` plus generic `AI_ADAPTER=<registered-id>`. Unknown/missing IDs and mode mismatches fail; never silently switch to mock or another vendor. Routes/UI/domain schemas contain no vendor endpoints, SDKs, keys, model IDs or response parsing. Registration and all vendor-specific credential loading, transport, prompts, response conversion and price/allowance estimation belong only under `src/server/providers/adapters/`.
 
@@ -42,7 +44,7 @@ The existing SQLite dollar ledger is not an account-aware daily allowance ledger
 
 Keep the account on the free plan and stop on exhaustion; no automatic paid upgrade or cross-provider fallback. If implementing a paid provider later, retain the approved US$2/session and US$10 development caps until changed by the creator. Unknown actual cost or usage keeps its reservation. Retry only explicitly retryable failures within the same guard and total attempt limit; do not duplicate ambiguous generation requests.
 
-The guard interface/fail-closed enforcement is implemented now; real account metering, daily free-unit persistence and live transport are **not** implemented or tested by this preparation change.
+The M2 SQLite dollar guard and OpenAI text/audio transport are implemented and tested. Account-aware daily free-unit metering and Cloudflare transport remain unimplemented. The app ledger cannot account for spend from other tools/accounts or guarantee provider billing.
 
 ## Provenance when switching
 

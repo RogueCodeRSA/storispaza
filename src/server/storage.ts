@@ -10,18 +10,22 @@ export function openDatabase(directory: string): DatabaseSync {
   mkdirSync(directory, { recursive: true });
   const db = new DatabaseSync(join(directory, "storispaza.sqlite"));
   const version = db.prepare("PRAGMA user_version").get();
-  if (Number(version?.user_version) > 1) {
+  if (Number(version?.user_version) > 2) {
     db.close();
     throw new AppError("API_UNAVAILABLE", "This database requires a newer StoriSpaza version.", 503);
   }
   db.exec(`PRAGMA foreign_keys = ON;
     PRAGMA journal_mode = WAL;
+    BEGIN IMMEDIATE;
     CREATE TABLE IF NOT EXISTS stories (id TEXT PRIMARY KEY, payload TEXT NOT NULL, updated_at TEXT NOT NULL);
     CREATE TABLE IF NOT EXISTS ai_operations (
       id TEXT PRIMARY KEY, session_id TEXT NOT NULL, kind TEXT NOT NULL,
       reserved INTEGER NOT NULL, actual INTEGER, state TEXT NOT NULL, created_at INTEGER NOT NULL
     );
-    PRAGMA user_version = 1;`);
+    CREATE TABLE IF NOT EXISTS ai_sessions (id TEXT PRIMARY KEY, expires_at INTEGER NOT NULL);
+    CREATE TABLE IF NOT EXISTS ai_measurements (operation_id TEXT PRIMARY KEY, usage_json TEXT NOT NULL);
+    PRAGMA user_version = 2;
+    COMMIT;`);
   return db;
 }
 

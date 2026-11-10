@@ -2,13 +2,14 @@ import { describe, expect, it } from "vitest";
 import { demoStory } from "../../fixtures/demo-story";
 import { storySchema } from "@/domain/story";
 import type { ProviderOperation, ProviderResult, StoryProvider } from "@/server/providers/types";
+import { encodeCaptureWav } from "@/domain/capture";
 
 export const operations: ProviderOperation[] = ["structureStory", "transcribe", "translate", "checkIllustrationPrompt", "createCharacterSheet", "illustrate"];
 
 export function invokeOperation(provider: StoryProvider, operation: ProviderOperation): Promise<ProviderResult<unknown>> {
   switch (operation) {
     case "structureStory": return provider.structureStory({ idea: "Fictional community story", culturalContext: "Creator context", educationalObjective: "Cooperation", sourceLanguage: "en" });
-    case "transcribe": return provider.transcribe({ bytes: new Uint8Array([0, 1]), language: "en", apiConsent: true });
+    case "transcribe": return provider.transcribe({ bytes: encodeCaptureWav(new Float32Array(16000), 16000), language: "en", apiConsent: true });
     case "translate": return provider.translate(structuredClone(demoStory), "st");
     case "checkIllustrationPrompt": return provider.checkIllustrationPrompt("An adult-led classroom activity, awaiting creator review.");
     case "createCharacterSheet": return provider.createCharacterSheet(structuredClone(demoStory));

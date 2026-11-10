@@ -1,6 +1,6 @@
 # StoriSpaza engineering rules
 
-- Read `docs/SPEC.md` and the approved `docs/PLAN.md` before changing behavior. Provider preparation is authorized; live M2 is gated on access/allowance and the creator's hosted-CI confirmation. Stop after the report.
+- Read `docs/SPEC.md` and the approved `docs/PLAN.md` before changing behavior. M2 with the selected paid adapter is authorized: bounded access passed and the creator confirmed hosted CI. Stop after M2's report; do not begin M3.
 - Keep vendor-specific code only in server provider adapter files. Routes, UI and schemas remain vendor-neutral. Preserve per-asset producers/history; every registered adapter needs the reusable contract suite. See `docs/SWITCHING_PROVIDERS.md`.
 - Use strict TypeScript, one Next.js app, local SQLite/files, and explicit mock/real providers. No accounts or public hosting in the MVP.
 - Keep keys server-side. Mock mode must need neither API keys nor external network. Never pass off fixtures as live generation.

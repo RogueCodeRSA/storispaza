@@ -1,4 +1,14 @@
-# Architecture — M0 + M1
+# Architecture — through M2
+
+## M2 live capture (current)
+
+`/create` is a separate client editor; it is never imported into the offline bundle. POST `/api/capture/session`, `/story` and `/transcribe` delegate to a vendor-neutral capture service. Loopback host and exact same-origin checks, explicit transmission consent, bounded request streams, an expiring HttpOnly/SameSite cookie and SQLite-issued session IDs precede paid work. Both real mode and `ENABLE_LIVE_AI=1` are required. Default mock stays network/key-free.
+
+Only the server adapter owns OpenAI credentials, SDK, prompts, strict structured output and published-rate calculations. Text and English transcription are available; other live capabilities remain unavailable. Text output is schema-validated, private and unapproved, with per-page producer/model metadata. The UI edits all page fields; edits invalidate approvals and preserve producers/history. Explicit consented Save stores only the story in browser localStorage, never the input audio or raw transcript. Restore/deletion handle blocked storage without replacing open work.
+
+Recording is browser-memory-only with consent, microphone track cleanup, a two-minute stop and upload/manual fallback. Browser decoding downmixes/resamples into bounded 16 kHz mono PCM WAV; the server validates exact headers/frame duration, processes memory buffers and does not write recording files. Transmission and capture consent are separate. The transcript stays editable and is copied into the idea only by explicit action; generating then requires text consent. Deleting audio preserves the editable transcript until Clear.
+
+SQLite schema version 2 adds `ai_sessions` and usage-only `ai_measurements` via an atomic additive initialization/migration; existing stories/accounting survive, newer versions are refused. Dollar reservations are durable and atomic before dispatch ($0.15 text/$0.02 audio); known usage settles, uncertain outcomes retain reservations. Two historical probes are carried forward once. Tokens and rate-derived cost are accounting metadata, not verified provider invoices. No automatic retries/fallback. See DECISIONS and REVIEWS for measured evidence. The following sections record earlier milestone architecture; their statements about absent live routes apply to those historical milestones only.
 
 ## Provider preparation
 

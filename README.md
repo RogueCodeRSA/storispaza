@@ -4,13 +4,17 @@
 
 A creator-led African storytelling studio for Grade R–3 teachers, parents and families. Planned journey: StoriStart → StoriCreate → StoriSpeak → StoriPlay → StoriOwn. Read the [spec](docs/SPEC.md) and [approved plan](docs/PLAN.md).
 
-## Current status: M1 mock journey
+## Current status: M2 capture plus M1 offline journey
 
-Implemented: all five stages with six editable fixture pages, per-page illustration placeholders/regeneration, editable Sesotho slots, bilingual reader, non-speech audio play/pause/resume, opening/pause/tap-to-continue interaction, demo acknowledgements, browser-local save/restore, consented tone-copy attachment/deletion and provisional JSON/HTML exports. Real generation, real images, reviewed translations and creator narration remain later milestones. M0's server-only provider/storage/budget foundations remain intact.
+M2 adds `/create`: real text-to-six-pages, consented English microphone/upload transcription, editable transcript/manual fallback, all page fields editable, and explicit browser draft save/restore/deletion. Output is private/unreviewed. OpenAI text/audio passed a bounded paid smoke; images, translation and narration remain later work. See [M2 evidence](docs/REVIEWS.md) for costs and limitations.
+
+[M2 desktop editor](docs/screenshots/m2-desktop.png) · [mobile editor](docs/screenshots/m2-mobile.png). Browser captures use intercepted public fixture data; they do not expose paid output or recordings.
+
+The offline mock implements all five stages with six editable fixture pages, per-page illustration placeholders/regeneration, editable Sesotho slots, bilingual reader, non-speech audio play/pause/resume, opening/pause/tap-to-continue interaction, demo acknowledgements, browser-local save/restore, consented tone-copy attachment/deletion and provisional JSON/HTML exports. Real images, reviewed translations and creator narration remain later milestones. M0's server-only provider/storage/budget foundations remain intact.
 
 Open `/studio` for the journey. The first screen explains six-page illustrated bilingual storytelling immediately. Every placeholder text/image/audio/phrase stays visibly **provisional / unreviewed**; checking demo acknowledgements never grants actual language/cultural approval or enables final publication.
 
-Provider preparation adds isolated adapter files, a reusable contract suite and per-asset producer/model/history labels. Only mock is operational; both live entries are deferred. Follow [Switching providers](docs/SWITCHING_PROVIDERS.md) for free-account setup, exact token permissions, local-only credentials, guard requirements and activation tests. OpenAI remains documented future work in [decisions](docs/DECISIONS.md).
+Providers have isolated adapters, a reusable contract suite and per-asset producer/model/history labels. Mock remains the default; OpenAI supports M2 text/audio, while Cloudflare is deferred. Follow [Switching providers](docs/SWITCHING_PROVIDERS.md) and [decisions](docs/DECISIONS.md) for configuration, guard requirements and evidence.
 
 **Real-device check: passed, creator-reported.** The creator confirmed successful Android/Chrome airplane-mode checklist completion; model/OS/browser versions and tested-file hash are pending. See the [device test record](docs/MOBILE_OFFLINE_TEST.md) for the distinction between human-reported and automated evidence.
 
@@ -57,19 +61,20 @@ Follow the [real-device checklist](docs/MOBILE_OFFLINE_TEST.md), including audib
 | Variable | Default | Purpose |
 | --- | --- | --- |
 | AI_PROVIDER | mock | Explicit mock/real; unknown values rejected. |
-| AI_ADAPTER | unset | Registered adapter ID in real mode; no silent fallback. Live entries remain deferred. |
+| AI_ADAPTER | unset | Registered adapter ID in real mode; use openai for M2. No fallback. |
+| ENABLE_LIVE_AI | 0 | Explicit server activation; set 1 only for authorized live use. |
 | CLOUDFLARE_ACCOUNT_ID / CLOUDFLARE_API_TOKEN | unset | Actual values only in ignored .env.local; no live integration is enabled by setting them. |
-| OPENAI_API_KEY | unset | Future adapter only; never NEXT_PUBLIC_. No live implementation now. |
-| OPENAI_TEXT_MODEL | gpt-5.6-terra | Retained future-adapter research, not an enabled model. |
+| OPENAI_API_KEY | unset | Server-only M2 credential in ignored .env.local; never NEXT_PUBLIC_. |
+| OPENAI_TEXT_MODEL | gpt-5.6-terra | Approved M2 structured text model. |
 | OPENAI_IMAGE_MODEL | gpt-image-2.6-sunburst | Retained future illustration research. |
-| OPENAI_TRANSCRIPTION_MODEL | gpt-transcribe | Retained future English-capture research. |
+| OPENAI_TRANSCRIPTION_MODEL | gpt-transcribe | Approved English transcription model. |
 | DATA_DIR | ./data | Ignored SQLite/private asset directory. |
 | SESSION_BUDGET_USD | 2 | Approved session allowance; may be lowered. |
 | DEVELOPMENT_BUDGET_USD | 10 | Development allowance; may be lowered. |
 | AI_REQUESTS_PER_MINUTE | 10 | Maximum per-session rate. |
 | NEXT_TELEMETRY_DISABLED | 1 in example/CI | Disable Next telemetry, including builds. |
 
-GET /api/health returns readiness/milestone without secrets. GET /api/demo/story returns data/provenance/review status in mock mode; real mode returns 503. No mutation/paid routes. Configuration/ledger are foundation primitives; future routes must integrate them before paid requests. Keep this no-auth app on loopback.
+GET /api/health returns configuration readiness/milestone without secrets; it does not verify current model access. GET /api/demo/story returns mock data/provenance/review status; real mode returns 503. POST /api/capture/session, /story and /transcribe require local same-origin requests; paid operations require explicit consent, live activation and a server-issued session. Preserve ignored local credentials when setting AI_PROVIDER=real, AI_ADAPTER=openai and ENABLE_LIVE_AI=1. Open `/create`. Use fictional consenting-adult input; no server audio files are retained. Keep this no-auth app on loopback.
 
 ## Checks
 
@@ -79,7 +84,18 @@ npx playwright install chromium
 npm run test:e2e
 ```
 
-Check runs lint, route-type generation/strict typecheck, unit/integration/API tests and production/offline builds. E2E starts a production server at 127.0.0.1:3100, with mock mode/no key and external requests blocked. It covers the five-stage Next.js journey after networking is disabled and the self-contained file loaded from disk with networking disabled from the start, at desktop/mobile sizes. It also verifies playback/storage failure handling. SQLite tests use temporary databases; no paid requests occur in tests/CI. Results and remaining verification limits are in [reviews](docs/REVIEWS.md).
+Check runs lint, route-type generation/strict typecheck, offline unit/integration/API tests and production/offline builds. E2E starts mock port 3100 and activated capture port 3200, both with blank API credentials. M2 HTTP responses are intercepted; native microphone checks use Chromium's fake device. M1 checks disable networking, including standalone file load. Desktop/mobile tests cover editing, consent, error recovery, local save/restore and audio/transcript deletion. SQLite tests use temporary databases. Default tests/CI make no paid requests.
+
+Paid smoke is separate and disabled by default. On explicit opt-in only, prepare a consenting synthetic English **canonical 16 kHz mono PCM WAV** outside Git, then run in PowerShell:
+
+```powershell
+$env:RUN_PAID_TESTS='1'
+$env:PAID_TEST_AUDIO_PATH='C:\path\to\synthetic-english.wav'
+npm run test:paid
+Remove-Item Env:RUN_PAID_TESTS
+```
+
+The runner refuses CI, loads ignored local credentials before Vitest's test environment, and sends at most one text call then one audio call (no retries; audio is not attempted if text fails). Session ceiling is $0.25, within the $10 durable development cap. It logs usage/error codes only, never keys, prompt bodies or transcripts. Costs are derived from measured tokens/duration and published rates, not verified invoices. Unknown outcomes retain reservations. Do not repeat a failed billing/access test without resolving the cause. Results and verification limits are in [reviews](docs/REVIEWS.md).
 
 ## Local production and reuse
 

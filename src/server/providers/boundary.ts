@@ -2,6 +2,7 @@ import "server-only";
 import { z } from "zod";
 import { assetSourceSchema } from "@/domain/provenance";
 import { storySchema, type Language } from "@/domain/story";
+import { storyInputSchema, validateCaptureWav } from "@/domain/capture";
 import { AppError } from "../errors";
 import type { ProviderOperation, ProviderResult, StoryProvider } from "./types";
 
@@ -77,8 +78,18 @@ export function protectProvider(adapter: StoryProvider, guard?: ProviderAllowanc
   }
   return {
     id: adapter.id, mode: adapter.mode, capabilities: { ...adapter.capabilities },
-    structureStory: input => call("structureStory", () => adapter.structureStory(input)),
-    transcribe: async input => { checkTranscription(input.language, input.apiConsent); return call("transcribe", () => adapter.transcribe(input)); },
+    operationEstimates: adapter.operationEstimates ? { ...adapter.operationEstimates } : undefined,
+    structureStory: async input => {
+      const validated = storyInputSchema.parse(input);
+      return call("structureStory", () => adapter.structureStory(validated));
+    },
+    transcribe: async input => {
+      checkTranscription(input.language, input.apiConsent);
+      if (adapter.mode === "real" && adapter.capabilities.transcribe === "available") {
+        try { validateCaptureWav(input.bytes); } catch { throw new AppError("INVALID_INPUT", "Audio format or duration is invalid."); }
+      }
+      return call("transcribe", () => adapter.transcribe(input));
+    },
     translate: (story, target) => call("translate", () => adapter.translate(story, target)),
     checkIllustrationPrompt: prompt => call("checkIllustrationPrompt", () => adapter.checkIllustrationPrompt(prompt)),
     createCharacterSheet: story => call("createCharacterSheet", () => adapter.createCharacterSheet(story)),

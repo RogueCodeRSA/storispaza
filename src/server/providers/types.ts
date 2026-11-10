@@ -6,6 +6,7 @@ export interface StoryInput {
   culturalContext: string;
   educationalObjective: string;
   sourceLanguage: Language;
+  title?: string;
 }
 export interface ProviderResult<T> {
   data: T;
@@ -23,6 +24,7 @@ export interface StoryProvider {
   readonly id: string;
   readonly mode: "mock" | "real";
   readonly capabilities: Record<ProviderOperation, "available" | "unavailable" | "unsupported">;
+  readonly operationEstimates?: Partial<Record<ProviderOperation, number>>;
   structureStory(input: StoryInput): Promise<ProviderResult<Story>>;
   transcribe(input: { bytes: Uint8Array; language: Language; apiConsent: boolean }): Promise<ProviderResult<string>>;
   translate(story: Story, target: Language): Promise<ProviderResult<string[]>>;

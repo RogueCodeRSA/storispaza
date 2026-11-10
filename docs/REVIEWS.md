@@ -1,5 +1,32 @@
 # Milestone reviews
 
+## M2 — 2026-11-11
+
+Authorized on `codex/m2-storistart` from `202a8f5` after creator-reported hosted CI PASS, explicit OpenAI selection and bounded access checks. Scope: real six-page structuring, consented English capture/upload, editable transcript and manual fallback, page editing/draft persistence, budget/refusal/error handling. Stop before M3. Hosted CI for this new branch remains for the creator to run; baseline confirmation is not a new CI result.
+
+### Review findings and fixes
+
+- **High, credential exposure:** a creator-entered real key in the dirty `.env.example` was displayed by a diagnostic read. Blanked it immediately; creator confirmed revocation/replacement in ignored `.env.local`. No credential is included in this report. Added a blank-credential template regression test and final staged/bundle secret scan. Rotation does not erase historical diagnostic output.
+- **Privacy:** separate browser capture/transmission/text-generation consent; no server audio file, raw transcript/prompt logging or automatic transcript forwarding. Owned server request buffers are cleared. Track/URL cleanup and distinct audio/transcript/draft deletion are visible/tested. Provider retention is qualified rather than promising deletion outside the app.
+- **Input/accounting:** exact PCM header/frame validation prevents extension/duration spoofing; bounded streams reject oversize input. Guard reserves before dispatch, persists actual usage only, retains unknown outcomes and never falls back. Server-issued sessions, same-origin loopback checks and hard configuration caps protect paid routes. Unpriced model overrides fail closed.
+- **Compatibility:** atomic additive v1→v2 migration preserves story/spend rows and refuses newer versions. Provider validation now rejects through promises consistently. Home-page corruption during editing was restored from the committed source and corrected; lint caught it before delivery.
+- **Test setup:** canonicalized the stock synthetic WAV before dispatch. Vitest test-mode env loading skips `.env.local`; moved local credential loading to the opt-in runner and added a pre-reservation missing-key check. The earlier failed attempt retains a conservative $0.15 hold. Browser selectors were corrected to distinguish the labelled region/textbox and Next's route announcer; no behavior/assertion was disabled.
+- **Approval/provenance:** generated pages start private/unapproved, producer/model metadata preserved on edits/restore. Edits invalidate approvals. Images, translation and narration remain unavailable. Prompts treat creator input as data and require safe, age-appropriate fiction with explicit cultural assumptions; human quality review remains necessary.
+
+### Paid evidence
+
+Explicit opt-in, one successful story then one synthetic English transcription, no retry/fallback. Text: `gpt-5.6-terra`, **334 input / 1,050 output tokens**, **$0.013268**. Audio: `gpt-transcribe`, **8 reported audio seconds**, tokens **not returned**, **$0.000600**. Local synthetic sample was 7.33 seconds; accounting uses returned billable duration. Two earlier probes: **74 input / 26 output tokens**, **$0.000460** combined. Measured rate-derived total **$0.014328**; separate uncertain reservation **$0.150000**, total ledger exposure **$0.164328**. Invoice/taxes unverified. Only usage metadata is retained; no generated story/transcript/audio is committed. Synthetic voice is a stock system voice, not a human recording or cloned voice.
+
+### Validation and remaining limits
+
+Final `npm run check` PASS: lint, strict typecheck, **80 offline tests across 11 files** (paid test skipped by default), production and offline builds. Explicit `npm run test:paid` PASS: one sequential two-operation live smoke. Final `npm run test:e2e` PASS: **16 desktop/mobile checks** (8 M2 + 8 retained M1/foundation checks). Desktop/mobile screenshots inspected with no overflow and saved as `docs/screenshots/m2-desktop.png` and `m2-mobile.png`; screenshots use intercepted fixture data, not paid content. Diff whitespace check PASS. Staged secret scan results are recorded in the final hygiene note below.
+
+Full changed/new source, tests and docs are reviewed against the milestone-review skill. Native Chromium fake-device recording and intercepted browser responses are distinct from the paid adapter smoke and real human-device quality evidence. M1 offline artifact hash remains `163f4aea1d1d03301afd8d0cf07a9b646b06f63ea4f143ae8cf03b28520ba7f3`; no new physical-phone test is inferred. Creator-reported M1 Android PASS still lacks model/version/test-date/hash details. Review also fixed partial-recording success after recorder errors, intermediate comma-separated reference edits and a paid assertion that could otherwise print a transcript on failure. No further paid run was needed for that assertion-only privacy correction.
+
+Remaining risks: real microphone/accent/noise quality and full physical-mobile M2 capture untested; Sesotho/science/culture need human review; provider retention/account billing not independently audited; no image/translation/narration integration, publication or learning-outcome proof. Local drafts are unencrypted. App allowances exclude external account spend. Full accessibility/security hardening and educator feedback remain M7.
+
+Final hygiene: **PASS**, 43 intended staged paths reviewed; staged content plus offline/static build artifacts scanned (77 files/artifacts) against actual local credential values in memory and key-pattern checks, with values/output suppressed. Ignored local configuration, databases, synthetic test audio and tooling are excluded. Authorized local config now enables M2; the committed template/default remains mock with live activation off. Staged whitespace check PASS. No unresolved blocking review findings; ready for the milestone report, subject to the limitations above.
+
 ## Provider preparation — 2026-11-10 (implementation reviewed)
 
 Authorized portability/provenance/tests/docs work on codex/provider-contract-foundation; live M2 not started. Real entries are deferred placeholders only. Original OpenAI evidence/model names/cost labels retained as future-adapter documentation. Cloudflare setup/permissions/free allowance checked against official docs in SWITCHING_PROVIDERS/DECISIONS.

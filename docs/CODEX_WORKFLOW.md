@@ -1,5 +1,14 @@
 # Codex lifecycle evidence
 
+## M2 — 2026-11-11
+
+- **Creator authorized:** OpenAI within $2/session/$10 development caps; bounded real access first, explicit opt-in paid tests with actual usage, no key/recording-prompt/transcript logging, stop after M2. Creator confirmed baseline hosted CI PASS and key revocation/replacement. No new hosted-CI result is claimed for M2.
+- **Branch/planned:** `codex/m2-storistart` from `202a8f5` provider foundation after baseline CI confirmation. Read SPEC/approved PLAN, applied OpenAI docs research and repository milestone-review skill. Preserve offline mock, adapter isolation, contract suite and asset producers/history. No subagents or new MCP integrations.
+- **Built:** isolated real text/audio adapter; generic loopback/origin/consent/session routes; SQLite reservations and usage-only accounting; canonical WAV validation; microphone/upload/transcript/manual fallback; six-page editor with invalidation and consented browser draft save/restore/delete. Live operation activation is explicit; later capabilities reject.
+- **Review/fixes:** credential incident and confirmed rotation; buffer/track cleanup; atomic schema migration; asynchronous validation; home-file restoration; canonical synthetic WAV; paid-runner env loading; precise browser selectors. See REVIEWS for complete evidence, severity and limits. No failed check is hidden and no fixtures are passed off as paid output.
+- **Paid evidence:** probes 74 input/26 output, $0.000460 total; text smoke 334 input/1,050 output, $0.013268; synthetic English audio 8 reported seconds/no tokens, $0.000600. Total measured rate-derived $0.014328, unverified invoice. Conservative unknown $0.15 hold retained; ledger exposure $0.164328. No raw content committed. Local format/missing-key setup failures resolved before the successful smoke; no billing/model-access failure was bypassed or mocked.
+- **Validation/user gate:** lint, strict typecheck, 80 offline tests (11 files), production/offline builds, one explicitly opted-in two-operation paid smoke and all 16 desktop/mobile browser checks PASS. Screenshots visually inspected; offline hash unchanged. Complete changed/new diff reviewed; final secret/Git hygiene documented in REVIEWS. Creator retains responsibility for running hosted CI on the new branch and reviewing language/science/audio quality. Stop before M3; the next milestone requires creator approval.
+
 ## Provider preparation — 2026-11-10 (implementation reviewed, report pending)
 
 - **Creator requested:** free now/OpenAI later, vendor isolation, preserved research, switching guide, per-asset producer provenance and shared adapter contract tests. Account ID/token only in .env.local; hosted CI/access gates still apply before live M2.
