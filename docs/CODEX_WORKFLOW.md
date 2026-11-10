@@ -1,5 +1,14 @@
 # Codex lifecycle evidence
 
+## Provider preparation — 2026-11-10 (implementation reviewed, report pending)
+
+- **Creator requested:** free now/OpenAI later, vendor isolation, preserved research, switching guide, per-asset producer provenance and shared adapter contract tests. Account ID/token only in .env.local; hosted CI/access gates still apply before live M2.
+- **Planned:** separate preparation branch, no live integration or secret-dependent check; generic config/factory/validation/allowance contracts; retain original sources across replay/regeneration and legacy drafts.
+- **Built:** adapter directory/registry, mock and deferred entries; per-asset producer/model/origin/edit/history metadata with generic UI/export labels; shared contract matrix and architecture tests; guard boundary/error redaction; SWITCHING_PROVIDERS setup/permissions/activation guide. Original OpenAI research retained as future work.
+- **Review caught:** dollar-only accounting cannot treat free calls as unlimited; unknown usage needs reserved allowance; permissive response parsing must strip transport fields rather than return raw results; JSON key ordering must not affect source comparisons. Empty guard reservations must fail before dispatch. Tests added for each boundary.
+- **Validation:** lint/typecheck, 66 tests across eight files, production/offline build and eight offline browser checks passed. Source labels visually inspected; 33 staged paths reviewed with no detected local credential exposure in staged text or the offline artifact. See REVIEWS.md for hash/evidence and remaining limits. Zero live requests/tokens/allowance/API spend; no live model/account/quality validation. Creator account/token setup has not been performed by Codex.
+- **Creator changes:** no hosted CI result or new phone/device details provided. Stop before live M2.
+
 ## M1 — 2026-11-10 (implementation reviewed; milestone report pending)
 
 - **Creator authorized:** only the offline five-stage mock journey; real-phone networking-disabled check in addition to Playwright; visible provisional/unreviewed text/audio/phrase labels; immediate product explanation. Android/Chrome selected for physical testing.

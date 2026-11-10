@@ -2,6 +2,12 @@
 
 Approved 2026-11-10 with amendments. **M1 is authorized; M0 is complete.** Pitch date: **not set**. Stop after the M1 report; M2 requires separate approval.
 
+## Provider strategy amendment — free now, OpenAI later
+
+The creator authorized adapter isolation, per-asset provenance, reusable provider contract tests and SWITCHING_PROVIDERS.md. Implement this preparation on codex/provider-contract-foundation without starting live M2. M1 is complete. Live M2 remains conditional on a bounded explicit-opt-in access/usage check; the creator pushes branches/runs hosted CI, and failed CI requires their confirmation before branching M2.
+
+Cloudflare Workers AI is the intended free provider. It is not implemented or access-tested in this preparation change; account/token setup instructions are in SWITCHING_PROVIDERS.md. Both actual account ID and token stay only in ignored .env.local. OpenAI research/model names/costs and VERIFIED/ASSUMED labels remain in DECISIONS.md as a future adapter, with no OpenAI integration now. All vendor-specific code belongs only in adapter files; route/UI/schema behavior stays generic. Each produced/replaced asset retains producer/model/history independently of the current adapter. Free allowance guards are required, not bypassed because estimated dollars are zero. No keys, raw recording prompts or transcripts are logged/committed.
+
 ## M1 authorization additions
 
 - Branch `codex/m1-offline-journey` from integrated M0. Remote main still preceded M0 when checked; local main was fast-forwarded to approved M0 before branching. Nothing was pushed.

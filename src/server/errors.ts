@@ -1,7 +1,7 @@
 import "server-only";
 import { ZodError } from "zod";
 
-export type ErrorCode = "INVALID_INPUT" | "CONSENT_REQUIRED" | "APPROVAL_REQUIRED" | "NOT_FOUND" | "API_UNAVAILABLE" | "NOT_IMPLEMENTED" | "BUDGET_EXCEEDED" | "RATE_LIMITED" | "INTERNAL";
+export type ErrorCode = "INVALID_INPUT" | "INVALID_PROVIDER_RESPONSE" | "CONSENT_REQUIRED" | "APPROVAL_REQUIRED" | "NOT_FOUND" | "API_UNAVAILABLE" | "NOT_IMPLEMENTED" | "BUDGET_EXCEEDED" | "RATE_LIMITED" | "INTERNAL";
 export class AppError extends Error {
   constructor(public readonly code: ErrorCode, message: string, public readonly status = 400) { super(message); }
 }

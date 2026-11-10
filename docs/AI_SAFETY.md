@@ -1,5 +1,13 @@
 # AI safety and data lifecycle
 
+## Provider preparation amendment
+
+Only mock operations work. Both intended live entries remain deferred and send no requests. Actual account ID/token stay only in ignored .env.local; adapter code will own credential loading. Do not log or commit keys, raw recording prompts, transcripts, SDK exception bodies or vendor response headers. Shared boundary errors are redacted; undeclared response fields are stripped.
+
+Every output asset records its original producer/model/origin separately from review state. Regeneration preserves earlier illustration sources and invalidates approval; replay does not rewrite the producer to the current adapter. Old missing metadata stays unknown. These labels do not verify cultural/language quality. M1 placeholders and existing human-review/consent requirements remain intact.
+
+All future live requests, including free calls, need an explicit guard. Unknown measurements retain conservative reservations. The generic guard boundary is tested; persistent account/day free-unit counters and vendor access remain unimplemented. No fallback on auth, quota/allowance, billing or model-access failure. Hosted CI remains for the creator to run/confirm before live M2. No new physical-device test is implied by the regenerated provenance-labelled artifact.
+
 ## M1 mock journey
 
 All five stages use fixtures, not live AI. Sesotho slots are English-labelled placeholders until the creator enters text; no Sesotho translation or traditional phrase is invented. Every editing/reader screen preserves provisional/unreviewed labels for text, symbols, audio and phrases. Acknowledgement checkboxes rehearse a review flow but never confer genuine human approval. Saved/restored/exported drafts normalize approval claims to unreviewed. Final publication remains blocked for fixture provenance.

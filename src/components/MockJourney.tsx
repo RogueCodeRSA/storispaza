@@ -7,6 +7,7 @@ import {
   type Acknowledgement, type MockDraft, type PageField,
 } from "@/domain/mock-journey";
 import { placeholderImage, placeholderTone } from "./mock-media";
+import { sourceLabel } from "@/domain/provenance";
 import "./journey.css";
 
 const stages = ["StoriStart", "StoriCreate", "StoriSpeak", "StoriPlay", "StoriOwn"];
@@ -145,7 +146,7 @@ export default function MockJourney() {
 
   const pageTabs = <nav className="page-tabs" aria-label="Story pages">{draft.story.pages.map((p, i) => <button key={p.number} type="button" aria-current={selected === i ? "page" : undefined} onClick={() => selectPage(i)} disabled={busy}>Page {p.number}</button>)}</nav>;
   const ack = (kind: Acknowledgement, description: string) => <label className="check-label"><input type="checkbox" checked={draft.acknowledgements[kind][selected]} onChange={e => acknowledge(kind, e.target.checked)} />{description} (demo acknowledgement; remains unreviewed)</label>;
-  const image = <div className="story-symbol"><svg viewBox="0 0 640 400" role="img" aria-label={`Page ${selected + 1} illustration placeholder, provisional and unreviewed`}><image href={placeholderImage(selected + 1, draft.imageRevisions[selected])} width="640" height="400" /></svg><Provisional>Illustration placeholder · {PROVISIONAL}</Provisional></div>;
+  const image = <div className="story-symbol"><svg viewBox="0 0 640 400" role="img" aria-label={`Page ${selected + 1} illustration placeholder, provisional and unreviewed`}><image href={placeholderImage(selected + 1, draft.imageRevisions[selected])} width="640" height="400" /></svg><Provisional>Illustration placeholder · {PROVISIONAL}</Provisional><p className="fine-print">Image source: {sourceLabel(page.assetSources.illustration)}</p></div>;
 
   return <div className="mock-app">
     <a className="mock-skip" href="#main">Skip to story studio</a>
@@ -154,6 +155,7 @@ export default function MockJourney() {
       {!started ? <section className="mock-welcome" aria-labelledby="welcome-heading"><div><p className="kicker">Every story has a place</p><h1 id="welcome-heading">Your idea.<br />A story to share.</h1><p className="welcome-intro">Create a six-page illustrated story, review English and Sesotho side by side, then read and respond together.</p><p>You stay in control of the words, pictures and sharing.</p><button className="primary" onClick={() => { setStarted(true); requestAnimationFrame(() => heading.current?.focus()); }}>Start the mock journey</button><button className="quiet" onClick={restoreDraft}>Restore saved demo draft</button><p className="fine-print">This offline demo uses a fixed story. Text, image symbols, audio tones and phrases are provisional / unreviewed.</p></div><div className="welcome-book" aria-hidden="true"><svg viewBox="0 0 640 400"><image href={placeholderImage(1)} width="640" height="400" /></svg><p>The Girl Who Spoke to Electricity</p><span>Six pages · English + Sesotho placeholders</span></div></section> : <>
         <nav className="stage-tabs" aria-label="Story stages">{stages.map((name, i) => <button key={name} aria-current={step === i ? "step" : undefined} onClick={() => move(i)} disabled={busy || (!loaded && i > 0)}><span>0{i + 1}</span><strong>{name}</strong><small>{subtitles[i]}</small></button>)}</nav>
         <div className="stage-heading"><div><p className="kicker">Step {step + 1} of 5 · {subtitles[step]}</p><h1 ref={heading} tabIndex={-1}>{stages[step]}</h1></div><Provisional /></div>
+        {loaded && <aside className="notice" aria-label="Page asset sources"><strong>Page {page.number} sources</strong><p className="fine-print">Text: {sourceLabel(page.assetSources.text)} · Translation: {sourceLabel(page.assetSources.translation)} · Audio: {sourceLabel(page.assetSources.narration[language])}</p>{page.assetHistory.length > 0 && <p className="fine-print">Earlier asset sources: {page.assetHistory.map(source => sourceLabel(source)).join("; ")}</p>}</aside>}
         {step === 0 && <section aria-label="Capture and edit story">
           <div className="stage-intro"><h2>A small idea is a beginning.</h2><p>Try the fixture, then make the words your own. Real story generation and English voice capture come later.</p></div>
           {!loaded && <div className="capture-card">

@@ -1,5 +1,13 @@
 # Architecture — M0 + M1
 
+## Provider preparation
+
+The public server factory returns a protected StoryProvider. Vendor code is confined to `src/server/providers/adapters/*.adapter.ts`; registry entries create the mock adapter or generic deferred live placeholders. Generic config uses AI_PROVIDER (mock/real) and optional AI_ADAPTER. No live vendor integration, credential reads, network request or account-specific allowance ledger is implemented in this preparation change. See SWITCHING_PROVIDERS.md before activation.
+
+The shared boundary enforces capabilities, transmission consent and English-only transcription policy, requires an allowance/budget guard for any available live operation, validates six-page data/output assets and usage, strips unknown transport fields, checks asset producer/ID consistency and redacts exceptions. Zero-dollar live responses need allowance metadata. Unknown cost/allowance usage and failures retain reservations. Generic tests cover the boundary; every registered adapter has the same offline contract suite, including explicit rejection coverage for deferred entries.
+
+Story pages now include independent assetSources for text, illustration, translation and narration, plus assetHistory for replaced illustrations. Model IDs are nullable where unknown. Creator edits retain producer metadata and mark the edit; mock replay preserves the original producer rather than stamping the replay adapter. Legacy JSON gets unknown sources through schema defaults; the SQLite table layout/version is unchanged. UI and exports render labels from metadata without vendor branches. Future generated assets must populate these fields; never infer a producer from current configuration.
+
 ## M1 offline journey
 
 `src/components/MockJourney.tsx` is shared by Next.js `/studio` and `src/offline/entry.tsx`. `scripts/build-offline.mjs` bundles the same React UI/CSS into one generated `public/offline/storispaza-offline.html`. Images are deterministic inline SVG symbols; audio is a six-second PCM WAV tone generated locally, never a voice. Fixture content imports only the shared domain/schema modules. No server modules or keys may enter the offline bundle; the build checks its input metadata. The standalone CSP blocks network connections and remote media/scripts/fonts.

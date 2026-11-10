@@ -1,4 +1,5 @@
 import type { Language, Story, StoryPage } from "@/domain/story";
+import type { AssetSource } from "@/domain/provenance";
 
 export interface StoryInput {
   idea: string;
@@ -8,12 +9,20 @@ export interface StoryInput {
 }
 export interface ProviderResult<T> {
   data: T;
-  provenance: "mock-fixture" | "openai";
-  usage: { estimatedUsd: number; actualUsd: number | null };
+  provenance: "mock-fixture" | "generated";
+  providerId: string;
+  assets: AssetSource[];
+  usage: {
+    estimatedUsd: number; actualUsd: number | null;
+    tokens: { input: number; output: number } | null;
+    allowance: { unit: string; estimated: number; actual: number | null } | null;
+  };
 }
 export interface IllustrationInput { page: StoryPage; characterSheetAssetId: string; sharedStyle: string; culturalContext: string }
 export interface StoryProvider {
+  readonly id: string;
   readonly mode: "mock" | "real";
+  readonly capabilities: Record<ProviderOperation, "available" | "unavailable" | "unsupported">;
   structureStory(input: StoryInput): Promise<ProviderResult<Story>>;
   transcribe(input: { bytes: Uint8Array; language: Language; apiConsent: boolean }): Promise<ProviderResult<string>>;
   translate(story: Story, target: Language): Promise<ProviderResult<string[]>>;
@@ -21,3 +30,4 @@ export interface StoryProvider {
   createCharacterSheet(story: Story): Promise<ProviderResult<{ assetId: string }>>;
   illustrate(input: IllustrationInput): Promise<ProviderResult<{ assetId: string }>>;
 }
+export type ProviderOperation = "structureStory" | "transcribe" | "translate" | "checkIllustrationPrompt" | "createCharacterSheet" | "illustrate";

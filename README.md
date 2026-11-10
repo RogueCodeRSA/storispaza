@@ -10,6 +10,8 @@ Implemented: all five stages with six editable fixture pages, per-page illustrat
 
 Open `/studio` for the journey. The first screen explains six-page illustrated bilingual storytelling immediately. Every placeholder text/image/audio/phrase stays visibly **provisional / unreviewed**; checking demo acknowledgements never grants actual language/cultural approval or enables final publication.
 
+Provider preparation adds isolated adapter files, a reusable contract suite and per-asset producer/model/history labels. Only mock is operational; both live entries are deferred. Follow [Switching providers](docs/SWITCHING_PROVIDERS.md) for free-account setup, exact token permissions, local-only credentials, guard requirements and activation tests. OpenAI remains documented future work in [decisions](docs/DECISIONS.md).
+
 **Real-device check: passed, creator-reported.** The creator confirmed successful Android/Chrome airplane-mode checklist completion; model/OS/browser versions and tested-file hash are pending. See the [device test record](docs/MOBILE_OFFLINE_TEST.md) for the distinction between human-reported and automated evidence.
 
 No Sesotho voice-to-story or synthetic Sesotho speech claims. Sesotho requires human review/creator recordings. [Fixtures](fixtures/manifest.json) are not real-generated or human-approved. No recordings are committed.
@@ -55,10 +57,12 @@ Follow the [real-device checklist](docs/MOBILE_OFFLINE_TEST.md), including audib
 | Variable | Default | Purpose |
 | --- | --- | --- |
 | AI_PROVIDER | mock | Explicit mock/real; unknown values rejected. |
-| OPENAI_API_KEY | unset | Server-only; never NEXT_PUBLIC_. Real operations disabled in M0. |
-| OPENAI_TEXT_MODEL | gpt-5.6-terra | Planned M2/M4 model, not called in M0. |
-| OPENAI_IMAGE_MODEL | gpt-image-2.6-sunburst | Planned M3 default. |
-| OPENAI_TRANSCRIPTION_MODEL | gpt-transcribe | Planned English capture. |
+| AI_ADAPTER | unset | Registered adapter ID in real mode; no silent fallback. Live entries remain deferred. |
+| CLOUDFLARE_ACCOUNT_ID / CLOUDFLARE_API_TOKEN | unset | Actual values only in ignored .env.local; no live integration is enabled by setting them. |
+| OPENAI_API_KEY | unset | Future adapter only; never NEXT_PUBLIC_. No live implementation now. |
+| OPENAI_TEXT_MODEL | gpt-5.6-terra | Retained future-adapter research, not an enabled model. |
+| OPENAI_IMAGE_MODEL | gpt-image-2.6-sunburst | Retained future illustration research. |
+| OPENAI_TRANSCRIPTION_MODEL | gpt-transcribe | Retained future English-capture research. |
 | DATA_DIR | ./data | Ignored SQLite/private asset directory. |
 | SESSION_BUDGET_USD | 2 | Approved session allowance; may be lowered. |
 | DEVELOPMENT_BUDGET_USD | 10 | Development allowance; may be lowered. |

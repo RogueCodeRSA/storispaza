@@ -1,8 +1,13 @@
 import "server-only";
 import { readConfig } from "../config";
-import { createMockProvider } from "./mock";
-import { createRealProvider } from "./real";
+import { AppError } from "../errors";
+import { adapterFactories } from "./adapters/registry.adapter";
+import { protectProvider, type ProviderAllowanceGuard } from "./boundary";
 
-export function createProvider(config = readConfig()) {
-  return config.AI_PROVIDER === "mock" ? createMockProvider() : createRealProvider(config.OPENAI_API_KEY);
+export function createProvider(config = readConfig(), guard?: ProviderAllowanceGuard) {
+  const id = config.AI_PROVIDER === "mock" ? "mock" : config.AI_ADAPTER;
+  if (!id || !Object.hasOwn(adapterFactories, id)) throw new AppError("API_UNAVAILABLE", "Select a registered server-side adapter. No provider fallback was attempted.", 503);
+  const adapter = adapterFactories[id]();
+  if (adapter.mode !== config.AI_PROVIDER) throw new AppError("API_UNAVAILABLE", "Adapter mode does not match the selected mode.", 503);
+  return protectProvider(adapter, guard);
 }

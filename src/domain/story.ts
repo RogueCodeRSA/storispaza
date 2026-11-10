@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { assetSourceSchema, assetSourcesSchema, unknownAssetSources, type AssetSource } from "./provenance";
 
 export const languageSchema = z.enum(["en", "st"]);
 export type Language = z.infer<typeof languageSchema>;
@@ -19,6 +20,8 @@ export const pageSchema = z.object({
   narrationAssetIds: z.object({ en: assetId.nullable(), st: assetId.nullable() }),
   approvals: z.object({ text: z.boolean(), illustration: z.boolean(), audio: z.boolean() }),
   provenance: z.enum(["provisional-fixture", "ai-assisted", "creator"]),
+  assetSources: assetSourcesSchema.default(unknownAssetSources),
+  assetHistory: z.array(assetSourceSchema).default([]),
 });
 export const storySchema = z.object({
   id: z.string().uuid(),
@@ -65,11 +68,17 @@ export function finalApprovalIssues(story: Story): string[] {
 
 export function editNarrative(page: StoryPage, narrative: string): StoryPage {
   return pageSchema.parse({ ...page, narrative,
+    assetSources: { ...page.assetSources, text: { ...page.assetSources.text, editedByCreator: true } },
     translation: page.translation ? { ...page.translation, status: "machine-translated" } : null,
     approvals: { ...page.approvals, text: false, illustration: false, audio: false },
   });
 }
 
-export function replaceIllustration(page: StoryPage, illustrationAssetId: string): StoryPage {
-  return pageSchema.parse({ ...page, illustrationAssetId, approvals: { ...page.approvals, illustration: false } });
+export function replaceIllustration(page: StoryPage, illustrationAssetId: string, source?: AssetSource): StoryPage {
+  const nextSource = source ? assetSourceSchema.parse(source) : null;
+  if (nextSource && nextSource.assetId !== illustrationAssetId) throw new Error("Illustration source must identify the replacement asset.");
+  return pageSchema.parse({ ...page, illustrationAssetId,
+    assetSources: { ...page.assetSources, illustration: nextSource },
+    assetHistory: page.assetSources.illustration ? [...page.assetHistory, page.assetSources.illustration] : page.assetHistory,
+    approvals: { ...page.approvals, illustration: false } });
 }

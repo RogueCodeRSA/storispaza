@@ -15,7 +15,7 @@ const csp = "default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-i
 const html = `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta http-equiv="Content-Security-Policy" content="${csp}"><title>StoriSpaza — offline mock journey</title><style>body{margin:0;background:#faf5e9}${css.replace(/<\/style/gi, "<\\/style")}</style></head><body><div id="root"></div><noscript>Enable JavaScript to run this self-contained offline mock journey.</noscript><script>${script.replace(/<\/script/gi, "<\\/script")}</script></body></html>`;
 const hash = createHash("sha256").update(html).digest("hex");
 // Ensure browser bundling has not pulled in a server environment or private file.
-if (Object.keys(result.metafile.inputs).some(path => /src\/server\/|openai\/|node:/.test(path))) throw new Error("Server dependency in offline bundle.");
+if (Object.keys(result.metafile.inputs).some(path => /src\/server\/|node:/.test(path))) throw new Error("Server dependency in offline bundle.");
 const manifest = JSON.parse(await readFile("fixtures/manifest.json", "utf8"));
 if (manifest.humanReviewed !== false) throw new Error("M1 fixture review status unexpectedly changed.");
 await mkdir("public/offline", { recursive: true });

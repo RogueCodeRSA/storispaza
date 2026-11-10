@@ -1,5 +1,21 @@
 # Milestone reviews
 
+## Provider preparation — 2026-11-10 (implementation reviewed)
+
+Authorized portability/provenance/tests/docs work on codex/provider-contract-foundation; live M2 not started. Real entries are deferred placeholders only. Original OpenAI evidence/model names/cost labels retained as future-adapter documentation. Cloudflare setup/permissions/free allowance checked against official docs in SWITCHING_PROVIDERS/DECISIONS.
+
+Shared contracts cover every registry entry, six operations, data/provenance/usage, consent and English-only speech policy, private/unapproved initial stories and mutation isolation. Unavailable-entry rejection coverage must not be described as live-adapter success. Boundary tests cover denied/missing/empty reservations, zero-dollar allowance metadata, malformed results, mismatched/missing asset sources, uncertain usage, stripped transport extras and redacted SDK exceptions without retries/logs. Architecture test forbids vendor code in routes/UI/shared schemas.
+
+Provenance tests verify mixed-provider illustration replacement/history, independent text sources, legacy unknown sources and restore/JSON/HTML preservation. Existing M1 offline browser journeys will be rerun; previous creator-reported phone evidence remains tied to an unreported tested hash, not this new build.
+
+First run: lint, typecheck, 63 tests and production/offline build passed. Final validation: **lint, strict typecheck, 66 tests across eight files, production/offline build and all eight desktop/mobile offline browser checks passed**. No external API request or live usage measurement occurred: zero live tokens/allowance consumed and US$0 API spend.
+
+Full diff reviewed, including moved adapter files, generic config/schema defaults, UI/export producer labels, error paths, architecture checks and switching/setup documentation. Review fixes reject empty reservations and missing free-allowance metadata, preserve unknown measurements, canonicalize validated response fields (including asset key ordering) and strip transport-only data rather than returning raw SDK objects. Generic exceptions are redacted without automatic retry or fallback. Legacy producers default to unknown rather than being guessed.
+
+Mobile reader screenshot from the new standalone build visually inspected: source/creator-edit labels readable, provisional text/audio/phrase labels retained, no clipping/overflow at the tested viewport. Generated bundle: **721,692 bytes**, SHA256 `163f4aea1d1d03301afd8d0cf07a9b646b06f63ea4f143ae8cf03b28520ba7f3`. This new build does not inherit the prior creator-reported phone result.
+
+Final staged hygiene: **33 intended paths**, whitespace check clean, .env.local and generated offline files ignored, local credential values checked in memory against staged text and the offline artifact without printing values; **zero detected exposures**. Product spec unchanged; no new dependencies. No account/token created by Codex, no live Cloudflare/OpenAI adapter or account-aware allowance ledger implemented, no hosted CI run or remote push. These remain explicit activation gates.
+
 ## M1 — implementation reviewed, 2026-11-10
 
 M1 acceptance: five fixture stages offline; explicitly provisional/unreviewed text, images, audio and phrases; clear first-screen product explanation; actual Android/Chrome acceptance separate from emulation. Local main was fast-forwarded to approved M0 before creating codex/m1-offline-journey; origin/main had not incorporated M0 and was not pushed.

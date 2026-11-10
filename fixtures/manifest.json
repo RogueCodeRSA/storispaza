@@ -6,5 +6,11 @@
   "humanReviewed": false,
   "assets": { "provisional-placeholder": "/fixtures/placeholder.svg" },
   "missing": ["real API provenance", "creator-approved English", "Sesotho translation and review", "six consistent illustrations", "24 creator audio clips", "redistribution consent for recordings"],
-  "recordingsCommitted": false
+  "recordingsCommitted": false,
+  "producers": {
+    "englishText": { "providerId": "codex-authoring", "model": null, "origin": "fixture" },
+    "imageSymbols": { "providerId": "local-placeholder", "model": null, "origin": "fixture" },
+    "sesothoSlots": { "providerId": "local-placeholder", "model": null, "origin": "fixture" },
+    "audioTone": { "providerId": "local-placeholder", "model": null, "origin": "fixture" }
+  }
 }

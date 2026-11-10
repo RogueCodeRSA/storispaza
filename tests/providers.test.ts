@@ -1,8 +1,7 @@
 import { describe, expect, it, vi, afterEach } from "vitest";
 import { storySchema } from "@/domain/story";
-import { createMockProvider } from "@/server/providers/mock";
+import { createMockProvider } from "@/server/providers/adapters/mock.adapter";
 import { createProvider } from "@/server/providers";
-import { createRealProvider } from "@/server/providers/real";
 import { readConfig } from "@/server/config";
 import { errorResponse } from "@/server/errors";
 import { GET as demoGET } from "@/app/api/demo/story/route";
@@ -37,8 +36,9 @@ describe("providers and API boundaries", () => {
   it("requires explicit mode and fails closed for unavailable real operations", async () => {
     expect(createProvider(readConfig({})).mode).toBe("mock");
     expect(() => readConfig({ AI_PROVIDER: "typo" })).toThrow();
-    expect(() => createRealProvider()).toThrow();
-    await expect(createRealProvider("not-a-real-key").structureStory(input)).rejects.toMatchObject({ code: "NOT_IMPLEMENTED" });
+    expect(() => createProvider(readConfig({ AI_PROVIDER: "real" }))).toThrow();
+    expect(() => createProvider(readConfig({ AI_PROVIDER: "real", AI_ADAPTER: "not-registered" }))).toThrow();
+    expect(() => createProvider(readConfig({ AI_PROVIDER: "real", AI_ADAPTER: "mock" }))).toThrow();
   });
   it("serves mock API metadata and redacts unexpected errors", async () => {
     vi.stubEnv("AI_PROVIDER", "mock");

@@ -1,5 +1,16 @@
 # Decisions and research
 
+**Current strategy amendment (2026-11-10): free provider first; OpenAI is a documented future adapter only.** Preserve the original OpenAI research below, including model names, cost calculations, links and VERIFIED/ASSUMED labels. Those dated findings are not current account validation and do not authorize or implement OpenAI calls. Reverify them before a future adapter is added.
+
+## Provider preparation decisions
+
+- **VERIFIED:** Cloudflare's direct REST setup specifies Workers AI Read and Edit permissions; restrict token resources to the intended account. Use its account/token setup rather than adding DNS/deployment/AI Gateway access. [Setup](https://developers.cloudflare.com/workers-ai/get-started/rest-api/)
+- **VERIFIED:** published free allowance is 10,000 neurons/day, reset 00:00 UTC; Free-plan operations fail after exhaustion, and some models require paid access. **ASSUMED:** account access, selected-model eligibility, available balance and acceptable story/English-speech quality. No account/token/access check or live inference has run here. [Pricing](https://developers.cloudflare.com/workers-ai/platform/pricing/), [limits](https://developers.cloudflare.com/workers-ai/platform/limits/)
+- **ADR-012:** isolate all vendor credentials, SDK/HTTP requests, model prompts/IDs, parsing and price/allowance estimation in adapter files. Generic config selects mock/real mode and a registered adapter ID. Both intended live entries remain deferred; OpenAI research below is preserved as future work.
+- **ADR-013:** a zero-dollar request still requires a guard and allowance accounting. Shared boundary reserves before dispatch, validates/canonicalizes outputs, strips transport-only fields, retains uncertain usage and redacts failures. Persistent free-unit metering and actual live transport must be implemented/tested before activation; current registration is not readiness evidence.
+- **ADR-014:** per-asset producer/model/origin/creator-edit metadata is separate from review state and replay adapter. Image replacement retains prior sources. Older unknown producers stay unknown rather than inheriting the selected vendor. Restore/JSON/HTML preserve this history.
+- **ADR-015:** every registered adapter must supply an offline factory for the same contract suite. Deferred adapters pass explicit rejection tests only. Available live capabilities additionally require deterministic transport/error/allowance tests, opt-in access checks and hosted CI confirmation. SWITCHING_PROVIDERS.md contains the procedure.
+
 Checked 2026-11-10 against official OpenAI docs. **VERIFIED** = documented, not account-tested. **ASSUMED** = estimate or quality/access awaiting validation. No paid API call in M0. Recheck docs/project access before enabling real operations.
 
 ## Evidence
