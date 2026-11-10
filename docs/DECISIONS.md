@@ -1,0 +1,37 @@
+# Decisions and research
+
+Checked 2026-11-10 against official OpenAI docs. **VERIFIED** = documented, not account-tested. **ASSUMED** = estimate or quality/access awaiting validation. No paid API call in M0. Recheck docs/project access before enabling real operations.
+
+## Evidence
+
+| Topic | Label and source | Decision |
+| --- | --- | --- |
+| File transcription | **VERIFIED:** `gpt-transcribe`, completed recordings/context/language hints; guide documents 25 MB and WebM among supported formats. [Guide](https://developers.openai.com/api/docs/guides/speech-to-text), [model](https://developers.openai.com/api/docs/models/gpt-transcribe) | English MVP only; editable transcript/manual fallback. App limit two minutes/10 MB. |
+| English quality | **ASSUMED:** useful on this microphone/accent; not validated by general docs. | Test in M2. |
+| Sesotho recognition | **ASSUMED / unverified:** inspected docs do not establish a Sesotho-specific quality benchmark. [Guide](https://developers.openai.com/api/docs/guides/speech-to-text) | Manual text/transcript; no Sesotho voice-to-story claim. |
+| Sesotho TTS | **VERIFIED:** absent from inspected TTS language list; voices optimized for English. **ASSUMED:** acceptable pronunciation; absence does not prove impossibility. [TTS](https://developers.openai.com/api/docs/guides/text-to-speech) | Creator-recorded English/Sesotho. No synthetic Sesotho claim. |
+| Six-page output | **VERIFIED:** `gpt-5.6-terra` supports Structured Outputs; schema guide supports array bounds. [Model](https://developers.openai.com/api/docs/models/gpt-5.6-terra), [guide](https://developers.openai.com/api/docs/guides/structured-outputs) | Exactly six ordered pages, reference validation. Schema cannot certify accuracy/safety. |
+| Sesotho translation | **ASSUMED:** useful draft quality. | Human edit/approval; never machine-verified. |
+| Reference images | **VERIFIED:** reference-image edits and `gpt-image-2.6-sunburst` documented. **ASSUMED:** acceptable six-page identity consistency. [Guide](https://developers.openai.com/api/docs/guides/image-generation), [model](https://developers.openai.com/api/docs/models/gpt-image-2.6-sunburst) | Sheet/style/prompt checks/human review. Guide warns about identity drift and latency. |
+| Limits/access | **VERIFIED:** bounded backoff/server delays for transient limits, unsuccessful calls affect limits. **ASSUMED:** account model access/actual limits. [Limits](https://developers.openai.com/api/docs/guides/rate-limits) | Check billing/verification first. Ten calls/minute/session, one pending image. No automatic quota/billing/ambiguous timeout retries. |
+| Data retention | **VERIFIED:** controls/retention differ by endpoint; local deletion cannot promise deletion of all provider records. [Data controls](https://developers.openai.com/api/docs/guides/your-data) | Future Responses use `store:false`; separate transmission consent; document enabled endpoints. |
+
+## Cost evidence
+
+**VERIFIED rates:** `gpt-5.6-terra` $2/M input + $12/M output ([model](https://developers.openai.com/api/docs/models/gpt-5.6-terra)); Image 2.6 $5/M text input, $8/M image input, $30/M image output ([pricing](https://developers.openai.com/api/docs/pricing)); `gpt-transcribe` $0.0045/minute ([model](https://developers.openai.com/api/docs/models/gpt-transcribe)). These are config defaults, not evidence of account access.
+
+**ASSUMED workload:** all text operations combined 15k input/8k output; sheet + six scenes 28k image output, 12k reference input, 7k prompt tokens; one minute transcription. $0.030 + $0.096 + $0.840 + $0.096 + $0.035 + $0.0045 = **$1.1015/story**, excluding regeneration/tax/unexpected usage. Measure real image usage before promising a price. Creator audio has no API cost; mock replay $0. $2/session and $10 total are app allowances, not provider billing guarantees.
+
+## Architecture records
+
+- **ADR-001:** single local Next.js app/TS/Tailwind. Avoid orchestration; no-auth is appropriate only for loopback/single creator. Public hosting deferred.
+- **ADR-002:** Node 24 `node:sqlite` avoids native addon compilation. Local private files outside public. SQLite may emit an experimental warning. No DB is opened during home render/build. Version 1 schema; add explicit migrations before future schema changes.
+- **ADR-003:** shared provider interface, labelled fixture mock, fail-closed real boundary in M0. SDK installed for later real adapter. No paid route or silent fallback.
+- **ADR-004:** explicit confirmed draft saves; current content/consent approvals for final/shared. Edits invalidate dependencies. Fixture provenance is not human approval.
+- **ADR-005:** 24 creator audio clips in M4, deterministic playback/tap-to-continue; no child speech processing.
+- **ADR-006:** ZIP desired, JSON + standalone HTML accepted fallback; shared means consented manual export, not a URL service.
+- **ADR-007:** provisional text/symbol in M0; real reviewed illustrations in M3, reviewed translations/audio complete pack in M4. No false real-generation claim.
+
+## Toolchain findings
+
+Host Node 18.6 is too old; use available Node 24.22.1 without changing global runtime. [Next installation](https://nextjs.org/docs/app/getting-started/installation). TypeScript 6 matches the parser's declared support; direct deps/lockfile pinned. Next's lint plugins declare ESLint 9 compatibility; ESLint 10 produced peer warnings, so retain compatible 9 despite its deprecation notice. Targeted minimatch overrides address GHSA-g3hv-75wg-m249; audit/lint results in REVIEWS.md. Revisit tooling compatibility in M7 instead of disabling rules.

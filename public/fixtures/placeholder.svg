@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" role="img" aria-labelledby="title desc">
+  <title id="title">Provisional illustration placeholder</title>
+  <desc id="desc">An open book with a small star. This is a placeholder, not a story illustration.</desc>
+  <rect width="800" height="600" rx="32" fill="#f1e4c9"/>
+  <circle cx="400" cy="260" r="150" fill="#d9a549"/>
+  <path d="M200 285Q300 245 400 300Q500 245 600 285V435Q500 395 400 450Q300 395 200 435Z" fill="#fffaf0" stroke="#253e35" stroke-width="10" stroke-linejoin="round"/>
+  <path d="M400 300V450M400 130L413 166L450 178L413 190L400 226L387 190L350 178L387 166Z" fill="#253e35" stroke="#253e35" stroke-width="7"/>
+</svg>

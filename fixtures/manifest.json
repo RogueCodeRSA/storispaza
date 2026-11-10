@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "status": "provisional",
+  "story": "demo-story.ts",
+  "origin": "Codex-authored planning fixture; not a real API run",
+  "humanReviewed": false,
+  "assets": { "provisional-placeholder": "/fixtures/placeholder.svg" },
+  "missing": ["real API provenance", "creator-approved English", "Sesotho translation and review", "six consistent illustrations", "24 creator audio clips", "redistribution consent for recordings"],
+  "recordingsCommitted": false
+}
