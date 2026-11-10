@@ -1,5 +1,28 @@
 # Milestone reviews
 
+## M1 — implementation reviewed, 2026-11-10
+
+M1 acceptance: five fixture stages offline; explicitly provisional/unreviewed text, images, audio and phrases; clear first-screen product explanation; actual Android/Chrome acceptance separate from emulation. Local main was fast-forwarded to approved M0 before creating codex/m1-offline-journey; origin/main had not incorporated M0 and was not pushed.
+
+Initial automated run: lint/typecheck, 26 unit/integration/API tests and production/offline build passed. Initial browser run had six failures caused by two selectors (Next route announcer also has role alert; wrapping select label includes option text). Corrected to scope app alerts and use the visibility combobox role; all eight browser checks then passed. Full journeys exercised real tone play/pause/resume, response pause/continuation, storage/downloads and copy deletion; no mocked successful media playback in the journey tests.
+
+Review fix: cultural demo acknowledgement is now a separate field; normalization preserves real assumptionsConfirmed=false, genuine content approvals=false and provisional provenance. An additional final check/build/browser run follows this safety fix. Bundle validation moved before output writing. Temporarily empty editable fields are allowed in memory, with validation at save/export. Source edits invalidate dependent acknowledgements; image replay affects one page.
+
+Physical phone status: **PASS, creator-reported**. Creator explicitly reported successful Android/Chrome airplane-mode checklist completion, with device details to follow. Model, OS/browser versions, URI-opening method and tested-file hash are not provided. The report is not independent observation and does not prove that the phone used the final regenerated artifact; see MOBILE_OFFLINE_TEST.md.
+
+### Final validation and review
+
+- `npm run check`: lint, next typegen/strict typecheck, **26 tests across four files**, production build and offline bundle passed.
+- `npm run test:e2e`: **8 passed**. Desktop/mobile cover both Next.js and standalone-file five-stage journeys with networking disabled, real media play/pause/resume/response gating, persisted save/restore, deletion, both downloads and error paths. Standalone reload/restore works in tested Chromium file origins. Actual phone storage/audio/browser behavior is covered only by the creator report above.
+- Final automated-tested offline bundle: **718,734 bytes (~702 KiB)**, SHA256 `ceef878f3c7ef0fed8097c11f81fd9ad07faf4e08026ce497a11372759f72fb5`. Generated output is ignored; build sources are committed. Browser copy on the phone is not hash-identified.
+- Full authored diff reviewed against authorized M1: no real operation, child recording, fabricated Sesotho/traditional phrase, hidden publication or weakened real approval guard. All fixtures/reader/export labels stay provisional. JSON/HTML export injection test confirms escaping; standalone CSP blocks remote connections.
+- Save/restore normalizes all genuine approvals, provenance and cultural confirmation to unreviewed. Early M1 drafts without the new separate cultural acknowledgement restore with acknowledgement=false rather than losing edits. Recording deletion patches the saved attachment too, avoiding resurrection after restore. Failure states preserve open edits.
+- Build checks fixture provenance and server-dependency exclusion before writing its downloadable output. predev also builds the offline file so a clean setup does not produce a broken download link.
+- Desktop/mobile reader screenshots visually inspected; no overflow/clipping found at tested sizes. Initial screen gives a direct six-page illustrated bilingual product explanation. Broad accessibility/security review, reviewed content, real media and language quality remain later milestones.
+- Final `npm audit --json`: **zero vulnerabilities**, including the new offline bundler dependency. Existing ESLint deprecation and host color notices remain as documented in M0. GitHub-hosted CI has not been run from this local branch.
+- Additional targeted standalone runs: **2 passed** with new first-screen assertions. Product explanation and Start action are in the initial viewport on desktop and emulated mobile. Welcome screenshots visually inspected and saved alongside reader screenshots.
+- Final staged hygiene passed: 30 intended files, zero detected key/private-key patterns, no private runtime data or generated offline bundle staged, matching dependency manifest/lockfile and matching offline SHA256/byte count. Product spec unchanged. No public hosting or remote push performed.
+
 ## M0 — completed implementation/review, 2026-11-10
 
 Reviewed all authored files (including newly added files), generated dependency metadata/lockfile and the production screenshots against M0 acceptance. Product spec was preserved and added to version control. M1 is not started. Creator milestone acceptance remains pending.

@@ -14,8 +14,8 @@ test("foundation and fixture API work without external network", async ({ page, 
   await expect(page.getByRole("list").first().getByRole("listitem")).toHaveCount(5);
   await page.keyboard.press("Tab");
   await expect(page.getByRole("link", { name: "Skip to content" })).toBeFocused();
-  await page.getByRole("link", { name: "Meet our first story" }).click();
-  await expect(page.getByRole("heading", { name: "The Girl Who Spoke to Electricity" })).toBeInViewport();
+  await expect(page.getByRole("link", { name: "Try the mock journey" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "The Girl Who Spoke to Electricity" })).toBeVisible();
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
   const response = await page.request.get("/api/demo/story");
   const result = await response.json();

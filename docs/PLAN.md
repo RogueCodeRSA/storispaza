@@ -1,6 +1,13 @@
 # Approved StoriSpaza plan
 
-Approved 2026-11-10 with amendments. **Only M0 is authorized.** Pitch date: **not set**. Stop after the M0 report; later milestones require separate approval.
+Approved 2026-11-10 with amendments. **M1 is authorized; M0 is complete.** Pitch date: **not set**. Stop after the M1 report; M2 requires separate approval.
+
+## M1 authorization additions
+
+- Branch `codex/m1-offline-journey` from integrated M0. Remote main still preceded M0 when checked; local main was fast-forwarded to approved M0 before branching. Nothing was pushed.
+- Complete five-stage fixture journey on a real mobile device with networking disabled, in addition to Playwright mobile checks. Creator confirmed Android/Chrome and willingness to test. Record the real device result separately; emulation is not hardware evidence.
+- Placeholder audio, Sesotho text and interaction phrases remain visibly provisional/unreviewed throughout editing, reading, saving and export. Demo acknowledgements never become human language approval.
+- First screen explains the product immediately. Use the same client journey for Next.js and a self-contained downloadable offline HTML; no mobile server connection is required after download. This is an M1 demo bundle, not public hosting or the final M6 publishing workflow.
 
 ## Goal and defaults
 

@@ -8,5 +8,6 @@ test-results/
 !.env.example
 data/
 .tools/
+public/offline/
 *.tsbuildinfo
 *.log

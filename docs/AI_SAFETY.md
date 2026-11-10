@@ -1,6 +1,16 @@
 # AI safety and data lifecycle
 
-## M0 state
+## M1 mock journey
+
+All five stages use fixtures, not live AI. Sesotho slots are English-labelled placeholders until the creator enters text; no Sesotho translation or traditional phrase is invented. Every editing/reader screen preserves provisional/unreviewed labels for text, symbols, audio and phrases. Acknowledgement checkboxes rehearse a review flow but never confer genuine human approval. Saved/restored/exported drafts normalize approval claims to unreviewed. Final publication remains blocked for fixture provenance.
+
+No real recording is captured. Consent attaches a copy/reference of the built-in tone; deletion removes that attachment from open/saved drafts, pauses audio and does not delete the immutable public fixture tone. No voice cloning or synthetic Sesotho. The quiet tone tests playback/pause/resume and timed interaction only; it teaches no pronunciation and provides no true read-along narration.
+
+Browser drafts persist only after explicit Save; Delete saved draft clears the browser copy. localStorage is unencrypted device/browser storage, not a hosted private vault. Use fictional, non-sensitive material in the demo. File-origin storage availability varies; surface errors and keep export recovery available. Provisional exports include clear notices and exclude the recording attachment; shared exports require separate consent. They are manual files, not remotely revocable links.
+
+The downloaded journey contains code, public fixtures and inline assets only. Its CSP disallows remote connections, images, scripts and media. No account/API key or server access is needed after transfer. The creator reported successful Android/Chrome airplane-mode testing separately from Playwright; model/versions/tested hash remain pending in MOBILE_OFFLINE_TEST.md.
+
+## M0 foundation
 
 Public-safe provisional fixtures only. No recording upload, microphone, live model call or publishing. No paid cost. All text/translation/media review is pending. Placeholder is a book symbol, not a culturally validated illustration. The fantasy power is explicitly impossible in real life. Adults supervise purpose-made enclosed battery kits; children must never handle mains, exposed wires or dangerous repairs. Human science/cultural review is pending.
 
