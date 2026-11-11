@@ -1,5 +1,9 @@
 # StoriSpaza
 
+M5 StoriPlay is implemented at `/play`: private English/Sesotho navigation, page-level read-along, play/pause/resume and seek, current approved vocabulary audio, and opening → response pause → continuation with keyboard/touch and no microphone. It reads the same browser's M4 workspace without editing or approving it. Missing narration stays text-only; unreviewed/unrecorded items are labelled provisional. Mock defaults use explicitly labelled non-speech signals, never spoken Sesotho. Images load individually and the next page preloads when reduced-data settings allow it. Audio positions are kept only for this visit; private media support byte-range requests and are not persistently cached.
+
+**M4 remains OPEN**, with 17/24 scripts and 2/24 clips approved at M5 authorization; no speech fixtures are frozen. See [M4 dependencies before M6](docs/M5_M4_DEPENDENCIES.md) and the [review/recording pack](docs/M4_REVIEW_PACK.md). Enter your phrases at `/speak` → Open / restore → **2 · Your vocabulary and phrases**: `en-opening`, `en-response`, `en-continuation`, `st-opening`, `st-response`, `st-continuation`. Until supplied/reviewed/recorded, StoriPlay uses clearly provisional text placeholders and tap-to-continue. No traditional phrase is invented. M6 is not started.
+
 M4 review is implemented at `/speak`: real-generated Sesotho narrative drafts with page-by-page uncertainty notes, explicit in-app source/translation approvals, private before/after corrections, and exactly 24 versioned adult-recording slots. See [recording list](docs/M4_RECORDING_LIST.md) before recording. The creator supplies all interaction phrases and exact Sesotho vocabulary. No synthetic Sesotho, voice cloning or child recordings. **Implementation-only closeout:** the creator deferred remaining reviews, recordings and final consent. No speech fixtures are frozen or committed; the language pack is incomplete. M5 is not started.
 
 Start/restore the private workspace, review English/image association before the paired Sesotho page, save corrections, then approve each script in the app. Record/upload only your own consenting adult voice, listen fully and approve the current script-bound clip. Source edits invalidate dependent reviews and recordings. Drafts/corrections/audio persist in unencrypted ignored SQLite; Delete workspace removes them logically, while accounting and the original unapproved server seed remain. No recordings go to an AI provider. Review remains available when live generation is disabled; only a new real translation needs explicit activation/transmission consent.
@@ -18,7 +22,7 @@ The one-off authorized measurement is `RUN_PAID_IMAGE=1 npm run measure:image` (
 
 A creator-led African storytelling studio for Grade R–3 teachers, parents and families. Planned journey: StoriStart → StoriCreate → StoriSpeak → StoriPlay → StoriOwn. Read the [spec](docs/SPEC.md) and [approved plan](docs/PLAN.md).
 
-## Current status: M4 implementation; content review deferred
+## Current status: M5 reader implementation; M4 content review open
 
 `/create` provides real text-to-six-pages, consented English microphone/upload transcription, editable transcript/manual fallback, page editing and explicit browser draft save/restore/deletion. Output is private/unreviewed. M3's seven reviewed image fixtures are recorded in [image consent/provenance](fixtures/approved-images/CONSENT.md). `/speak` adds translation review and local adult recording; completing the reviewed speech fixture pack remains pending. See [review evidence](docs/REVIEWS.md) for costs and limitations.
 

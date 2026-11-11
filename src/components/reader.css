@@ -1,0 +1,16 @@
+.play-app .capture-card { margin-top: 1.5rem; }
+.play-app .play-illustration { margin: 0; }
+.play-illustration img { width: 100%; height: auto; display: block; border-radius: .8rem; }
+.play-illustration figcaption { margin-top: .6rem; font-size: .85rem; }
+.play-app button, .play-app .word-pending { min-height: 48px; }
+.play-app button { min-width: 48px; }
+.play-app a { text-underline-offset: .2em; min-height: 48px; display: inline-flex; align-items: center; max-width: 100%; }
+.play-app :focus-visible, .play-app [tabindex="-1"]:focus { outline: 3px solid #a84e26; outline-offset: 4px; }
+.play-app audio { display: none; }
+.play-app .reading-heading { scroll-margin-top: 1rem; }
+.play-app input[type="range"] { width: 100%; min-height: 48px; accent-color: #203e35; }
+.play-app .audio-status { background: #e7ecdf; padding: .8rem; border-left: 3px solid #203e35; }
+.word-buttons { display: flex; flex-wrap: wrap; gap: .6rem; }
+.word-pending { padding: .6rem .8rem; border: 1px dashed #687969; border-radius: .5rem; font-size: .9rem; }
+.play-app .narrative.reading { outline: 2px solid #8c5a18; outline-offset: .4rem; }
+@media(max-width:600px) { .play-app .page-navigation { flex-wrap: wrap; } .play-app .page-navigation button { flex: 1; } .play-app .word-buttons button { width: 100%; } }

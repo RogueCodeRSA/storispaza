@@ -1,6 +1,6 @@
 # StoriSpaza engineering rules
 
-- Read `docs/SPEC.md` and the approved `docs/PLAN.md` before changing behavior. M4 implementation-only commit/report is authorized; remaining human reviews, recordings, final consent and speech-fixture freezing are deferred. Preserve the existing all-page/all-clip approval and consent gates; do not freeze or commit speech fixtures. Preserve prior dollar/image limits. Stop after M4's report; do not begin M5.
+- Read `docs/SPEC.md` and the approved `docs/PLAN.md` before changing behavior. M5 StoriPlay is authorized on `codex/m5-storiplay`: bilingual reading, page audio, reviewed vocabulary and keyboard/mobile call-and-response, provisional/missing-media states and accessible slow-connection handling. M4 content review remains OPEN (17/24 scripts, 2/24 clips approved at authorization); do not approve content or freeze/commit speech fixtures. Preserve prior dollar/image limits. Report M4 content dependencies separately; stop after M5's report, before M6.
 - Keep vendor-specific code only in server provider adapter files. Routes, UI and schemas remain vendor-neutral. Preserve per-asset producers/history; every registered adapter needs the reusable contract suite. See `docs/SWITCHING_PROVIDERS.md`.
 - Use strict TypeScript, one Next.js app, local SQLite/files, and explicit mock/real providers. No accounts or public hosting in the MVP.
 - Keep keys server-side. Mock mode must need neither API keys nor external network. Never pass off fixtures as live generation.

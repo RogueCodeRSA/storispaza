@@ -1,6 +1,13 @@
 # Approved StoriSpaza plan
 
-Approved 2026-11-10, amended 2026-11-11. **M4 is authorized with the gates below.** Creator selected OpenAI within $2/session and $10 development caps. Stop after M4's report; M5 requires new approval. Pitch date: **not set**.
+Approved 2026-11-10, amended 2026-11-11. **M5 StoriPlay is authorized with the gates below.** Creator selected OpenAI within $2/session and $10 development caps. Stop after M5's report; M6 requires new approval. Pitch date: **not set**.
+
+## M5 activation amendment
+
+- Branch `codex/m5-storiplay` from M4/review-pack commit `86b7389`. Build bilingual navigation, page-level read-along, play/pause/resume and approved-item vocabulary taps, plus a complete mobile/keyboard opening → response pause → continuation interaction without a microphone.
+- M4 content review stays OPEN: 17/24 scripts and 2/24 clips approved at authorization, final consent absent. No content approval, speech generation, paid call or fixture freeze is authorized by M5. Reader access is private and read-only; preserve all existing review/consent/provenance.
+- Use only creator-supplied phrases. Blank phrases use clearly provisional UI placeholders, never invented traditional/translated wording. Explain the exact StoriSpeak fields for English/Sesotho opening, response and continuation. Unreviewed or unrecorded content stays provisional; missing narration is text-only, with no broken player. Vocabulary pronunciation requires current script and clip approval.
+- Keyboard/focus/labels/status announcements/large touch targets, next-page preloading that respects reduced-data connections, and resumable audio are acceptance checks. Tests may use labelled non-speech mock signals or injected test data, never fabricated creator review evidence. Separately report remaining M4 content dependencies before M6; stop after M5's report.
 
 ## M4 activation amendment
 

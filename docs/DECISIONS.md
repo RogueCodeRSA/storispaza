@@ -1,5 +1,12 @@
 # Decisions and research
 
+## M5 reader decisions — 2026-11-11
+
+- Creator authorized StoriPlay on `codex/m5-storiplay` while M4 content review remains OPEN. Reader access is a read-only local projection, not a fixture freeze or an approval shortcut. No new paid request, image dispatch or synthetic speech is needed. Development exposure stays US$0.565390 including the prior retained hold; images stay 7/20 attempts.
+- Use only current approved script-and-clip pairs for real narration/pronunciation. Missing audio is text-only, unapproved vocabulary has no audio tap, and blank interaction phrases use explicitly provisional UI placeholders with exact StoriSpeak field instructions. Mock signals demonstrate media mechanics without imitating speech or claiming reviewed creator audio.
+- One player coordinates navigation, vocabulary and interaction. Resume state is held in memory by immutable clip ID; the private endpoint supports bounded byte ranges and verifies hashes. Next-page image/audio metadata preload is a browser hint, respects available Save-Data/2G settings, and never autoplays. Browser caching, network conditions, physical-device audio interruption behaviour and exact word timing are not guaranteed by desktop emulation.
+- M4 completion and M6 authorization remain separate: see M5_M4_DEPENDENCIES.md. Existing English/image/Sesotho provenance and actual creator reviews are preserved. No reading action promotes a review or cultural/science accuracy claim.
+
 ## M4 draft evidence — 2026-11-11 (human review/recordings pending)
 
 - **VERIFIED, observed:** one real six-narrative English→Sesotho draft returned **494 input / 927 output tokens**, 16 uncertainty notes, and six independent translation sources. Rate-derived cost **US$0.012112**, using the existing US$2/M input and US$12/M output rates. [Selected model](https://developers.openai.com/api/docs/models/gpt-5.6-terra), [strict outputs](https://developers.openai.com/api/docs/guides/structured-outputs) rechecked. This is draft/usage/access evidence, not fluent-language approval or a verified invoice. No speech or new images generated.
@@ -7,7 +14,7 @@
 - Creator selected the concepts light/story/electricity; exact Sesotho words and all opening/response/continuation phrases remain creator input, never invented. WAV filenames and per-slot caps are explicit in M4_RECORDING_LIST; browser normalization enables server verification of actual duration. This deliberately uses validated PCM rather than trusting file extensions or browser-reported durations.
 - Existing English text retains its actual Codex-authored fixture provenance, with creator edits/review tracked independently; do not pretend it was produced in the paid M2 smoke. M3 images retain their original provider/history. Final clips will be consenting adult creator recordings, not synthetic outputs. No complete reviewed pack is claimed while human approvals/recordings are incomplete.
 
-**Current strategy (2026-11-11): creator-selected OpenAI through M4 implementation.** This supersedes historical free-first preparation. Cloudflare remains deferred. English→Sesotho draft translation is implemented; narration uses local consenting adult recordings, with synthetic narration unavailable. Creator authorized an implementation-only commit/report while remaining reviews, consent and speech fixtures are deferred. Stop before M5.
+**Current strategy (2026-11-11): creator-selected OpenAI through M4, with M5 read-only reader implementation.** This supersedes historical free-first preparation. Cloudflare remains deferred. English→Sesotho draft translation is implemented; narration uses local consenting adult recordings, with synthetic narration unavailable. M4 reviews, final consent and speech fixtures remain open/deferred. M5 adds no paid operation and cannot approve/freeze content. Stop after M5's report, before M6.
 
 ## M3 image evidence and decisions — 2026-11-11
 

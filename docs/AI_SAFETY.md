@@ -1,5 +1,12 @@
 # AI safety and data lifecycle
 
+## M5 StoriPlay: private read-only preview, M4 content review OPEN
+
+Reading does not approve content, record a voice, generate speech or freeze fixtures. `/api/reader` uses read-only SQLite and the existing private browser session; it exposes only the reader projection and current approved owned media. Unapproved vocabulary has no pronunciation target. Missing/stale/unapproved audio is omitted; missing text/phrases show clearly provisional UI placeholders without invented Sesotho or traditional wording. A missing narration is text-only. Mock signals are non-speech and visibly provisional, never a claim of creator narration or verified language.
+
+Media requests verify current approval/version/ownership and recorded hashes; same-origin/no-store headers and bounded byte ranges support playback/seek without public files or persistent media caching. Seeking/resuming positions live only in browser memory during this visit. One player stops earlier audio on navigation, language/track changes, refresh and unmount; next-page preloads respect reduced-data settings and never autoplay. Network/media errors preserve readable text. Refreshing after returning to the tab obtains current approvals; previously loaded audio cannot be remotely erased from a browser that already received it.
+
+Call-and-response uses a tap/keyboard continuation, with optional adult response-example playback; no microphone API, child-response recognition, speech synthesis or upload is used. M4 remains 17/24 scripts and 2/24 clips approved at authorization. Remaining human reviews, adult recordings and final/redistribution consent are independent of M5 implementation acceptance. Do not freeze or commit speech fixtures under this milestone.
 ## M4 StoriSpeak (implementation-only; remaining human gates deferred)
 
 Creator requested an implementation-only commit/report on 2026-11-11. Remaining review, recordings, final confirmation and redistribution consent are pending. No speech fixtures are frozen or committed in this closeout; the following gates remain enforced for any future freeze.

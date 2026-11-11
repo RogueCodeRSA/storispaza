@@ -1,4 +1,12 @@
-# Architecture — through M4 implementation
+# Architecture — through M5 implementation
+
+## M5 read-only reader
+
+`/play` uses a minimized `/api/reader` GET projection: bilingual text/review flags, current approved clip URLs, per-page image URLs, approved vocabulary text and interaction slots. It never returns the correction journal, private session identifiers, raw clip blobs or approval controls. The server opens existing SQLite read-only and never dispatches a provider operation or creates a review workspace. Opening the existing private session uses the M4 session endpoint; no script/clip/consent changes occur. Missing real sessions show an empty-state handoff, while key-free mock defaults show provisional text and optional non-speech signals.
+
+Media reads recheck current script/clip/version ownership and SHA256, serve only associated reviewed image fixtures, and use no-store/same-origin headers. Approved WAVs support bounded single byte ranges for seek/resume. Images are separate optimized WebP requests, avoiding a client import of the embedded offline image pack. The next image/audio metadata preload respects Save-Data/2G; errors do not prevent text navigation.
+
+A single audio element coordinates page narration, vocabulary and interaction clips. In-memory positions bind to immutable clip IDs; switching pauses and cancels old completion callbacks. Page-level highlighting is not word alignment. The explicit opening → waiting for tap/Enter → optional response example → continuation → complete state never requests a microphone. Missing phrases use labelled provisional UI text, with exact StoriSpeak field instructions; no content is inferred or approved. Returning to a visible reader refreshes saved review state and stops earlier playback. No M6 sharing/export or speech-fixture freeze is added.
 
 ## M4 StoriSpeak implementation (review pending)
 
