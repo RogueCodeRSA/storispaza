@@ -1,6 +1,14 @@
 # Approved StoriSpaza plan
 
-Approved 2026-11-10, amended 2026-11-11. **M5 StoriPlay is authorized with the gates below.** Creator selected OpenAI within $2/session and $10 development caps. Stop after M5's report; M6 requires new approval. Pitch date: **not set**.
+Approved 2026-11-10, amended 2026-11-11. **Slimmed M6 StoriOwn is authorized with the gates below.** Creator selected OpenAI within $2/session and $10 development caps. Stop after M6's report; M7 requires new approval. Pitch/submission deadline: **2026-11-11, 23:00 SAST**.
+
+## M6 activation amendment
+
+- Creator authorized `codex/m6-storiown` from completed M5; work within approximately 90 minutes and immediately flag any must-have that cannot fit. No paid generation or new content approval is authorized.
+- Current final content approvals block incomplete final export. Attribution, private/shared manual export choice, explicit sharing consent, voice consent/deletion and an ownership explanation must work. All stories, including children’s stories, default private; no public URL, gallery, accounts or hosting.
+- Deliver story JSON with per-asset provenance/history and a simple standalone offline HTML reader with embedded reviewed images. No ZIP required. Raw source recordings and private correction history are excluded; optional current approved adult page narration needs separate export/redistribution consent. Missing/stale/unapproved audio remains text-only and does not block an otherwise reviewed text-only edition.
+- M4 content review remains OPEN (17/24 scripts, 2/24 clips approved at authorization). Do not approve content, freeze speech fixtures or commit recordings. The M4 24-clip freeze gate is unchanged; M6 export is independent. Tests may use explicit synthetic approval state only in temporary test workspaces.
+- Run checks, complete-diff review, update lifecycle evidence, commit and report all required fields. Report M4 dependencies separately and stop before M7. Preserve all prior dollar/image caps.
 
 ## M5 activation amendment
 

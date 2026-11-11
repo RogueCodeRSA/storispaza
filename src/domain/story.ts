@@ -52,7 +52,7 @@ export const storySchema = z.object({
 export type Story = z.infer<typeof storySchema>;
 export type StoryPage = z.infer<typeof pageSchema>;
 
-export function finalApprovalIssues(story: Story): string[] {
+export function finalApprovalIssues(story: Story, options = { requireAudio: true }): string[] {
   const issues: string[] = [];
   if (!story.assumptionsConfirmed) issues.push("Confirm cultural assumptions.");
   for (const page of story.pages) {
@@ -60,7 +60,7 @@ export function finalApprovalIssues(story: Story): string[] {
     if (!page.approvals.text) issues.push(`Page ${page.number}: approve text.`);
     if (!page.illustrationAssetId || !page.approvals.illustration) issues.push(`Page ${page.number}: approve illustration.`);
     if (page.translation?.status !== "approved" || !page.translation.text.trim()) issues.push(`Page ${page.number}: approve translation.`);
-    if (!page.narrationAssetIds.en || !page.narrationAssetIds.st || !page.approvals.audio) issues.push(`Page ${page.number}: review bilingual narration.`);
+    if (options.requireAudio && (!page.narrationAssetIds.en || !page.narrationAssetIds.st || !page.approvals.audio)) issues.push(`Page ${page.number}: review bilingual narration.`);
   }
   if (story.visibility === "shared" && !story.sharingConsent) issues.push("Consent is required for shared export.");
   return issues;

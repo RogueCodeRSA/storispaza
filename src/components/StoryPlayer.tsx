@@ -78,7 +78,7 @@ export default function StoryPlayer({ mode }: { mode: "mock" | "real" }) {
     <header className="mock-header"><Link className="mock-brand" href="/">Stori<span>Spaza</span></Link><span className="mock-label">{mode === "mock" ? "MOCK · provisional reader rehearsal" : "Private StoriPlay · M4 review OPEN"}</span></header>
     <main className="mock-main" id="main"><p className="kicker">StoriPlay · read and respond together</p><h1>A story, at your pace.</h1>
       <p>Read in English or Sesotho. Listen where a current reviewed recording exists, or keep reading with text. No microphone is needed.</p>
-      <p><Link href="/speak">Review words and recordings in StoriSpeak</Link> · <Link href="/studio">Offline fixture journey</Link></p>
+      <p><Link href="/speak">Review words and recordings in StoriSpeak</Link> · <Link href="/own">StoriOwn · review and export</Link> · <Link href="/studio">Offline fixture journey</Link></p>
       <div className="button-row"><button className="secondary" disabled={busy} onClick={() => { setBusy(true); void load(true); }}>Open / refresh private reader</button></div>
       <p role="status" aria-live="polite">{busy ? "Loading private reader…" : message}</p>{error && <p role="alert">{error} Text already on screen remains available; refresh when the connection returns.</p>}
       {loaded && !book && <aside className="notice">No M4 workspace is available in this browser session. Use the same Chrome browser as your recordings, restore StoriSpeak, then return here. This reader does not create or approve content.</aside>}

@@ -56,6 +56,7 @@ export class SpeechWorkspace {
     return this.mutate(command.revision, async project => {
       if (command.action === "delete") {
         this.db.prepare("DELETE FROM speech_clips WHERE session_id=?").run(this.session);
+        if (this.db.prepare("SELECT name FROM sqlite_master WHERE type='table' AND name='ownership_settings'").get()) this.db.prepare("DELETE FROM ownership_settings WHERE session_id=?").run(this.session);
         this.db.prepare("DELETE FROM speech_projects WHERE session_id=?").run(this.session); return false;
       }
       if (command.action === "translate") {

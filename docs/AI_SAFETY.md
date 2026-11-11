@@ -1,5 +1,13 @@
 # AI safety and data lifecycle
 
+## M6 StoriOwn: private manual export, M4 content review OPEN
+
+`/own` uses the existing consented private speech workspace; it never approves text, translations, images or clips automatically. Creator attribution and edition choices persist locally only after Save, bound to the project ID; all new projects default private. No public URL/gallery/accounts/hosting. Shared manual files require explicit contributor/guardian permission. Every final JSON/HTML request carries an explicit current-edition confirmation and rechecks current approvals and revision on the server. Export/settings/deletion use one SQLite write transaction to avoid races with speech edits. M4 freeze and its 24-clip/redistribution gates remain unchanged and pending.
+
+Exports embed consented reviewed image fixtures and preserve per-asset source/history. Raw source recordings, private corrections and session IDs are excluded. Narration is off by default; explicit adult voice-export consent permits only current approved page recordings whose stored bytes/hash still match. Missing/stale/unapproved audio stays text-only. HTML escapes untrusted text, runs without scripts/network and uses a restrictive CSP. It contains no remote media links. Attribution is not a copyright/quality guarantee; creator contributions and third-party permissions remain the creator’s responsibility.
+
+Delete all recordings removes owned SQLite clip bytes, clip references and recording histories; it clears page audio approvals, fixture redistribution consent and final revision confirmations. Individual deletion remains in StoriSpeak. Deleting the speech workspace also removes its ownership settings. Text/images stay when only recordings are deleted. SQLite/WAL deletion is logical; backups and exported copies are outside application control and cannot be remotely recalled. Local data remains unencrypted. No recordings are sent to a provider or committed; no paid calls, content approvals or fixture freezes were performed for M6.
+
 ## M5 StoriPlay: private read-only preview, M4 content review OPEN
 
 Reading does not approve content, record a voice, generate speech or freeze fixtures. `/api/reader` uses read-only SQLite and the existing private browser session; it exposes only the reader projection and current approved owned media. Unapproved vocabulary has no pronunciation target. Missing/stale/unapproved audio is omitted; missing text/phrases show clearly provisional UI placeholders without invented Sesotho or traditional wording. A missing narration is text-only. Mock signals are non-speech and visibly provisional, never a claim of creator narration or verified language.
