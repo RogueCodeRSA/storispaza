@@ -52,7 +52,7 @@ node --version
 npm --version
 ```
 
-These functions affect only the current PowerShell session and explicitly run the existing npm CLI with Node 24. On this laptop, changing PATH alone leaves a global `npm.cmd` that launches its adjacent Node 18, even when `node --version` says 24. Other contributors should select a matching Node/npm installation with their runtime manager; do not copy these machine-specific paths.
+These functions affect only the current PowerShell session and explicitly run the existing npm CLI with Node 24. On this laptop, changing PATH alone leaves a global `npm.cmd` that launches its adjacent Node 18, even when `node --version` says 24. When using the functions, quote a forwarded separator, for example `npm start '--' --port 3600` or `npm run verify:public '--' --staged`; PowerShell otherwise consumes the unquoted `--` before forwarding it. Other contributors should select a matching Node/npm installation with their runtime manager; do not copy these machine-specific paths.
 
 Do not copy the creator's `.env.local`, `data/`, `.tools/` or browser profile into an evaluator checkout. If inherited shell variables select real mode, set `AI_PROVIDER=mock` and `ENABLE_LIVE_AI=0` for the evaluation process. Keep existing personal configuration and the recording server unchanged.
 
