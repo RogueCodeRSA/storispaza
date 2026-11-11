@@ -1,6 +1,13 @@
 # Decisions and research
 
-**Current strategy (2026-11-11): creator-selected OpenAI through M3.** This supersedes historical free-first preparation. Cloudflare remains deferred; translation/narration remain unavailable. Stop after M3; no M4 authorization.
+## M4 draft evidence — 2026-11-11 (human review/recordings pending)
+
+- **VERIFIED, observed:** one real six-narrative English→Sesotho draft returned **494 input / 927 output tokens**, 16 uncertainty notes, and six independent translation sources. Rate-derived cost **US$0.012112**, using the existing US$2/M input and US$12/M output rates. [Selected model](https://developers.openai.com/api/docs/models/gpt-5.6-terra), [strict outputs](https://developers.openai.com/api/docs/guides/structured-outputs) rechecked. This is draft/usage/access evidence, not fluent-language approval or a verified invoice. No speech or new images generated.
+- Existing M2/M3 measured US$0.403278 plus M4 US$0.012112 = **US$0.415390**; retained M2 hold US$0.150000 gives development exposure **US$0.565390**. Prior image count stays **7/20**. The one-off draft reserves US$0.15 under a tighter at-most-US$0.25 session cap; lowered local limits are preserved. No retries/fallback.
+- Creator selected the concepts light/story/electricity; exact Sesotho words and all opening/response/continuation phrases remain creator input, never invented. WAV filenames and per-slot caps are explicit in M4_RECORDING_LIST; browser normalization enables server verification of actual duration. This deliberately uses validated PCM rather than trusting file extensions or browser-reported durations.
+- Existing English text retains its actual Codex-authored fixture provenance, with creator edits/review tracked independently; do not pretend it was produced in the paid M2 smoke. M3 images retain their original provider/history. Final clips will be consenting adult creator recordings, not synthetic outputs. No complete reviewed pack is claimed while human approvals/recordings are incomplete.
+
+**Current strategy (2026-11-11): creator-selected OpenAI through M4 implementation.** This supersedes historical free-first preparation. Cloudflare remains deferred. English→Sesotho draft translation is implemented; narration uses local consenting adult recordings, with synthetic narration unavailable. Creator authorized an implementation-only commit/report while remaining reviews, consent and speech fixtures are deferred. Stop before M5.
 
 ## M3 image evidence and decisions — 2026-11-11
 

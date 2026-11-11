@@ -1,6 +1,6 @@
 # StoriSpaza engineering rules
 
-- Read `docs/SPEC.md` and the approved `docs/PLAN.md` before changing behavior. M3 is authorized under its creator-brief, single-sheet approval, measured-cost, 20-attempt and US$2/session/US$10 development gates. Stop for sheet approval before pages; stop after M3's report; do not begin M4.
+- Read `docs/SPEC.md` and the approved `docs/PLAN.md` before changing behavior. M4 implementation-only commit/report is authorized; remaining human reviews, recordings, final consent and speech-fixture freezing are deferred. Preserve the existing all-page/all-clip approval and consent gates; do not freeze or commit speech fixtures. Preserve prior dollar/image limits. Stop after M4's report; do not begin M5.
 - Keep vendor-specific code only in server provider adapter files. Routes, UI and schemas remain vendor-neutral. Preserve per-asset producers/history; every registered adapter needs the reusable contract suite. See `docs/SWITCHING_PROVIDERS.md`.
 - Use strict TypeScript, one Next.js app, local SQLite/files, and explicit mock/real providers. No accounts or public hosting in the MVP.
 - Keep keys server-side. Mock mode must need neither API keys nor external network. Never pass off fixtures as live generation.

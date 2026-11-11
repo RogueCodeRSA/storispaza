@@ -1,4 +1,12 @@
-# Architecture — through M3
+# Architecture — through M4 implementation
+
+## M4 StoriSpeak implementation (review pending)
+
+`/speak`, `/api/speech` and `/api/speech/session` add a session-private review workspace. SQLite v4 adds project JSON with a durable busy lease and canonical recording blobs. Scripts have immutable slot identity/language/role/duration limit, mutable text/version, independent producer/history and review state. Clips bind script version/hash/duration/adult consent to current bytes. Non-network edits/record writes and project persistence use one transaction. AI translation does not hold a SQLite transaction over the network; its attempt marker persists before dispatch so uncertainty cannot trigger a duplicate. Revisions reject stale mutation/approval requests.
+
+The existing provider translate contract still returns six ordered texts/assets, now with optional generic page/term/reason review notes. The isolated selected adapter implements strict narrative-only English→Sesotho output, no speech, no inferred interaction phrases, no retries and existing dollar accounting. All registered adapters retain reusable contract coverage with injected offline transports. Real drafts are private/unreviewed even when loaded from a server seed; mock placeholders never become genuine language approval.
+
+App approval records current source/translation/script state; edits reset dependent approvals and clip readiness. Full before/after corrections are private until explicitly exported/included. Recording/upload uses browser normalization and server frame/duration validation, no provider audio transmission. Freeze/export gates require six paired page reviews, all 24 scripts/clips and adult/redistribution confirmation. A separate local writer reads that actual app state and emits consented fixtures only; no automatic source/clip approvals, publication or M5 reader work occurs.
 
 ## M3 illustrations (current)
 

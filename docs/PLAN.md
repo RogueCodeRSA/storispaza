@@ -1,6 +1,15 @@
 # Approved StoriSpaza plan
 
-Approved 2026-11-10, amended 2026-11-11. **M3 is authorized with the gates below.** Creator selected OpenAI within $2/session and $10 development caps. Stop for character-sheet approval before page images, then stop after M3's report; M4 requires new approval. Pitch date: **not set**.
+Approved 2026-11-10, amended 2026-11-11. **M4 is authorized with the gates below.** Creator selected OpenAI within $2/session and $10 development caps. Stop after M4's report; M5 requires new approval. Pitch date: **not set**.
+
+## M4 activation amendment
+
+- **Implementation-only closeout, 2026-11-11:** creator explicitly requested committing the implementation without freezing or committing speech fixtures, marking remaining reviews and consent pending, reporting M4 and stopping before M5. This changes the commit/report scope; it does not approve content or waive the fixture gates below. M4 content acceptance remains incomplete until resumed human review/recording/consent and a separately authorized freeze.
+- Work on `codex/m4-storispeak` from M3 `ec01de1`. Draft/edit/review Sesotho by page, flag uncertain terms/idioms/science vocabulary, and preserve before/after corrections for the pitch. Approval requires explicit action in the app; chat acknowledgements and model output do not approve pages/clips.
+- Exact 24-slot recording list precedes recording work. Filenames are `.wav` for validated 16 kHz mono PCM browser normalization: six English page narratives (45 seconds each), six Sesotho narrative translations (60 seconds each), three vocabulary words per language (5 seconds each), opening/response per language (8 seconds each), continuation per language (10 seconds each). Narration excludes headings and learning-moment sidebars. Current exact scripts and readiness are versioned in the app/checklist; never record pending/unapproved scripts.
+- Creator selected suggested vocabulary concepts **light, story, electricity**. Exact Sesotho wording and all opening/response/continuation phrases remain for the creator to supply/approve in the app. Do not invent traditional phrases or approve vocabulary on the creator's behalf.
+- Only consenting adult creator recordings; no child voices, voice cloning, synthetic Sesotho or Sesotho voice-to-story. Separate storage and redistribution consent; playback/edit/delete/re-record invalidate approval as appropriate. Bytes and current scripts must both be approved before fixture freezing.
+- Freeze only after explicit current approval of every English/Sesotho page, every auxiliary script and every one of the 24 clips, plus final creator confirmation/redistribution consent. Preserve actual source provenance: M3 images are real-generated/approved, existing English source is a Codex-authored provisional draft until reviewed; do not re-label it as paid API output. No fixtures are committed prematurely. Human recording/review waiting time is additional.
 
 ## M3 activation and creative approval amendment
 

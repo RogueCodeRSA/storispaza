@@ -16,6 +16,7 @@ const nonnegative = z.number().finite().nonnegative();
 const envelopeSchema = z.object({
   providerId: z.string().min(1), provenance: z.enum(["mock-fixture", "generated"]),
   assets: z.array(assetSourceSchema),
+  reviewNotes: z.array(z.object({ page: z.number().int().min(1).max(6), term: z.string().max(300), reason: z.string().max(1000) })).max(60).optional(),
   usage: z.object({ estimatedUsd: nonnegative, actualUsd: nonnegative.nullable(),
     tokens: z.object({ input: nonnegative.int(), output: nonnegative.int() }).nullable(),
     imageTokens: z.object({ textInput: nonnegative.int(), imageInput: nonnegative.int(), imageOutput: nonnegative.int() }).optional(),
@@ -91,7 +92,11 @@ export function protectProvider(adapter: StoryProvider, guard?: ProviderAllowanc
       }
       return call("transcribe", () => adapter.transcribe(input));
     },
-    translate: (story, target) => call("translate", () => adapter.translate(story, target)),
+    translate: (story, target) => {
+      const input = storySchema.parse(story);
+      if (input.sourceLanguage !== "en" || target !== "st") throw new AppError("INVALID_INPUT", "This milestone supports English source to Sesotho draft translation only.");
+      return call("translate", () => adapter.translate(input, target));
+    },
     checkIllustrationPrompt: prompt => call("checkIllustrationPrompt", () => adapter.checkIllustrationPrompt(prompt)),
     createCharacterSheet: async (story, prompt) => {
       if (adapter.mode === "mock") await call("checkIllustrationPrompt", () => adapter.checkIllustrationPrompt(prompt ?? "Mock character sheet rehearsal"));

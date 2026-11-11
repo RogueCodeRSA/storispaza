@@ -31,16 +31,16 @@ describe("local persistence", () => {
     expect(() => repo.get("../../private")).toThrow();
   });
   it("refuses newer schemas without downgrading their version", () => {
-    db.exec("PRAGMA user_version = 4");
+    db.exec("PRAGMA user_version = 5");
     expect(() => openDatabase(directory)).toThrow("newer StoriSpaza");
-    expect(db.prepare("PRAGMA user_version").get()?.user_version).toBe(4);
+    expect(db.prepare("PRAGMA user_version").get()?.user_version).toBe(5);
   });
   it("upgrades v1 while preserving stories and durable spend", () => {
     new StoryRepository(db).save(demoStory, { confirmed: true, final: false });
     const operation = new BudgetLedger(db).reserve(randomUUID(), .1, "text");
     db.exec("DROP TABLE ai_sessions; DROP TABLE ai_measurements; PRAGMA user_version = 1;");
     db.close(); db = openDatabase(directory);
-    expect(db.prepare("PRAGMA user_version").get()?.user_version).toBe(3);
+    expect(db.prepare("PRAGMA user_version").get()?.user_version).toBe(4);
     expect(new StoryRepository(db).get(demoStory.id)).toEqual(demoStory);
     expect(db.prepare("SELECT reserved,state FROM ai_operations WHERE id = ?").get(operation)).toMatchObject({ reserved: 100000, state: "pending" });
     expect(db.prepare("SELECT COUNT(*) AS n FROM ai_sessions").get()?.n).toBe(0);

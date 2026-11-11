@@ -13,6 +13,7 @@ export interface ProviderResult<T> {
   provenance: "mock-fixture" | "generated";
   providerId: string;
   assets: AssetSource[];
+  reviewNotes?: { page: number; term: string; reason: string }[];
   usage: {
     estimatedUsd: number; actualUsd: number | null;
     tokens: { input: number; output: number } | null;

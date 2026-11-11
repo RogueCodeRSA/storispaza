@@ -59,7 +59,7 @@ export default function IllustrationStudio({ mode }: { mode: "mock" | "real" }) 
   return <div className="mock-app"><header className="mock-header"><Link href="/" className="mock-brand">Stori<span>Spaza</span></Link><span className="mock-label">{mode === "mock" ? "MOCK — placeholder image rehearsal" : "REAL — paid image workflow"}</span></header>
     <main className="mock-main" id="main"><p className="kicker">StoriCreate · human review at every gate</p><h1>Picture your story</h1>
       <p>Supply your character, Soweto setting and art style. Generate one character sheet, review its real usage and approve it before any pages. All AI output starts unreviewed.</p>
-      <p><Link href="/create">Back to StoriStart</Link> · <Link href="/studio">Offline mock journey</Link></p>
+      <p><Link href="/create">Back to StoriStart</Link> · <Link href="/speak">StoriSpeak: review translation and record</Link> · <Link href="/studio">Offline mock journey</Link></p>
       {mode === "mock" && <p className="provisional">Solid-colour placeholders only. No real images, paid calls, safety certification or genuine human approval.</p>}
       <p role="status" aria-live="polite">{busy ? "Working. Keep this tab open; no automatic retries." : message}</p>{error && <p role="alert">{error}</p>}
       <button className="secondary" disabled={busy} onClick={() => void run(open)}>Open / restore private workspace</button>
