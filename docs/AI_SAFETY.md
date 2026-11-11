@@ -1,5 +1,11 @@
 # AI safety and data lifecycle
 
+## Device-only library — 2026-11-11
+
+The local library adds no account, upload, public story URL, server mutation or paid operation. Frozen demo inclusion uses its existing redistribution consent; no frozen content, approval, attribution or cultural-confirmation field changes. The two authored English examples are visibly unreviewed, Codex-assisted and not community submissions.
+
+User copies remain provisional. Listing requires all existing provisional-copy readiness checks, shared-copy consent and a separate explicit local-library inclusion confirmation for the exact current story. Edits invalidate that confirmation. Private drafts continue through the existing save/restore mechanism and do not become library cards. The bounded schema rejects missing/refused consent; only text and creator credit enter library storage, with no voice, recording URL, raw input, correction journal or inherited approval. Storage failures are visible and do not overwrite existing data. Removal deletes the browser's library copy, not other saved/exported copies. Browser storage is unencrypted and device/origin-specific. Existing final publication/export/privacy rules remain unchanged.
+
 ## M4 reviewed fixture freeze — 2026-11-11
 
 The creator completed all 24 current script and clip approvals and explicitly consented to publication of all 24 adult clips, none skipped. The local freeze command reads actual saved approvals, clip versions/hashes and redistribution consent, takes a settled-workspace lease, and refuses to overwrite an existing pack. `fixtures/approved-speech/CONSENT.md` scopes this exception to those exact clips. Private corrections are excluded even if the private workspace retains them. Repository scans validate the full manifest and exact WAV bytes; staged scanning uses index blobs, so an unstaged consent change cannot authorize staged recordings. Unlisted recordings, databases, credentials and generated bundles stay blocked.

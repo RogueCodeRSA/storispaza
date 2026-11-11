@@ -1,5 +1,9 @@
 # M7 visual addendum — before / after
 
+## Local library — 2026-11-11
+
+[Desktop library](library-desktop.png) · [Mobile library](library-mobile.png). Captured from the regenerated standalone file with networking disabled after exercising add/save/reload/remove; the visible removal message records that test action. Only the consented frozen fixture and clearly labelled authored English examples remain in these captures. No private story, voice or fabricated community contribution is shown. The historical M4 images below are retained unchanged.
+
 ## M4 reviewed snapshot — 2026-11-11
 
 The later M4 freeze adds [desktop](m4-frozen-chromium.png) and [mobile emulation](m4-frozen-mobile.png) captures of the actual consented reviewed reader from the freshly generated standalone HTML, with network disabled. All 24 reviewed adult clips and six approved images were exercised. These screenshots show the creator-approved text, not intercepted test wording. Creator attribution is still a placeholder, so the badge honestly says “the creator”. No private journal/session or child recording is shown. The historical M7 comparisons below predate completed content review.

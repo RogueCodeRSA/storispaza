@@ -16,6 +16,10 @@ Regenerate the latest offline file with **`npm run build:offline`** (Node 24), o
 
 ## Features and current boundaries
 
+**Local library:** open `/library` or **Library** in the standalone reader. The frozen consented demo appears first, followed by two English-only **Example · unreviewed** stories with text/colour covers and explicit Codex-assisted credit. They are authored examples, not community submissions. **Add your story** starts the existing five-step editable fixture flow. At StoriOwn, private draft saving stays unchanged. To add a visible text-only library copy, complete the existing provisional-copy readiness checklist, select **Shared**, consent to the provisional copy, enter creator credit, explicitly consent to device-library inclusion, then **Save to library**. Editing the story invalidates that inclusion confirmation. Local copies remain unreviewed; final publication gates and frozen content are unchanged.
+
+Library text stays in this browser's unencrypted local storage (maximum ten copies), with no account, upload, public URL, recording or API request. Removing a card deletes that library copy; other drafts/exports are unaffected. Browser/site/file-origin storage differs between devices and is not a backup. Invalid or denied storage fails visibly without overwriting existing data. The same library, examples, consent flow and readers work inside the freshly rebuilt offline HTML with networking disabled.
+
 | Stage | Implemented | What the evaluator should expect |
 | --- | --- | --- |
 | StoriStart | Six-page editing, real text structuring and consented **English-only** voice transcription with editable transcript/manual fallback | `/create` needs explicitly activated real mode for generation/transcription. `/studio` replays a fixed story and fixture transcript with no microphone/API. |

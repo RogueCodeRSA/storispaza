@@ -29,7 +29,8 @@ export function downloadFile(name: string, content: string, type: string): void 
   setTimeout(() => URL.revokeObjectURL(url), 30_000);
 }
 
-export default function MockJourney({ seed, onReturn }: { seed?: Story; onReturn?: () => void } = {}) {
+export default function MockJourney({ seed, onReturn, onLibrary, onSaveToLibrary }: { seed?: Story; onReturn?: () => void; onLibrary?: () => void; onSaveToLibrary?: (draft: MockDraft, consent: boolean) => void } = {}) {
+  const [libraryConsent, setLibraryConsent] = useState<string | null>(null);
   const [draft, setDraft] = useState<MockDraft>(() => newMockDraft(seed));
   const [started, setStarted] = useState(false);
   const [loaded, setLoaded] = useState(false);
@@ -158,7 +159,7 @@ export default function MockJourney({ seed, onReturn }: { seed?: Story; onReturn
 
   return <div className="mock-app studio-app">
     <a className="mock-skip" href="#main">Skip to story studio</a>
-    <header className="mock-header"><span className="mock-brand">Stori<span>Spaza</span> ✦</span>{onReturn && <button className="quiet" aria-label="Return to reviewed story" onClick={onReturn}>Reviewed story</button>}</header>
+    <header className="mock-header"><span className="mock-brand">Stori<span>Spaza</span> ✦</span><nav>{onReturn && <button className="quiet" aria-label="Return to reviewed story" onClick={onReturn}>Reviewed story</button>}{onLibrary && <button className="quiet" onClick={onLibrary}>Library</button>}</nav></header>
     <main id="main" className="mock-main">      <ReviewStatus>
         <p>This is an offline mock journey with a fixed story, not live generation. Text and Sesotho slots are provisional / unreviewed; acknowledgements never approve language or culture.</p>
         <p>All six displayed illustrations use the approved, consented M3 image sources. Preview requests create no new pixels and do not replace them. Edited draft associations still require review.</p>
@@ -193,6 +194,7 @@ export default function MockJourney({ seed, onReturn }: { seed?: Story; onReturn
         </section>}
         <div className="stage-navigation"><button className="quiet" onClick={() => move(Math.max(0, step - 1))} disabled={busy || step === 0}>Back</button><span>{selected + 1}/6 pages</span>{step < 4 && <button className="primary" onClick={() => move(step + 1)} disabled={busy || !loaded}>Continue to {stages[step + 1]}</button>}</div>
       </>}
+      {started && loaded && step === 4 && onSaveToLibrary && <section className="edit-card" aria-label="Local library consent"><h2>Keep a local library copy</h2><p>Private drafts stay out of the library. Complete the existing provisional-copy readiness checklist. For a visible card, choose Shared above and consent to a provisional copy, then confirm inclusion below. This stores text only on this device; no publication approval, recordings or public links.</p><label>Creator credit<input value={draft.story.creator} maxLength={100} onChange={event => { setLibraryConsent(null); setDraft(current => ({ ...current, story: { ...current.story, creator: event.target.value } })); }} /></label><label className="check-label"><input type="checkbox" checked={libraryConsent === JSON.stringify(draft.story)} onChange={event => setLibraryConsent(event.target.checked ? JSON.stringify(draft.story) : null)} />I consent to including this provisional story in this device&apos;s library.</label><button className="primary" disabled={busy || !!issues.length || libraryConsent !== JSON.stringify(draft.story) || draft.story.visibility !== "shared" || !draft.story.sharingConsent} onClick={() => { try { onSaveToLibrary(draft, libraryConsent === JSON.stringify(draft.story)); } catch (error) { report(error instanceof Error ? error.message : "Library save failed. Your open draft is unchanged.", true); } }}>Save to library</button></section>}
       <div className="journey-feedback" aria-live="polite" role="status">{busy && <span className="busy-indicator" aria-hidden="true">● </span>}{message}</div>{error && <p className="journey-error" role="alert">{error}</p>}
       <audio ref={audio} src={tone} preload="metadata" onTimeUpdate={onAudioTime} onPause={() => setPlaying(false)} onEnded={() => { setPlaying(false); if (phase.current === "continuation") changePhase("finished"); }} onError={() => report("Placeholder audio is unavailable in this browser.", true)} />
     </main>

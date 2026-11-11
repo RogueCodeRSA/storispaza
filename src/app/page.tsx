@@ -13,7 +13,7 @@ const stages = [
 export default function Home() {
   const settings = readConfig(); const mode = settings.AI_PROVIDER;
   return <>
-    <header className="site-header"><Link href="/" className="brand" aria-label="StoriSpaza home">Stori<span>Spaza</span><span className="brand-mark" aria-hidden="true">✦</span></Link><Link className="header-link" href={mode === "real" && settings.ENABLE_LIVE_AI ? "/create" : "/studio"}>Your story starts here</Link></header>
+    <header className="site-header"><Link href="/" className="brand" aria-label="StoriSpaza home">Stori<span>Spaza</span><span className="brand-mark" aria-hidden="true">✦</span></Link><Link className="header-link" href="/library">Library</Link><Link className="header-link" href={mode === "real" && settings.ENABLE_LIVE_AI ? "/create" : "/studio"}>Your story starts here</Link></header>
     <main id="main">
       <section className="hero" aria-labelledby="hero-title">
         <div><p className="eyebrow">A place for the stories we carry</p><h1 id="hero-title">Every story<br />has a place.</h1><p className="intro">Meet a girl with an extraordinary spark. Read her Soweto adventure, then make room for a story of your own.</p><p className="tagline">Tell it. Create it. Own it.</p><div className="hero-actions"><Link className="button" href="/play">Read the story <span aria-hidden="true">↗</span></Link><Link className="button button-secondary" href={mode === "real" && settings.ENABLE_LIVE_AI ? "/create" : "/studio"}>Create your own</Link></div><p className="small"><a className="text-link" href="/offline/storispaza-offline.html" download>Download offline journey</a></p></div>

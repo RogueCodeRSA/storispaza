@@ -1,5 +1,11 @@
 # Decisions and research
 
+## Local story library — 2026-11-11
+
+- **ADR-028:** minimal device-only browser library shared by `/library` and the existing standalone bundle. Frozen demo inclusion uses the pack's already explicit redistribution consent, not a change to its private story/publication flags. Two new English text/colour examples are explicitly labelled unreviewed, Codex-assisted and not community submissions; this user request authorizes their curated demo inclusion, not human content certification.
+- User copies require the existing provisional shared-copy consent plus separate local-library inclusion consent tied to the exact current story snapshot. All copies remain unreviewed. The schema stores only bounded text, creator credit, language text and consent metadata, never audio, URLs, private journal data or inherited approvals. New private drafts use the existing save/restore mechanism and stay out of the library. No public gallery, account, API mutation, paid call, fixture change or publication-gate relaxation.
+- Ten local copies and a 1 MB parse bound keep scope small. Invalid/denied browser storage preserves existing bytes, hides invalid cards and reports failure. Removal affects the local library copy only; physical-device/browser storage compatibility remains separate from desktop/mobile Chromium emulation.
+
 ## M4 reviewed freeze — 2026-11-11
 
 - **ADR-025:** freeze the unique settled real M4 workspace at revision 89 only after verifying all 24 current scripts/clips, existing freeze and redistribution consent. Creator confirmed no skipped clips and publication consent for all 24. Keep private corrections excluded regardless of the private journal-export setting. Preserve actual script/image/recording sources, source histories and cost evidence; do not overwrite an existing pack or infer ownership/cultural approval.

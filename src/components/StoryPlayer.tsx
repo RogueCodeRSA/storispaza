@@ -9,7 +9,7 @@ import "./journey.css";
 import "./reader.css";
 
 type Turn = "idle" | "opening" | "waiting" | "response" | "continuation" | "complete";
-export default function StoryPlayer({ mode, initialBook, onCreateCopy }: { mode: "mock" | "real"; initialBook?: ReaderBook; onCreateCopy?: () => void }) {
+export default function StoryPlayer({ mode, initialBook, onCreateCopy, onLibrary }: { mode: "mock" | "real"; initialBook?: ReaderBook; onCreateCopy?: () => void; onLibrary?: () => void }) {
   const [book, setBook] = useState<ReaderBook | null>(initialBook ?? null); const [loaded, setLoaded] = useState(!!initialBook); const [busy, setBusy] = useState(!initialBook);
   const [pageIndex, setPageIndex] = useState(0); const [language, setLanguage] = useState<Language>("en");
   const [direction, setDirection] = useState("forward");
@@ -80,7 +80,7 @@ export default function StoryPlayer({ mode, initialBook, onCreateCopy }: { mode:
   const phraseReady = phrases && Object.values(phrases).every(value => value.reviewed && value.audio && !value.audio.provisional);
   const reviewer = book?.creator && !/pending|demo creator/i.test(book.creator) ? book.creator : "the creator";
   return <div className="mock-app play-app reading-room">
-    <header className="mock-header"><a className="mock-brand" href={initialBook ? "#main" : "/"}>Stori<span>Spaza</span></a><nav aria-label="Story links">{onCreateCopy ? <button className="secondary" onClick={onCreateCopy}>Create / edit an unreviewed copy</button> : <><a href="/studio">Create your own</a><a href="/own">Keep this story</a></>}</nav></header>
+    <header className="mock-header"><a className="mock-brand" href={initialBook ? "#main" : "/"}>Stori<span>Spaza</span></a><nav aria-label="Story links">{onLibrary ? <button className="quiet" onClick={onLibrary}>Library</button> : <a href="/library">Library</a>}{onCreateCopy ? <button className="secondary" onClick={onCreateCopy}>Create / edit an unreviewed copy</button> : <><a href="/studio">Create your own</a><a href="/own">Keep this story</a></>}</nav></header>
     <main className="mock-main" id="main"><div className="reading-intro"><p className="kicker">Read · wonder · respond</p><h1>{book?.title ?? "A story, at your pace."}</h1></div>
       <p className="sr-only" role="status" aria-live="polite">{busy ? "Loading story…" : message}</p>{error && <p role="alert">{error} Text already on screen remains available; refresh when the connection returns.</p>}
       <ReviewStatus badge={page?.text.st.reviewed ? `Sesotho reviewed by ${reviewer}` : "Language review pending"}>

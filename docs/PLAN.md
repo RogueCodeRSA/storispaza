@@ -1,5 +1,9 @@
 # Approved StoriSpaza plan
 
+## Local library — 35-minute amendment, 2026-11-11
+
+From frozen main `4cea32c`, build `codex/local-story-library`: local cover-card library with frozen demo first (existing pack redistribution consent), two clearly authored English-only unreviewed examples, existing five-step editor entry and explicit current-copy library inclusion consent. New stories stay private by default and cannot appear without shared-copy consent plus separate device-library consent. Library copies are text-only and unreviewed; existing final publication rules, frozen fixtures, private workflows and voice gates are unchanged. No paid calls, accounts, upload, public URLs or hosting. Ship passing lint/types/tests/build and desktop/mobile zero-network file journeys, update pitch with 30-second library beat after StoriOwn, report and stop within 35 minutes; otherwise revert only authored work and report failure.
+
 ## M4 freeze activation — latest instruction, 2026-11-11
 
 The creator explicitly completed M4 review (24/24 scripts and clips) and confirmed no skipped clips, all consented for publication. This supersedes the historical no-freeze/M4-open instructions below for this exact snapshot only. Freeze from the actual settled, approved, consented local workspace on `codex/m4-fixture-freeze`; preserve private corrections and other workspaces. Commit only the 24 approved adult clips, reviewed scripts and actual provenance, with a manifest-based hash/approval/consent allowlist. Regenerate the standalone offline file and test the full reading and editable-copy journeys on desktop/mobile. No synthetic Sesotho speech, paid call, public hosting or push. Preserve outstanding attribution/cultural/ownership gates, report remaining provisional material and stop.
