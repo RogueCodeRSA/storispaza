@@ -1,4 +1,12 @@
-# Architecture — through M5 implementation
+# Architecture — through M6, with M7 Part A evaluation checks
+
+## M6 ownership/export and M7 Part A tooling
+
+`/own` and same-origin session-private `POST /api/ownership` project the existing speech workspace into an edition review. Project-bound ownership settings store the creator name, private/shared manual-export choice and explicit cultural/sharing consent. New/replacement workspaces default private. Each mutation/export pins the current speech revision; one SQLite transaction serializes the approval/media snapshot, settings and deletion with existing speech writes. Final export rechecks current real non-provisional bilingual scripts/page/image approvals, known reviewed fixture image bytes and consent. Edits invalidate the revision; incomplete editions fail closed.
+
+JSON preserves story fields, original per-asset producers/history and embedded media. Script-free escaped HTML embeds the same consented images and optional current approved adult page narration with a restrictive offline CSP. Narration requires separate file-export consent and matching stored bytes/hash; absent/unapproved/stale narration is text-only. Raw source recordings, correction journals and session IDs are excluded. Delete all recordings clears local clip bytes/references/history and audio/freeze redistribution approvals; deleting the speech workspace also removes its ownership settings. Neither exports nor saves create a public URL/gallery. M4 all-24 fixture-freeze policy remains separate.
+
+Part A adds a repeatable `scripts/check-repo.mjs` current-tree/full-index and browser/offline artifact hygiene gate plus a temporary-Git regression. It does not read/mutate the creator’s private DB or change app/provider behavior. CI runs this gate after `npm run check`. The clean-clone evaluation uses no copied credentials, private data or generated fixtures. Historical sections below describe their own milestone boundaries; later behavior above supersedes them.
 
 ## M5 read-only reader
 

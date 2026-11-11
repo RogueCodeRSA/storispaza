@@ -1,6 +1,13 @@
 # Approved StoriSpaza plan
 
-Approved 2026-11-10, amended 2026-11-11. **Slimmed M6 StoriOwn is authorized with the gates below.** Creator selected OpenAI within $2/session and $10 development caps. Stop after M6's report; M7 requires new approval. Pitch/submission deadline: **2026-11-11, 23:00 SAST**.
+Approved 2026-11-10, amended 2026-11-11. **M7 Part A hardening is authorized with the gates below.** Creator selected OpenAI within $2/session and $10 development caps. Stop after the Part A report. Pitch/submission deadline: **2026-11-11, 23:00 SAST**.
+
+## M7 Part A activation amendment
+
+- Merge M6 locally first, then branch `codex/m7-hardening`. Creator authorized evaluation documentation, exact four-minute pitch/backup path, a blank teacher/parent feedback record, LICENSE/CONTRIBUTING/environment/public-repo hygiene and tested clean-clone instructions. No remote push/public hosting is requested.
+- Verify lint, strict typecheck, offline tests, production build, secret scanning and absence of committed private files; fix failures. Use clean/test-only directories and credentials-free mock mode. Preserve the creator’s active recording/review server, browser session, SQLite and all existing reviews/consent.
+- M4 remains OPEN and the creator is reviewing/recording. Do not approve content, freeze/commit speech fixtures or infer new review counts from the old 17/24 script and 2/24 clip baseline. Missing audio stays text-only. No paid operations or allowance/image-cap changes.
+- Document concrete planning/build/review/documentation examples from M0–M6 and distinguish implemented mechanisms from pending content acceptance. No Sesotho recognition/TTS or proven learning-gain claims. Actual educator feedback, a rehearsed pitch and backup recording are not fabricated by creating templates/scripts. Report Part A concisely, then stop; do not claim all of M7 complete.
 
 ## M6 activation amendment
 

@@ -1,129 +1,122 @@
 # StoriSpaza
 
-M6 StoriOwn is implemented at `/own`: open the same private StoriSpeak workspace, review per-page attribution/content, save your creator name and private/shared file choice, then explicitly confirm the current edition. Final JSON and standalone HTML exports are blocked until current English, Sesotho, image associations, cultural assumptions and any sharing consent are complete. Missing narration stays text-only. Download both files; the HTML embeds reviewed images and opens offline by itself. Raw source recordings and correction history are excluded; optional current reviewed adult page narration requires separate export consent. No public URL or gallery is created. Deleting all recordings clears local bytes/references, audio approvals and voice redistribution consent; existing exported copies cannot be recalled.
-
-**Submission deadline: 2026-11-11, 23:00 SAST.** M4 review remains OPEN; M6 implementation does not approve content or freeze fixtures. See [M6 ownership/export details](docs/M6_STORIOWN.md). M7 hardening and educator feedback have not started.
-
-M5 StoriPlay is implemented at `/play`: private English/Sesotho navigation, page-level read-along, play/pause/resume and seek, current approved vocabulary audio, and opening → response pause → continuation with keyboard/touch and no microphone. It reads the same browser's M4 workspace without editing or approving it. Missing narration stays text-only; unreviewed/unrecorded items are labelled provisional. Mock defaults use explicitly labelled non-speech signals, never spoken Sesotho. Images load individually and the next page preloads when reduced-data settings allow it. Audio positions are kept only for this visit; private media support byte-range requests and are not persistently cached.
-
-**M4 remains OPEN**, with 17/24 scripts and 2/24 clips approved at M5 authorization; no speech fixtures are frozen. See [M4 dependencies recorded before M6](docs/M5_M4_DEPENDENCIES.md) and the [review/recording pack](docs/M4_REVIEW_PACK.md). Enter your phrases at `/speak` → Open / restore → **2 · Your vocabulary and phrases**: `en-opening`, `en-response`, `en-continuation`, `st-opening`, `st-response`, `st-continuation`. Until supplied/reviewed/recorded, StoriPlay uses clearly provisional text placeholders and tap-to-continue. No traditional phrase is invented.
-
-M4 review is implemented at `/speak`: real-generated Sesotho narrative drafts with page-by-page uncertainty notes, explicit in-app source/translation approvals, private before/after corrections, and exactly 24 versioned adult-recording slots. See [recording list](docs/M4_RECORDING_LIST.md) before recording. The creator supplies all interaction phrases and exact Sesotho vocabulary. No synthetic Sesotho, voice cloning or child recordings. **Implementation-only closeout:** the creator deferred remaining reviews, recordings and final consent. No speech fixtures are frozen or committed; the language pack is incomplete.
-
-Start/restore the private workspace, review English/image association before the paired Sesotho page, save corrections, then approve each script in the app. Record/upload only your own consenting adult voice, listen fully and approve the current script-bound clip. Source edits invalidate dependent reviews and recordings. Drafts/corrections/audio persist in unencrypted ignored SQLite; Delete workspace removes them logically, while accounting and the original unapproved server seed remain. No recordings go to an AI provider. Review remains available when live generation is disabled; only a new real translation needs explicit activation/transmission consent.
-
-The first draft is an explicit local opt-in: `RUN_PAID_TRANSLATION=1 node scripts/draft-translation.mjs` reserves US$0.15 within a session ceiling of at most US$0.25 and the shared development ledger. It refuses a prior attempt; failures do not retry/fall back. Default tests and mock mode remain key/network-free. Once **every current page/script and all 24 clips are approved in app**, use the final confirmation and redistribution checkboxes to freeze privately. `FREEZE_REVIEWED_SPEECH=1 node scripts/freeze-speech.mjs` then validates the actual frozen state and writes `fixtures/approved-speech` without network access; it refuses missing approvals/consent or existing-pack overwrite. Never run it to bypass human review. Optional correction evidence needs separate inclusion consent. M5 reader work is not part of M4.
-
-M3 adds the local `/illustrate` review workspace. Save your six-page draft in `/create`, open the illustration workspace, supply/confirm the creative brief, and consent to private local storage/transmission. Generate **one sheet only**, inspect its reported tokens and published-rate cost, then explicitly approve it before any pages. Scene descriptions are suggestions until confirmed. Six pages use the sheet as a visual reference; each can be regenerated and approved separately in the contact sheet. Freeze optimizes private copies only after approval of all current images and redistribution consent. Mock produces labelled solid-colour placeholders with no paid/network calls.
-
-`IMAGE_ATTEMPT_LIMIT=20` is the hard maximum for real development image dispatch attempts, including measurement, failures and regeneration; it can only be lowered. Existing US$2/session and US$10/development guards remain active. Unknown usage or an ambiguous failure stops further image work; never delete/reset the ledger or automatically retry. Local workspaces/images are unencrypted SQLite data under ignored DATA_DIR; Delete workspace removes logical image/project records while preserving accounting. No public hosting or new accounts.
-
-The approved image pack replays without a key/network in `/studio`, the standalone download and provisional HTML export; text/translation/audio remain unreviewed. `/illustrate` mock is a separate solid-colour workflow rehearsal. Original image source IDs/history survive replay and simulated replacement. Paid fixture maintenance is explicitly gated via `scripts/image-workflow.mjs` (`M3_ACTION=pages|regenerate|freeze`); generation needs confirmed scenes, and freezing needs current image approvals plus redistribution consent. `regenerate` selects exactly one `M3_PAGE` and uses its confirmed prompt from docs/M3_SCENES.json. All runners respect locally lowered limits; the measurement also tightens the session ceiling to at most US$0.75. Never treat an env flag as a substitute for creator authorization.
-
-The one-off authorized measurement is `RUN_PAID_IMAGE=1 npm run measure:image` (local only, never CI). It generates **only the character sheet**, uses a tighter US$0.75 session ceiling, stores private review material under ignored `.tools`, and refuses an existing measurement/prior image attempt. It does not approve/freeze the sheet or generate pages. Use only after creator approval of the brief and budget; rate-derived cost is not an invoice.
-
 **Every Story Has a Place. Tell It. Create It. Own It.**
 
-A creator-led African storytelling studio for Grade R–3 teachers, parents and families. Planned journey: StoriStart → StoriCreate → StoriSpeak → StoriPlay → StoriOwn. Read the [spec](docs/SPEC.md) and [approved plan](docs/PLAN.md).
+A local, creator-led storytelling studio for Grade R–3 teachers, parents and families. Create and edit six-page stories, review English and Sesotho side by side, read together, and decide what leaves your device. The demo, *The Girl Who Spoke to Electricity*, is a fictional Soweto story about curiosity, safe science and community.
 
-## Current status: M6 ownership/export implementation; M4 content review open
+**Evaluation status:** M0–M6 implementation is committed; M7 Part A covers documentation and reproducible checks. **M4 content review remains OPEN** while the creator reviews and records. The earlier baseline was 17/24 approved scripts and 2/24 clips; it is not a live progress count. No complete reviewed bilingual/audio fixture pack is claimed. Submission deadline: **11 November 2026, 23:00 SAST**.
 
-`/create` provides real text-to-six-pages, consented English microphone/upload transcription, editable transcript/manual fallback, page editing and explicit browser draft save/restore/deletion. Output is private/unreviewed. M3's seven reviewed image fixtures are recorded in [image consent/provenance](fixtures/approved-images/CONSENT.md). `/speak` adds translation review and local adult recording; completing the reviewed speech fixture pack remains pending. See [review evidence](docs/REVIEWS.md) for costs and limitations.
+## See it
 
-[M2 desktop editor](docs/screenshots/m2-desktop.png) · [mobile editor](docs/screenshots/m2-mobile.png). Browser captures use intercepted public fixture data; they do not expose paid output or recordings.
+![Offline mock reader — provisional content](docs/screenshots/m1-desktop.png)
 
-The offline mock implements all five stages with six editable fixture pages, reviewed image-source replay, simulated placeholder replacement, editable Sesotho slots, bilingual reader, non-speech audio play/pause/resume, opening/pause/tap-to-continue interaction, demo acknowledgements, browser-local save/restore, consented tone-copy attachment/deletion and provisional JSON/HTML exports. Original images have creator approval; edited story drafts, translations and audio do not. Provider/storage/budget foundations remain intact.
+[Mobile reader](docs/screenshots/m1-mobile.png) · [Welcome screen](docs/screenshots/m1-welcome-desktop.png) · [English capture/editor](docs/screenshots/m2-desktop.png) · [Mobile editor](docs/screenshots/m2-mobile.png). Screenshots are automated mock/intercepted-fixture demonstrations, not proof of fluent language review, a real microphone result or educational outcomes. The image pack was reviewed separately in M3.
 
-Open `/studio` for the journey. The first screen explains six-page illustrated bilingual storytelling immediately. Every placeholder text/image/audio/phrase stays visibly **provisional / unreviewed**; checking demo acknowledgements never grants actual language/cultural approval or enables final publication.
+## Features and current boundaries
 
-Providers have isolated adapters, a reusable contract suite and per-asset producer/model/history labels. Mock remains the default; OpenAI supports text/audio capture, prompt checks and images, while Cloudflare is deferred. Follow [Switching providers](docs/SWITCHING_PROVIDERS.md) and [decisions](docs/DECISIONS.md) for configuration, guard requirements and evidence.
+| Stage | Implemented | What the evaluator should expect |
+| --- | --- | --- |
+| StoriStart | Six-page editing, real text structuring and consented **English-only** voice transcription with editable transcript/manual fallback | `/create` needs explicitly activated real mode for generation/transcription. `/studio` replays a fixed story and fixture transcript with no microphone/API. |
+| StoriCreate | Character sheet, reference-guided illustrations, complete-prompt checks, selective regeneration and per-image review/history | `/illustrate` mock uses labelled solid-colour placeholders. `/studio` replays the seven consented reviewed M3 source images; simulated regeneration replaces a placeholder only. |
+| StoriSpeak | Six English/Sesotho narrative pairs, uncertainty notes/corrections, explicit current approvals, exactly 24 adult recording slots and deletion | `/speak` uses a private browser session. Draft translations are unreviewed; vocabulary and interaction phrases come from the creator. No synthetic speech. |
+| StoriPlay | Bilingual navigation, current approved page/vocabulary audio, play/pause/resume/seek, page-level highlighting and tap/keyboard call-and-response | `/play` reads the same session. Missing/unapproved/stale audio stays text-only. Mock audio is a labelled non-speech signal. No child microphone is used. |
+| StoriOwn | Attribution, ownership explanation, private/shared manual files, final approval gates, optional narration consent and recording deletion | `/own` blocks incomplete final editions. JSON includes story/provenance/history; standalone HTML embeds reviewed images and optional approved page narration. Raw input recordings and private corrections are excluded. No public URL/gallery. |
 
-**Real-device check: passed, creator-reported.** The creator confirmed successful Android/Chrome airplane-mode checklist completion; model/OS/browser versions and tested-file hash are pending. See the [device test record](docs/MOBILE_OFFLINE_TEST.md) for the distinction between human-reported and automated evidence.
+The self-contained `/studio` journey is a **provisional rehearsal**; its acknowledgements never approve language/culture or unlock final publication. Its provisional exports differ from M6's guarded final exports. Actual source provenance survives replay and creator edits.
 
-No Sesotho voice-to-story or synthetic Sesotho speech claims. Sesotho requires human review/creator recordings. [Fixtures](fixtures/manifest.json) are not real-generated or human-approved. No recordings are committed.
+## Stack
 
-![M1 desktop reader](docs/screenshots/m1-desktop.png)
+One Next.js 16 App Router application, React 19, strict TypeScript 6, Tailwind 4 plus local CSS, Zod 4, Node's built-in SQLite and local files. Vitest covers domain/services/provider contracts; Playwright covers production desktop/mobile and offline journeys. Providers use isolated server adapters with reusable contracts; no accounts, MCP integrations or hosted backend are needed. Dependencies and overrides are pinned in `package-lock.json`.
 
-[Mobile reader screenshot](docs/screenshots/m1-mobile.png). Captured from automated production/standalone browser checks, not physical hardware. [M0 foundation screenshot](docs/screenshots/m0-desktop.png) remains as lifecycle evidence.
+## Clean-clone quick start
 
-First screen: [desktop](docs/screenshots/m1-welcome-desktop.png) · [mobile](docs/screenshots/m1-welcome-mobile.png). Product explanation and Start action are verified in the initial viewport.
+Prerequisites: **Node 24.14+ within 24.x** (the pinned `.nvmrc` is **24.22.1**), npm and Git. Install/select that runtime with your usual runtime manager. Node 18 is unsupported. Installation needs npm registry access; mock application runtime needs no external network or key.
 
-## Setup
+```sh
+git clone --branch codex/m7-hardening <repository-url> storispaza
+cd storispaza
+node --version
+npm ci
+npm run dev
+```
 
-Use **Node 24.14+ (24.x)**, preferably the `.nvmrc` version, with npm. Node 18.6 found on the development laptop is too old. Select Node 24 with your runtime manager; the project does not change global Node.
+Use the repository URL supplied with the submission. Before this branch is published, a local clone can use the local repository path as `<repository-url>`. Open [http://127.0.0.1:3000](http://127.0.0.1:3000), choose **Try the mock journey** → **Start the mock journey** → **Load six-page demo story**. No environment file is required in a clean shell. `predev` builds the downloadable offline journey automatically. See [clean-clone validation](docs/CLEAN_CLONE.md) for tested commands and evidence.
 
-On this laptop, the bundled runtime can be selected for the current PowerShell session only:
+For this development laptop only, select the bundled Node without changing the global runtime:
 
 ```powershell
 $env:PATH = "$env:USERPROFILE\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\bin;$env:PATH"
 node --version
 ```
 
-Confirm a 24.x version before running npm commands. This bundled path is specific to the Codex desktop environment; other contributors should install/select Node 24 normally.
+Do not copy the creator's `.env.local`, `data/`, `.tools/` or browser profile into an evaluator checkout. If inherited shell variables select real mode, set `AI_PROVIDER=mock` and `ENABLE_LIVE_AI=0` for the evaluation process. Keep existing personal configuration and the recording server unchanged.
 
-```sh
-npm ci
-npm run dev
-```
+## Mock mode and offline use
 
-Open http://127.0.0.1:3000. No environment file/key/network needed at runtime in mock mode. Installation requires registry access. Fonts/assets are local. To customize, copy `.env.example` to `.env.local` and keep it ignored.
-
-## Android offline journey
+At `/studio`, load the fixed six-page story, edit a page, move through the five named stage tabs, toggle the bilingual slots and try playback/response. Text/translations/tones/phrases remain visibly provisional. Real M3 image sources are separately attributed; placeholder replacements are simulated. No API call, credential or internet connection is needed after loading the journey.
 
 ```sh
 npm run build:offline
 ```
 
-Transfer `public/offline/storispaza-offline.html` to the phone's Downloads folder and open it in Chrome. Enable airplane mode and turn Wi-Fi/mobile data off; the full journey is embedded in that one file. No LAN server exposure, account, public hosting or API key is needed after transfer. Build metadata/hash is in `public/offline/build.json`. The generated file is ignored by Git and rebuilt from the same React component used at `/studio`. Both npm run dev (via predev) and npm run build generate the home-page download.
+Transfer `public/offline/storispaza-offline.html` to Android Downloads and open it in Chrome, then disable Wi-Fi/mobile data. It contains code, images and a generated non-speech signal in one file. `public/offline/build.json` records its size/hash. Generated bundles are ignored, not committed. File-origin save/download/audio behavior varies; errors stay visible. The creator reported an Android/Chrome airplane-mode check of the earlier journey; exact device/version/hash details remain pending in [the device record](docs/MOBILE_OFFLINE_TEST.md). That is distinct from automated mobile emulation or testing the new M6 reader.
 
-Follow the [real-device checklist](docs/MOBILE_OFFLINE_TEST.md), including audible playback, both downloads, reload/restore and recording-copy deletion. File/content-origin storage and opening behavior vary by browser; errors stay visible rather than silently claiming success. Browser drafts are saved only on explicit consented Save and are not encrypted. Use fictional demo content. Keep JSON/HTML exports as recovery copies.
+`/play` and `/own` use the local server for the private M4 workspace. An approved `/own` HTML export opens offline by itself; final export remains blocked until its actual required content approvals are current. See [StoriOwn instructions](docs/M6_STORIOWN.md).
 
-## Environment and API
+## Environment variables and real mode
 
-| Variable | Default | Purpose |
+All variables are server-side; never prefix credentials with `NEXT_PUBLIC_`. `.env.example` contains blank credentials and safe mock defaults. Copy it to ignored `.env.local` only in a new checkout; do not overwrite existing creator configuration. Real mode is optional, paid, and outside the key-free evaluation path.
+
+| Variable | Default / limit | Purpose |
 | --- | --- | --- |
-| AI_PROVIDER | mock | Explicit mock/real; unknown values rejected. |
-| AI_ADAPTER | unset | Registered adapter ID in real mode; use openai for M2. No fallback. |
-| ENABLE_LIVE_AI | 0 | Explicit server activation; set 1 only for authorized live use. |
-| CLOUDFLARE_ACCOUNT_ID / CLOUDFLARE_API_TOKEN | unset | Actual values only in ignored .env.local; no live integration is enabled by setting them. |
-| OPENAI_API_KEY | unset | Server-only M2 credential in ignored .env.local; never NEXT_PUBLIC_. |
-| OPENAI_TEXT_MODEL | gpt-5.6-terra | Approved M2 structured text model. |
-| OPENAI_IMAGE_MODEL | gpt-image-2.6-sunburst | Approved M3 image model with bounded live evidence. |
-| OPENAI_TRANSCRIPTION_MODEL | gpt-transcribe | Approved English transcription model. |
-| DATA_DIR | ./data | Ignored SQLite/private asset directory. |
-| SESSION_BUDGET_USD | 2 | Approved session allowance; may be lowered. |
-| DEVELOPMENT_BUDGET_USD | 10 | Development allowance; may be lowered. |
-| AI_REQUESTS_PER_MINUTE | 10 | Maximum per-session rate. |
-| NEXT_TELEMETRY_DISABLED | 1 in example/CI | Disable Next telemetry, including builds. |
+| `AI_PROVIDER` | `mock` | Explicit `mock` / `real`; invalid modes fail. |
+| `AI_ADAPTER` | unset; example `openai` | Select a registered adapter in real mode; no silent fallback. Cloudflare remains deferred. |
+| `ENABLE_LIVE_AI` | `0` | New live provider requests require `1` plus mode, access and consent. Existing review can stay available with live generation disabled. |
+| `OPENAI_API_KEY` | blank | Selected adapter's secret; ignored `.env.local` only. |
+| `OPENAI_TEXT_MODEL`, `OPENAI_IMAGE_MODEL`, `OPENAI_TRANSCRIPTION_MODEL` | pinned defaults in `.env.example` | Adapter model choices. Changes require revised pricing/access tests, not arbitrary substitutions. |
+| `DATA_DIR` | `./data` | Ignored, unencrypted SQLite/private workspace files. Use a separate directory for testing. |
+| `SESSION_BUDGET_USD` | `2`, may only be lowered | Durable per-session app allowance. |
+| `DEVELOPMENT_BUDGET_USD` | `10`, may only be lowered | Shared development allowance; uncertain reservations remain held. |
+| `AI_REQUESTS_PER_MINUTE` | `10`, may only be lowered | Per-session request cap. |
+| `IMAGE_ATTEMPT_LIMIT` | `20`, may only be lowered | Includes sheet, pages, failures, ambiguous dispatches and regenerations across sessions. |
+| `NEXT_TELEMETRY_DISABLED` | `1` in example/CI | Disable framework telemetry, including build. |
 
-GET /api/health returns configuration readiness/milestone without secrets; it does not verify current model access. GET /api/demo/story returns mock data/provenance/review status; real mode returns 503. POST /api/capture/session, /story and /transcribe require local same-origin requests; paid operations require explicit consent, live activation and a server-issued session. Preserve ignored local credentials when setting AI_PROVIDER=real, AI_ADAPTER=openai and ENABLE_LIVE_AI=1. Open `/create`. Use fictional consenting-adult input; no server audio files are retained. Keep this no-auth app on loopback.
+For separately authorized real operations, set real mode, the selected adapter, its local key and explicit activation; restart the server on loopback and use `/create`, `/illustrate`, `/speak`. Each operation has additional app consent/review gates. [Provider switching](docs/SWITCHING_PROVIDERS.md) and [decision evidence](docs/DECISIONS.md) document the adapters and bounded historical probes. Costs are rate-derived estimates/measurements, not verified invoices. App caps cannot account for external account spend. No paid command or fixture-freeze runner is part of this quick start.
 
-## Checks
+## Tests and public evaluation checks
 
 ```sh
 npm run check
+npm run verify:public
 npx playwright install chromium
 npm run test:e2e
 ```
 
-Check runs lint, route-type generation/strict typecheck, offline unit/integration/API tests and production/offline builds. E2E starts mock port 3100 and activated capture port 3200, both with blank API credentials. M2 HTTP responses are intercepted; native microphone checks use Chromium's fake device. M1 checks disable networking, including standalone file load. Desktop/mobile tests cover editing, consent, error recovery, local save/restore and audio/transcript deletion. SQLite tests use temporary databases. Default tests/CI make no paid requests.
+`check` runs lint, route type generation/strict TypeScript, unit/integration/API tests and production/offline builds. Run it before E2E: unit tests prepare an ignored synthetic M6 offline-reader artifact used by browser checks. On Linux CI, use `npx playwright install --with-deps chromium` if OS dependencies are absent. Test servers bind to loopback ports **3100/3200** with blank API keys; make those ports available. Browser installation needs network; test application flows use fixtures/intercepted transports and make no paid requests. Microphone tests use Chromium's fake device, not the creator's voice. Databases use temporary or `data/e2e-images` locations, not the active review workspace.
 
-Paid smoke is separate and disabled by default. On explicit opt-in only, prepare a consenting synthetic English **canonical 16 kHz mono PCM WAV** outside Git, then run in PowerShell:
+The public scanner checks current tracked/nonignored files and existing browser/offline build assets for private paths, known credential patterns and matching local credential values without printing values. `npm run verify:public -- --staged` checks the full Git index before commit. It deliberately rejects audio/speech-fixture commits while M4 is open. It is a heuristic current-tree check, not a full Git-history or third-party security audit. A previously exposed key was revoked/replaced by creator confirmation; see [security evidence](docs/AI_SAFETY.md). Never share an old credential, even if revoked.
 
-```powershell
-$env:RUN_PAID_TESTS='1'
-$env:PAID_TEST_AUDIO_PATH='C:\path\to\synthetic-english.wav'
-npm run test:paid
-Remove-Item Env:RUN_PAID_TESTS
-```
+Paid tests are opt-in, disabled by default and excluded from hosted CI. Do not enable `RUN_PAID_TESTS`, translation/image measurement runners or `FREEZE_REVIEWED_SPEECH` for evaluation. Remaining human approval/consent cannot be supplied by test flags. [Review results and limits](docs/REVIEWS.md) distinguish mock mechanism coverage from actual content acceptance.
 
-The runner refuses CI, loads ignored local credentials before Vitest's test environment, and sends at most one text call then one audio call (no retries; audio is not attempted if text fails). Session ceiling is $0.25, within the $10 durable development cap. It logs usage/error codes only, never keys, prompt bodies or transcripts. Costs are derived from measured tokens/duration and published rates, not verified invoices. Unknown outcomes retain reservations. Do not repeat a failed billing/access test without resolving the cause. Results and verification limits are in [reviews](docs/REVIEWS.md).
-
-## Local production and reuse
+## Deployment: local production only
 
 ```sh
 npm run build
 npm start
 ```
 
-Node server binds to loopback. Hosted deployment/auth/publishing are deferred. See [architecture](docs/ARCHITECTURE.md), [research](docs/DECISIONS.md), [safety](docs/AI_SAFETY.md), [language extension](docs/ADDING_A_LANGUAGE.md), [Codex evidence](docs/CODEX_WORKFLOW.md), [pitch](docs/DEMO_SCRIPT.md), [contributing](CONTRIBUTING.md), and [MIT license](LICENSE). The exact 24 M4 recording filenames/purposes are in PLAN.md; scripts follow finalized text. M7 educator/reviewer feedback is mandatory and not yet collected.
+Open [http://127.0.0.1:3000](http://127.0.0.1:3000). The provided scripts bind to `127.0.0.1`; keep this no-account app on loopback. Do not expose it with `0.0.0.0`, tunnels, cloud hosts or a LAN port forward. There is no public story URL, gallery or authentication system. For a phone demonstration, transfer the standalone HTML instead. Persist private data only in your ignored local directory; exported copies/backups cannot be remotely recalled.
+
+## Known limitations / Future work
+
+- **No Sesotho speech recognition or text-to-speech.** Voice-to-story capture/transcription is English-only and experimental; Sesotho uses typed text, human-reviewed draft translation and consenting adult creator recordings. No voice cloning or child-response recording/recognition.
+- **M4 is incomplete.** Actual language/science/cultural review, missing creator vocabulary/interaction wording, remaining recordings and final redistribution/freeze consent remain human work. Missing audio stays text-only; unapproved content stays labelled. No complete speech fixture pack is committed.
+- `/create`, `/illustrate` and `/speak` are separate milestone workspaces. StoriSpeak's demo review starts from the fixed demo English source; a general arbitrary-story handoff is deferred. Do not claim a fresh live idea automatically flows end to end through every stage.
+- Mock generation is fixed replay, not live AI. M6 final export currently embeds known consented image-pack assets; unknown images block export. Its simple HTML omits vocabulary/interaction audio. ZIP/PDF/EPUB, arbitrary-word pronunciation, exact word timing, collaboration, accounts, public hosting/gallery and additional language packs are deferred.
+- The reader highlights a whole passage, not exact words. Reduced-data preloading is a browser hint. Physical-device/screen-reader validation of new M5/M6 flows and real noisy/accented English capture remain limited/unverified.
+- Local SQLite/browser storage is unencrypted; deletion is logical and does not erase WAL/backups/provider-held data or already exported copies. Cultural correctness, copyright/exclusivity, identity consistency and educational improvement are not guaranteed by AI or schemas.
+- Teacher/parent feedback, final pitch rehearsal and backup recording are pending. [Feedback template](docs/EDUCATOR_FEEDBACK_TEMPLATE.md) is blank; it is not collected evidence. Hosted CI results are separate from local checks.
+
+## Reuse, licence and evidence
+
+Code and documentation use the [MIT licence](LICENSE). Reviewed images have separate [creator review/redistribution consent and provenance](fixtures/approved-images/CONSENT.md); provisional text is not language-certified. There is no blanket licence to private recordings or third-party contributions. See [Contributing](CONTRIBUTING.md), [architecture](docs/ARCHITECTURE.md), [adding a language](docs/ADDING_A_LANGUAGE.md), [provider contracts](docs/SWITCHING_PROVIDERS.md), [safety/data lifecycle](docs/AI_SAFETY.md), [Codex lifecycle examples](docs/CODEX_WORKFLOW.md) and the [four-minute pitch/backup plan](docs/DEMO_SCRIPT.md).

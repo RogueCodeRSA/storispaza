@@ -17,6 +17,7 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "test:e2e": "playwright test",
+    "verify:public": "node scripts/check-repo.mjs",
     "test:paid": "node scripts/run-paid-tests.mjs",
     "measure:image": "node scripts/measure-image.mjs",
     "check": "npm run lint && npm run typecheck && npm test && npm run build"

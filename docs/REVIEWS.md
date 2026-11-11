@@ -1,5 +1,20 @@
 # Milestone reviews
 
+## M7 Part A — evaluation documentation and reproducible hygiene (2026-11-11)
+
+User authorized merge M6 first, branch `codex/m7-hardening`, evaluation docs/pitch/blank feedback template, required checks and clean-clone instructions. Local main fast-forwarded to M6 `cfa3160`; no conflicts or remote push. Read SPEC/PLAN and applied milestone-review. M4 remains OPEN; no active creator workspace, recording, review/approval or fixture-freeze control is touched. No paid request, new integration or cap change.
+
+### Review findings and corrections
+
+- README had chronological/stale milestone claims and lacked a clear current capability/limitation view. Replaced with evaluator overview, existing safe screenshot links, five-stage behavior table, pinned stack/runtime, clone/mock/env/test/local-production instructions and honest deferred work. Explicitly state English-only capture, no Sesotho recognition/TTS, separate workspaces/fixed demo handoff, incomplete M4, no hosting/gallery and pending real feedback/rehearsal.
+- Added a compact M0–M6 lifecycle index with concrete planning/build/review/documentation anchors instead of treating tests as human approvals. Current safety/decision/architecture summaries supersede old dated sections while preserving original evidence. Four-minute pitch uses isolated mock data with exact labels, read-only inspection and a blocking final export; it never asks the presenter to approve/freeze/delete active content. A separate browser profile is required because ports alone do not isolate cookies. Backup video/feedback remain explicitly uncollected/unrecorded.
+- LICENSE is already a complete MIT licence and is retained unchanged; image redistribution is separately documented, not extended to private voices. CONTRIBUTING and blank `.env.example` now point to the reproducible safe setup and consent gates. The adult feedback template requests role/date/task/observed benefit/problems/changes/limitations/publication permission without child identifiers. It is clearly blank/pending.
+- Previous hygiene tools were ignored laptop helpers, unsuitable for a clean clone. Added `npm run verify:public` and CI invocation after build, scanning current/nonignored or full-index paths and browser/offline artifacts. Rejection output contains paths/reasons only. Audio/approved-speech, DB, private env, generated/private directories and known/local credential values are blocked. A temporary-Git regression proves safe success, rejection and value redaction. It is a heuristic, not a full-history/security audit. Historical recording/database/`.env.local` path scan and key-pattern scan of `.env.example` history returned no matches; prior working-file/diagnostic exposure and creator-confirmed revocation remain documented.
+
+### Validation before clean-clone closeout
+
+Initial `npm run check` passed full lint, strict typecheck, **111 unit/integration tests**, **five skipped paid checks**, production/offline build. Current-tree/artifact public scan passed across 166 files and 46 generated artifacts. No dependency or application behavior change is needed; package scripts/CI and one scanner regression are the tooling changes. Complete changed/new docs/tooling reviewed for scope, privacy, provenance and truthful demo claims. Clean-clone/browser/final staged evidence follows at closeout; pending steps are not reported as passed. Actual teacher/parent feedback, M4 acceptance/freeze consent, physical-device/screen-reader validation, hosted CI, pitch rehearsal and backup recording remain outside Part A completion.
+
 ## M6 — slimmed StoriOwn implementation review (2026-11-11)
 
 Authorized `codex/m6-storiown` from M5 `6fc7c0a`, approximately 90 minutes; submission today at 23:00 SAST. Read SPEC/PLAN and applied `skills/milestone-review/SKILL.md`. No delegation, paid generation, MCP integration, content approval or speech-fixture freeze. M4 remains OPEN at the authorization baseline of 17/24 scripts and 2/24 clips approved; counts are not new approval evidence.
