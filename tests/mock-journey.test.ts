@@ -51,6 +51,18 @@ describe("mock journey, separate from real content approval", () => {
     expect(normalizeMockDraft(earlyDraft).culturalAcknowledgement).toBe(false);
     expect(() => normalizeMockDraft({ format: "wrong" })).toThrow();
   });
+  it("restores legacy placeholder image IDs to approved sources without approving the draft", () => {
+    const draft = acknowledgedDraft();
+    draft.story.pages[0].illustrationAssetId = "mock-image-1-r3";
+    draft.story.pages[0].assetSources.illustration = { assetId:"mock-image-1-r3", providerId:"local-placeholder", model:null, origin:"fixture", editedByCreator:false };
+    const restored = normalizeMockDraft(draft);
+    expect(restored.story.pages[0].illustrationAssetId).toBe(newMockDraft().story.pages[0].illustrationAssetId);
+    expect(restored.story.pages[0].assetHistory.at(-1)?.assetId).toBe("mock-image-1-r3");
+    expect(restored.story.pages[0].approvals.illustration).toBe(false);
+    expect(restored.acknowledgements.images[0]).toBe(false);
+    draft.story.pages[0].illustrationAssetId = "provisional-placeholder";
+    expect(normalizeMockDraft(draft).story.pages[0].illustrationAssetId).toBe(newMockDraft().story.pages[0].illustrationAssetId);
+  });
   it("requires shared export consent and excludes the recording copy", () => {
     const draft = acknowledgedDraft();
     draft.story.visibility = "shared";

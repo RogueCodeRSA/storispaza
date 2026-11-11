@@ -10,11 +10,16 @@ test("foundation and fixture API work without external network", async ({ page, 
   });
   await page.goto("/");
   await expect(page.getByRole("heading", { name: "Every story has a place." })).toBeVisible();
-  await expect(page.getByText("Mock mode · offline fixtures")).toBeVisible();
+  await expect(page.locator(".review-status")).not.toHaveAttribute("open");
+  await expect(page.locator(".review-badge")).toHaveCount(1);
   await expect(page.getByRole("list").first().getByRole("listitem")).toHaveCount(5);
   await page.keyboard.press("Tab");
   await expect(page.getByRole("link", { name: "Skip to content" })).toBeFocused();
-  await expect(page.getByRole("link", { name: "Try the mock journey" })).toBeVisible();
+  await expect(page.getByRole("link", { name: "Read the story", exact: true })).toHaveAttribute("href", "/play");
+  await expect(page.getByRole("link", { name: "Create your own", exact: true })).toHaveAttribute("href", "/studio");
+  await expect(page.locator(".book-panel img")).not.toHaveAttribute("src", /placeholder/);
+  await page.getByText("Review status", { exact: false }).filter({ has: page.locator(".review-badge") }).click();
+  await expect(page.getByText(/Mock mode · offline fixtures/)).toBeVisible();
   await expect(page.getByRole("heading", { name: "The Girl Who Spoke to Electricity" })).toBeVisible();
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
   const response = await page.request.get("/api/demo/story");

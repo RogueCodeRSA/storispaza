@@ -1,5 +1,11 @@
 # Architecture — through M6, with M7 Part A evaluation checks
 
+## M7 visual addendum
+
+Landing imports the approved local cover as a static Next image and leads directly to `/play`. `ReviewStatus` shares native details/summary disclosure and one badge across landing/studio/reader/creator workspaces. Reader projection adds creator attribution, optionally from project-bound ownership settings, while retaining private read-only media/version/hash behavior. A no-workspace guest receives the fixed explicitly mock edition; real-mode guests stay text-only. No provider or private DB mutation is involved.
+
+Main readers show approved M3 sources, with pending association preserved when legacy IDs are unavailable; final export still uses strict current asset/review gates. Mock preview no longer replaces actual source IDs with synthetic icon IDs. Known old draft IDs migrate on explicit restore, preserving metadata history and clearing draft review/acknowledgement. Exact embedded WebP sources remain available offline. A larger art/text spread, slim progress and CSS-only finite page-turn/response spark share the offline journey; reduced-motion CSS disables decorative movement. Before/after mock screenshots and actual checks are in design/README.md. Historical M5 empty-state/placeholder descriptions below are superseded by this visual amendment.
+
 ## M6 ownership/export and M7 Part A tooling
 
 `/own` and same-origin session-private `POST /api/ownership` project the existing speech workspace into an edition review. Project-bound ownership settings store the creator name, private/shared manual-export choice and explicit cultural/sharing consent. New/replacement workspaces default private. Each mutation/export pins the current speech revision; one SQLite transaction serializes the approval/media snapshot, settings and deletion with existing speech writes. Final export rechecks current real non-provisional bilingual scripts/page/image approvals, known reviewed fixture image bytes and consent. Edits invalidate the revision; incomplete editions fail closed.

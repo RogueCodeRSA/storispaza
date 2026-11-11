@@ -6,7 +6,7 @@ export interface ReaderText { text: string; reviewed: boolean; flags: string[]; 
 export interface ReaderPage { number: number; title: string; imageUrl: string; imageReviewed: boolean; text: Record<Language, ReaderText> }
 export interface ReaderWord { slot: string; text: string | null; audio: ReaderTrack | null }
 export interface ReaderBook {
-  mode: "mock" | "real"; revision: number; title: string;
+  mode: "mock" | "real"; revision: number; title: string; creator: string;
   scriptsApproved: number; clipsApproved: number; pages: ReaderPage[];
   vocabulary: Record<Language, ReaderWord[]>;
   interaction: Record<Language, Record<"opening" | "response" | "continuation", ReaderText>>;
@@ -23,7 +23,7 @@ export function readerBook(project: SpeechProject): ReaderBook {
   const vocabulary = (language: Language) => [1, 2, 3].map(number => { const value = script(`${language}-word-0${number}`); return { slot: value.id, text: value.status === "approved" && value.text.trim() ? value.text : null, audio: audio(value) }; });
   const interaction = (language: Language) => ({ opening: text(script(`${language}-opening`)), response: text(script(`${language}-response`)), continuation: text(script(`${language}-continuation`)) });
   return {
-    mode: project.mode, revision: project.revision, title: project.story.title,
+    mode: project.mode, revision: project.revision, title: project.story.title, creator: project.story.creator,
     scriptsApproved: project.scripts.filter(value => value.status === "approved").length,
     clipsApproved: project.scripts.filter(currentReaderClip).length,
     pages: project.story.pages.map(page => ({ number: page.number, title: page.title, imageUrl: `/api/reader?image=${page.number}`, imageReviewed: project.mode === "real" && page.approvals.illustration,

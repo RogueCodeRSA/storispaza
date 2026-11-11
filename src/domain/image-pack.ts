@@ -10,3 +10,8 @@ export const reviewedImageFixtures = z.array(entry).parse(Object.values(pack.ima
 export function reviewedFixtureImage(assetId: string | null): string | null {
   return reviewedImageFixtures.find(image => image.source.assetId === assetId)?.dataUrl ?? null;
 }
+export function reviewedPageImage(page: number) {
+  const image = reviewedImageFixtures.find(image => image.page === page);
+  if (!image) throw new Error("Missing consented story illustration.");
+  return image;
+}

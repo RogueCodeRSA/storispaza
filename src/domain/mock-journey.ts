@@ -1,8 +1,8 @@
 import { z } from "zod";
 import { demoStory } from "../../fixtures/demo-story";
-import { replaceIllustration, storySchema, type Story, type StoryPage } from "./story";
+import { storySchema, type Story, type StoryPage } from "./story";
 import { fixtureSource, sourceLabel } from "./provenance";
-import { reviewedImageFixtures, reviewedFixtureImage } from "./image-pack";
+import { reviewedImageFixtures, reviewedFixtureImage, reviewedPageImage } from "./image-pack";
 
 const sixFlags = z.array(z.boolean()).length(6);
 export const mockDraftSchema = z.object({
@@ -66,8 +66,9 @@ export function regenerateMockImage(draft: MockDraft, index: number): MockDraft 
   const next = structuredClone(draft);
   if (!next.story.pages[index]) throw new Error("Choose a page from 1 to 6.");
   next.imageRevisions[index] = (next.imageRevisions[index] + 1) % 1001;
-  const assetId = `mock-image-${index + 1}-r${next.imageRevisions[index]}`;
-  next.story.pages[index] = replaceIllustration(next.story.pages[index], assetId, fixtureSource(assetId, "local-placeholder"));
+  // A simulated request creates no pixels. Keep the actual approved source rather
+  // than replacing its identity with an icon; current draft review still resets.
+  next.story.pages[index].approvals.illustration = false;
   next.acknowledgements.images[index] = false;
   return next;
 }
@@ -82,6 +83,12 @@ export function normalizeMockDraft(input: unknown): MockDraft {
     page.approvals = { text: false, illustration: false, audio: false };
     page.narrationAssetIds = { en: null, st: null };
     if (page.translation?.status === "approved") page.translation.status = "edited";
+    if (page.illustrationAssetId === "provisional-placeholder" || /^mock-image-\d-r\d+$/.test(page.illustrationAssetId ?? "")) {
+      if (page.assetSources.illustration) page.assetHistory.push(page.assetSources.illustration);
+      const image = reviewedPageImage(page.number);
+      page.illustrationAssetId = image.source.assetId; page.assetSources.illustration = structuredClone(image.source);
+      draft.acknowledgements.images[page.number - 1] = false;
+    }
   });
   return draft;
 }
@@ -104,7 +111,7 @@ export function mockReaderHtml(draft: MockDraft): string {
   if (demoExportIssues(draft).length) throw new Error(demoExportIssues(draft).join(" "));
   const story = normalizeMockDraft(draft).story;
   const escape = (value: string) => value.replace(/[&<>"']/g, char => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[char]!);
-  return `<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; img-src data:"><title>${escape(story.title)}</title><style>body{max-width:48rem;margin:auto;padding:1.5rem;font:1.15rem/1.7 system-ui;background:#faf5e9;color:#203e35}article{border-top:2px solid;padding-block:1.5rem}img{max-width:100%;height:auto}p{white-space:pre-wrap}.badge{font-weight:bold;color:#92351f}h1,h2{line-height:1.2}</style><h1>${escape(story.title)}</h1><p class="badge">PROVISIONAL / UNREVIEWED — mock demo, not an approved publication.</p><p>Codex-assisted draft. Original image fixtures may be creator-reviewed; this edited draft, Sesotho text and narration still require review. No audio or recording copies included.</p>${story.pages.map(page => `<article><h2>Page ${page.number}: ${escape(page.title)}</h2>${reviewedFixtureImage(page.illustrationAssetId) ? `<img alt="Page ${page.number} reviewed image source; draft unreviewed" src="${reviewedFixtureImage(page.illustrationAssetId)}">` : ""}<p>${escape(page.narrative)}</p><h3>Sesotho — provisional / unreviewed</h3><p lang="st">${escape(page.translation?.text ?? "Creator translation pending")}</p><p><strong>Learning moment:</strong> ${escape(page.learningMoment)}</p><p>Illustration description: ${escape(page.illustrationDescription)}</p><p>Sources — text: ${escape(sourceLabel(page.assetSources.text))}; image: ${escape(sourceLabel(page.assetSources.illustration))}; translation: ${escape(sourceLabel(page.assetSources.translation))}.</p><p>Earlier asset sources: ${escape(page.assetHistory.map(sourceLabel).join("; ") || "None recorded")}.</p></article>`).join("")}</html>`;
+  return `<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; img-src data:"><title>${escape(story.title)}</title><style>body{max-width:48rem;margin:auto;padding:1.5rem;font:1.15rem/1.7 system-ui;background:#faf5e9;color:#203e35}article{border-top:2px solid;padding-block:1.5rem}img{max-width:100%;height:auto}p{white-space:pre-wrap}.badge{font-weight:bold;color:#92351f}h1,h2{line-height:1.2}</style><h1>${escape(story.title)}</h1><details><summary>Review status <span class="badge">Language review pending</span></summary><p>PROVISIONAL / UNREVIEWED — mock demo, not an approved publication.</p><p>Codex-assisted draft. Original image fixtures may be creator-reviewed; this edited draft, Sesotho text and narration still require review. No audio or recording copies included.</p></details>${story.pages.map(page => `<article><h2>Page ${page.number}: ${escape(page.title)}</h2>${reviewedFixtureImage(page.illustrationAssetId) ? `<img alt="Page ${page.number} reviewed image source; draft unreviewed" src="${reviewedFixtureImage(page.illustrationAssetId)}">` : ""}<p>${escape(page.narrative)}</p><h3>Sesotho</h3><p lang="st">${escape(page.translation?.text ?? "Creator translation pending")}</p><p><strong>Learning moment:</strong> ${escape(page.learningMoment)}</p><p>Illustration description: ${escape(page.illustrationDescription)}</p><p>Sources — text: ${escape(sourceLabel(page.assetSources.text))}; image: ${escape(sourceLabel(page.assetSources.illustration))}; translation: ${escape(sourceLabel(page.assetSources.translation))}.</p><p>Earlier asset sources: ${escape(page.assetHistory.map(sourceLabel).join("; ") || "None recorded")}.</p></article>`).join("")}</html>`;
 }
 
 export function setMockMetadata(draft: MockDraft, field: "title" | "culturalContext" | "educationalObjective", value: string): MockDraft {

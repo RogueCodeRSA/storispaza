@@ -1,5 +1,12 @@
 # Decisions and research
 
+## M7 visual addendum — 2026-11-11
+
+- **ADR-022:** reuse approved M3 source art for the product cover and reader instead of generating more assets. Simulated previews produce no pixels, so they must preserve actual source identity/history rather than replace it with a placeholder ID. Known legacy mock IDs migrate only on explicit draft restore, clearing current review/acknowledgement. Private reader fallbacks are display-only with pending association; M6 final gates remain strict. No image attempt or spend is incurred.
+- **ADR-023:** one native Review status disclosure and one small badge replace developer banners/repeated labels. Actual current real Sesotho review can show creator-supplied attribution; no name/review is invented. Keep consent/approval-blocking controls explicit in editing workflows. Reader-first CTA, large uncropped art, soft copy and slim 48-pixel progress controls serve reading before tooling.
+- **ADR-024:** CSS-only finite transform/opacity page-turn and decorative response sparks avoid a runtime/CDN dependency and remain in the offline bundle. Native keyboard focus/announcements drive the response independently of animation; reduced motion disables it. HyperFrames entry/animation guidance was consulted for the existing-app motion edit; no video composition/framework or provider integration is added.
+- **Observed validation:** 114 offline unit/integration tests and 42 desktop/mobile browser checks pass, including all six approved images, named-review invalidation, reduced motion and offline file-origin behavior. Screenshot comparisons in design/README.md use mock-only content. M4 human acceptance, physical-device/screen-reader testing, educational effectiveness and final rehearsal remain unverified or separately pending.
+
 ## Current implementation decisions — M6 and M7 Part A (2026-11-11)
 
 - **ADR-018 / M6:** deliver JSON with per-asset producer/history plus a script-free standalone HTML reader instead of a ZIP. Export embeds known reviewed/redistributable image-pack bytes; unknown images block. Final current-version source/translation/image and cultural/sharing approvals still gate both formats. Missing narration does not prevent an approved text-only edition. Optional approved adult page narration needs independent file-export consent and current stored bytes/hash. M4’s all-24 speech-fixture freeze remains a separate unchanged gate, not an M6 shortcut.

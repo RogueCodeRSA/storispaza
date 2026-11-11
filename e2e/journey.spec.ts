@@ -42,33 +42,36 @@ for (const source of ["Next.js", "standalone file"] as const) {
     for (let n = 1; n <= 6; n++) {
       await selectPage(page, n);
       if (n === 2) {
-        await page.getByRole("button", { name: "Regenerate this page placeholder" }).click();
-        await expect(page.getByRole("status")).toContainText("Page 2 placeholder changed");
+        const imageBefore = await page.locator(".story-art img").getAttribute("src");
+        await page.getByRole("button", { name: "Preview illustration" }).click();
+        await expect(page.getByRole("status")).toContainText("Page 2 preview refreshed");
+        await expect(page.locator(".story-art img")).toHaveAttribute("src", imageBefore!);
       }
       await page.getByLabel(/I acknowledge this image source and draft review status/).check();
     }
     await page.getByRole("button", { name: "Continue to StoriSpeak" }).click();
     for (let n = 1; n <= 6; n++) {
       await selectPage(page, n);
-      await expect(page.getByText("Sesotho text · Provisional / unreviewed", { exact: true })).toBeVisible();
-      await page.getByLabel("Sesotho text · provisional / unreviewed").fill(`[Sesotho placeholder ${n} — awaiting creator review]`);
+      await expect(page.locator(".review-badge")).toHaveText("Language review pending");
+      await page.getByRole("textbox", { name:"Sesotho text", exact: true }).fill(`[Sesotho placeholder ${n} — awaiting creator review]`);
       await page.getByLabel(/I acknowledge this Sesotho text needs a fluent review/).check();
     }
     await page.getByRole("button", { name: "Continue to StoriPlay" }).click();
-    await expect(page.getByText("Audio placeholder · Provisional / unreviewed", { exact: true })).toBeVisible();
-    await page.getByRole("button", { name: "Play placeholder audio", exact: true }).click();
-    await expect(page.getByRole("button", { name: "Pause placeholder audio", exact: true })).toBeVisible();
+    await expect(page.locator(".review-badge")).toHaveCount(1);
+    await expect(page.locator(".review-status")).not.toHaveAttribute("open");
+    await page.getByRole("button", { name: "Play audio sample", exact: true }).click();
+    await expect(page.getByRole("button", { name: "Pause audio sample", exact: true })).toBeVisible();
     await expect.poll(() => page.locator("audio").evaluate((audio: HTMLAudioElement) => audio.currentTime)).toBeGreaterThan(0);
-    await page.getByRole("button", { name: "Pause placeholder audio", exact: true }).click();
+    await page.getByRole("button", { name: "Pause audio sample", exact: true }).click();
     const paused = await page.locator("audio").evaluate((audio: HTMLAudioElement) => audio.currentTime);
-    await page.getByRole("button", { name: "Play placeholder audio", exact: true }).click();
+    await page.getByRole("button", { name: "Play audio sample", exact: true }).click();
     await expect.poll(() => page.locator("audio").evaluate((audio: HTMLAudioElement) => audio.currentTime)).toBeGreaterThan(paused);
     await page.getByRole("group", { name: "Reader language" }).getByRole("button", { name: "Sesotho", exact: true }).click();
-    await expect(page.getByText("Sesotho text · Provisional / unreviewed", { exact: true })).toBeVisible();
+    await expect(page.locator(".review-badge")).toHaveText("Language review pending");
     await expect(page.locator(".narrative")).toContainText("Sesotho placeholder 6");
     await page.getByRole("button", { name: "Previous page", exact: true }).click();
     await expect(page.locator(".narrative")).toContainText("Sesotho placeholder 5");
-    await page.getByRole("button", { name: "Start opening placeholder" }).click();
+    await page.getByRole("button", { name: "Start reading turn" }).click();
     await expect(page.getByRole("button", { name: "I responded — continue" })).toBeVisible({ timeout: 8000 });
     await expect(page.locator("audio")).toHaveJSProperty("paused", true);
     await page.getByRole("button", { name: "I responded — continue" }).click();
@@ -127,7 +130,7 @@ test("storage and audio failures keep the draft usable", async ({ page }) => {
   await expect(page.getByLabel("English narrative")).toBeVisible();
   await stage(page, "StoriPlay");
   await page.evaluate(() => { HTMLMediaElement.prototype.play = () => Promise.reject(new Error("blocked")); });
-  await page.getByRole("button", { name: "Play placeholder audio", exact: true }).click();
+  await page.getByRole("button", { name: "Play audio sample", exact: true }).click();
   await expect(page.getByRole("main").getByRole("alert")).toContainText("Audio could not start");
   await stage(page, "StoriOwn");
   await page.evaluate(() => { Storage.prototype.setItem = () => { throw new Error("unavailable"); }; });

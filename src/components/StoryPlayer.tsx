@@ -4,6 +4,8 @@ import Link from "next/link";
 import type { Language } from "@/domain/story";
 import type { ReaderBook, ReaderText } from "@/domain/reader";
 import { useReaderAudio } from "./reader-audio";
+import ReviewStatus from "./ReviewStatus";
+import ResponseSpark from "./ResponseSpark";
 import "./journey.css";
 import "./reader.css";
 
@@ -11,6 +13,7 @@ type Turn = "idle" | "opening" | "waiting" | "response" | "continuation" | "comp
 export default function StoryPlayer({ mode }: { mode: "mock" | "real" }) {
   const [book, setBook] = useState<ReaderBook | null>(null); const [loaded, setLoaded] = useState(false); const [busy, setBusy] = useState(true);
   const [pageIndex, setPageIndex] = useState(0); const [language, setLanguage] = useState<Language>("en");
+  const [direction, setDirection] = useState("forward");
   const [turn, setTurn] = useState<Turn>("idle"); const [message, setMessage] = useState(""); const [error, setError] = useState("");
   const [brokenImages, setBrokenImages] = useState<string[]>([]);
   const heading = useRef<HTMLHeadingElement | null>(null); const responseButton = useRef<HTMLButtonElement | null>(null);
@@ -58,6 +61,7 @@ export default function StoryPlayer({ mode }: { mode: "mock" | "real" }) {
     return () => { image.removeAttribute("src"); if (preload) { preload.pause(); preload.removeAttribute("src"); preload.load(); } };
   }, [book, pageIndex, language]);
   function navigate(index: number, nextLanguage = language) {
+    setDirection(index < pageIndex ? "backward" : "forward");
     stopAudio(); setTurn("idle"); setPageIndex(index); setLanguage(nextLanguage); setMessage(`Page ${index + 1}, ${nextLanguage === "en" ? "English" : "Sesotho"}.`);
     requestAnimationFrame(() => heading.current?.focus());
   }
@@ -72,50 +76,53 @@ export default function StoryPlayer({ mode }: { mode: "mock" | "real" }) {
     if (phrases?.continuation.audio) void play(phrases.continuation.audio, `${label} continuation`, () => setTurn("complete"), () => setTurn("complete"));
     else setTurn("complete");
   }
-  const phrase = (value: ReaderText | undefined, role: string) => value?.text.trim() ? value.text : `[${role} phrase pending — provisional placeholder]`;
+  const phrase = (value: ReaderText | undefined, role: string) => value?.text.trim() ? value.text : `${role} wording is not available yet.`;
   const phraseReady = phrases && Object.values(phrases).every(value => value.reviewed && value.audio && !value.audio.provisional);
-  return <div className="mock-app play-app">
-    <header className="mock-header"><Link className="mock-brand" href="/">Stori<span>Spaza</span></Link><span className="mock-label">{mode === "mock" ? "MOCK · provisional reader rehearsal" : "Private StoriPlay · M4 review OPEN"}</span></header>
-    <main className="mock-main" id="main"><p className="kicker">StoriPlay · read and respond together</p><h1>A story, at your pace.</h1>
-      <p>Read in English or Sesotho. Listen where a current reviewed recording exists, or keep reading with text. No microphone is needed.</p>
-      <p><Link href="/speak">Review words and recordings in StoriSpeak</Link> · <Link href="/own">StoriOwn · review and export</Link> · <Link href="/studio">Offline fixture journey</Link></p>
-      <div className="button-row"><button className="secondary" disabled={busy} onClick={() => { setBusy(true); void load(true); }}>Open / refresh private reader</button></div>
-      <p role="status" aria-live="polite">{busy ? "Loading private reader…" : message}</p>{error && <p role="alert">{error} Text already on screen remains available; refresh when the connection returns.</p>}
-      {loaded && !book && <aside className="notice">No M4 workspace is available in this browser session. Use the same Chrome browser as your recordings, restore StoriSpeak, then return here. This reader does not create or approve content.</aside>}
+  const reviewer = book?.creator && !/pending|demo creator/i.test(book.creator) ? book.creator : "the creator";
+  return <div className="mock-app play-app reading-room">
+    <header className="mock-header"><Link className="mock-brand" href="/">Stori<span>Spaza</span></Link><nav aria-label="Story links"><Link href="/studio">Create your own</Link><Link href="/own">Keep this story</Link></nav></header>
+    <main className="mock-main" id="main"><div className="reading-intro"><p className="kicker">Read · wonder · respond</p><h1>{book?.title ?? "A story, at your pace."}</h1></div>
+      <p className="sr-only" role="status" aria-live="polite">{busy ? "Loading story…" : message}</p>{error && <p role="alert">{error} Text already on screen remains available; refresh when the connection returns.</p>}
+      <ReviewStatus badge={page?.text.st.reviewed ? `Sesotho reviewed by ${reviewer}` : "Language review pending"}>
+        <p>{(book?.mode ?? mode) === "mock" ? "Mock preview: fixed story, no live generation. Any demo audio is a non-speech signal, never narration or pronunciation." : "Private read-only edition. Reading changes no approvals or consent."}</p>
+        <p>M4 content review remains open. Saved scripts: {book?.scriptsApproved ?? 0}/24 approved. Current clips: {book?.clipsApproved ?? 0}/24 approved.</p>
+        <p>{text?.reviewed ? "Current text reviewed in app." : "Provisional text — review pending."} {page?.imageReviewed ? "Image association reviewed in app." : "Approved M3 source illustration; the current draft association needs review."}</p>
+        <p>{!narration ? "Provisional audio — recording pending; text-only page." : narration.provisional ? "Provisional non-speech demo audio." : "Current adult recording reviewed in app."}</p>
+        <p>{phraseReady ? "Creator-reviewed phrases and current recordings." : "Provisional interaction — missing phrase review or recordings."}</p>
+        <ul>{text?.flags.map((flag, i) => <li key={i}>{flag}</li>)}</ul>
+        <p>Enter wording at <Link href="/speak#interaction-scripts">StoriSpeak → Open / restore → “Your vocabulary and phrases”</Link>: {language}-opening, {language}-response and {language}-continuation. Save and explicitly review each script, then record/listen/approve its adult clip. Missing wording is never invented.</p>
+        <p><Link href="/speak">Review words and recordings</Link> · <Link href="/studio">Offline fixture journey</Link></p><button className="secondary" disabled={busy} onClick={() => { setBusy(true); void load(true); }}>Open / refresh private reader</button>
+      </ReviewStatus>
+      {loaded && !book && <aside className="notice">Open your story in StoriSpeak using the same browser as your recordings, then refresh here.</aside>}
       <audio ref={audioElement} preload="none" aria-label="Reader audio" />
       {book && page && text && <>
-        <aside className="notice"><strong>M4 content review remains open.</strong> Saved scripts: {book.scriptsApproved}/24 approved. Current clips: {book.clipsApproved}/24 approved. These counts are existing app state; reading never approves or freezes anything.{book.mode === "mock" && <p>All mock content and audio remain provisional. Demo audio is a non-speech signal, never narration or pronunciation.</p>}</aside>
-        <div className="reader-top"><div><h2>{book.title}</h2><p>Page {page.number} of {book.pages.length}</p></div><div className="language-toggle" role="group" aria-label="Reading language">{(["en", "st"] as const).map(code => <button key={code} aria-pressed={language === code} onClick={() => navigate(pageIndex, code)}>{code === "en" ? "English" : "Sesotho"}</button>)}</div></div>
-        <nav className="page-tabs" aria-label="Reader pages">{book.pages.map((value, index) => <button className="secondary" key={value.number} aria-current={index === pageIndex ? "page" : undefined} onClick={() => navigate(index)}>Page {value.number}</button>)}</nav>
+        <div className="reader-top"><nav className="reader-progress" aria-label="Reader pages">{book.pages.map((value, index) => <button className="secondary" key={value.number} aria-label={`Page ${value.number}`} aria-current={index === pageIndex ? "page" : undefined} onClick={() => navigate(index)}><span aria-hidden="true" /></button>)}<span className="page-count">{page.number} / {book.pages.length}</span></nav><div className="language-toggle" role="group" aria-label="Reading language">{(["en", "st"] as const).map(code => <button key={code} aria-pressed={language === code} onClick={() => navigate(pageIndex, code)}>{code === "en" ? "English" : "Sesotho"}</button>)}</div></div>
         <h2 className="reading-heading" tabIndex={-1} ref={heading}>Page {page.number} · {label}</h2>
-        <div className="reader-spread"><figure className="play-illustration">
+        <div key={`${page.number}-${language}`} className="reader-spread page-turn" data-turn={direction}><figure className="play-illustration">
           {!brokenImages.includes(page.imageUrl) ? /* eslint-disable-next-line @next/next/no-img-element */
             <img src={page.imageUrl} width={1024} height={1024} alt={`Story illustration, page ${page.number}: ${page.title}`} fetchPriority="high" onError={() => setBrokenImages(current => [...current, page.imageUrl])} /> : <p>Illustration unavailable. Continue with the story text.</p>}
-          <figcaption>{page.imageReviewed ? "Image association reviewed in app" : "Provisional image association — review pending"}</figcaption>
-        </figure><div className="reader-copy"><p className="fine-print">English page heading: {page.title}</p>
-          <p className="provisional">{text.reviewed ? "Text reviewed in app" : "Provisional text — review pending"} · {!narration ? "Provisional audio — recording pending; text-only page" : narration.provisional ? "Provisional non-speech demo audio" : "Current adult recording reviewed in app"}</p>
-          <p lang={text.text.trim() ? language : "en"} className={`narrative ${narrationActive && phase === "playing" ? "reading" : ""}`} aria-label={`Page ${page.number} ${label} text`}>{text.text.trim() ? text.text : "[Sesotho narrative pending — provisional placeholder]"}</p>
-          <details><summary>Language and science review notes</summary><ul>{text.flags.map((flag, i) => <li key={i}>{flag}</li>)}</ul></details>
+        </figure><div className="reader-copy"><p className="kicker">Chapter {page.number}</p><h2>{page.title}</h2>
+          <p lang={text.text.trim() ? language : "en"} className={`narrative ${narrationActive && phase === "playing" ? "reading" : ""}`} aria-label={`Page ${page.number} ${label} text`}>{text.text.trim() ? text.text : "Sesotho text will appear here after the creator adds it."}</p>
           <div className="page-navigation"><button className="secondary" disabled={pageIndex === 0} onClick={() => navigate(pageIndex - 1)}>Previous page</button><button className="primary" disabled={pageIndex === book.pages.length - 1} onClick={() => navigate(pageIndex + 1)}>Next page</button></div>
         </div></div>
-        <section className="capture-card" aria-labelledby="listen-heading"><h2 id="listen-heading">Listen along</h2><p>Page-level read-along highlights the whole passage while playing. No word-timing accuracy is claimed.</p>
-          {narration ? <><button className="primary" onClick={() => { setTurn("idle"); if (narrationActive && movingAudio) pause(); else void play(narration, `${label} page ${page.number}`); }}>{narrationActive && movingAudio ? "Pause page audio" : narrationActive && ["paused", "error"].includes(phase) ? "Resume page audio" : "Play page audio"}</button>
-            <label>Narration position<input type="range" min={0} max={narration.seconds} step={.1} value={narrationActive ? Math.min(elapsed, narration.seconds) : 0} disabled={!narrationActive} onChange={event => seek(Number(event.target.value))} /></label><p className="fine-print">{Math.floor(narrationActive ? elapsed : 0)} / {Math.ceil(narration.seconds)} seconds</p></> : <p>No current approved narration. Read the text above; there is no audio player to load.</p>}
+        <div className="reader-extras"><section className="capture-card" aria-labelledby="listen-heading"><h2 id="listen-heading">Listen along</h2>
+          {narration ? <><button className="primary" onClick={() => { setTurn("idle"); if (narrationActive && movingAudio) pause(); else void play(narration, `${label} page ${page.number}`); }}>{narrationActive && movingAudio ? narration.provisional ? "Pause audio sample" : "Pause page audio" : narrationActive && ["paused", "error"].includes(phase) ? narration.provisional ? "Resume audio sample" : "Resume page audio" : narration.provisional ? "Play audio sample" : "Play page audio"}</button>
+            <label>Narration position<input type="range" min={0} max={narration.seconds} step={.1} value={narrationActive ? Math.min(elapsed, narration.seconds) : 0} disabled={!narrationActive} onChange={event => seek(Number(event.target.value))} /></label><p className="fine-print">{Math.floor(narrationActive ? elapsed : 0)} / {Math.ceil(narration.seconds)} seconds</p></> : <p>Read aloud together. Audio will appear here when a recording is ready.</p>}
           <p className="audio-status" role="status" aria-live="polite" aria-atomic="true">{notice}</p>
-          <p className="fine-print">Pause keeps your position for this visit. Moving between pages/languages stops playback; returning can resume the same unchanged recording. Next-page image/audio metadata preload when reduced-data settings allow it. No automatic playback or persistent recording download.</p>
         </section>
-        <section className="capture-card" aria-labelledby="vocabulary-heading"><h2 id="vocabulary-heading">Reviewed vocabulary · {label}</h2><p>Only approved script items appear. Pronunciation taps become available after their current adult clips are approved.</p><div className="word-buttons">{book.vocabulary[language].filter(word => word.text !== null).map(word => word.audio ? <button className="secondary" key={word.slot} onClick={() => { stopAudio(); setTurn("idle"); void play(word.audio!, `${label} word ${word.text}`); }}>Listen to {word.text}{word.audio.provisional ? " · provisional mock signal" : ""}</button> : <span className="word-pending" key={word.slot} lang={language}>{word.text} · provisional audio, recording pending</span>)}</div><p className="fine-print">{book.vocabulary[language].filter(word => word.text === null).length} vocabulary item(s) awaiting script review; no pronunciation button is supplied for them.</p></section>
-        <section className="capture-card" aria-labelledby="turn-heading"><h2 id="turn-heading">Your reading turn</h2><p className="provisional">{phraseReady ? "Creator-reviewed phrases and current recordings" : "Provisional interaction — missing phrase review or recordings"}</p>
-          <p>Opening: <span lang={phrases?.opening.text.trim() ? language : "en"}>{phrase(phrases?.opening, "Opening")}</span></p>
-          <p>Response: <span lang={phrases?.response.text.trim() ? language : "en"}>{phrase(phrases?.response, "Response")}</span></p>
-          <p>Continuation: <span lang={phrases?.continuation.text.trim() ? language : "en"}>{phrase(phrases?.continuation, "Continuation")}</span></p>
-          <p className="fine-print">Enter yours at <Link href="/speak#interaction-scripts">StoriSpeak → Open / restore → “Your vocabulary and phrases”</Link>: {language}-opening, {language}-response and {language}-continuation. Save and explicitly review each script, then record/listen/approve its adult clip. Missing phrases here are UI placeholders, not suggested traditional wording.</p>
+        <section className="capture-card" aria-labelledby="vocabulary-heading"><h2 id="vocabulary-heading">Words to explore · {label}</h2><div className="word-buttons">{book.vocabulary[language].filter(word => word.text !== null).map(word => word.audio ? <button className="secondary" key={word.slot} onClick={() => { stopAudio(); setTurn("idle"); void play(word.audio!, `${label} word ${word.text}`); }}>Listen to {word.text}</button> : <span className="word-pending" key={word.slot} lang={language}>{word.text} · read aloud together</span>)}</div>{book.vocabulary[language].every(word => word.text === null) && <p>Words will appear here when they are ready.</p>}</section></div>
+        <section className="capture-card reading-turn" aria-labelledby="turn-heading"><ResponseSpark state={turn} /><h2 id="turn-heading">Your reading turn</h2><p>Listen. Join in. Let the story carry on.</p>
+          {phrases && Object.values(phrases).some(value => value.text.trim()) ? <>
+            <p>Opening: <span lang={phrases.opening.text.trim() ? language : "en"}>{phrase(phrases.opening, "Opening")}</span></p>
+            <p>Response: <span lang={phrases.response.text.trim() ? language : "en"}>{phrase(phrases.response, "Response")}</span></p>
+            <p>Continuation: <span lang={phrases.continuation.text.trim() ? language : "en"}>{phrase(phrases.continuation, "Continuation")}</span></p>
+          </> : <p>Take a turn aloud, then let the story carry on.</p>}
           <div className="button-row"><button className="secondary" onClick={begin}>Start reading turn</button>
             {(turn === "opening" || turn === "continuation") && <button className="secondary" onClick={() => { stopAudio(); if (turn === "opening") waiting(); else setTurn("complete"); }}>Continue with text only</button>}
             {(turn === "waiting" || turn === "response") && <><button className="primary" ref={responseButton} onClick={continueTurn}>I responded — continue without microphone</button>{phrases?.response.audio && <button className="secondary" onClick={() => { stopAudio(); setTurn("response"); void play(phrases.response.audio!, `${label} response example`, waiting, waiting); }}>Play response example</button>}</>}
           </div>
           {(turn === "waiting" || turn === "response") && <p className="response-pause" role="status">Your turn. Respond aloud if you like, then tap or press Enter on Continue. Nothing is recorded.</p>}
-          {turn === "complete" && <p className="response-pause" tabIndex={-1} ref={completion} role="status">Reading turn complete. {phraseReady ? "Continue the story when ready." : "This was a provisional/text-only interaction; M4 content still needs completion."}</p>}
+          {turn === "complete" && <p className="response-pause" tabIndex={-1} ref={completion} role="status">Reading turn complete. Continue the story when ready.</p>}
         </section>
       </>}
     </main>

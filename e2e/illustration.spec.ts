@@ -8,7 +8,9 @@ test("M3 mock sheet approval, contact sheet, selective regeneration and freeze",
     return route.continue();
   });
   await page.goto("/illustrate");
-  await expect(page.getByText("MOCK — placeholder image rehearsal", { exact: true })).toBeVisible();
+  await page.locator(".review-status summary").click();
+  await expect(page.getByText("Mock rehearsal: no live generation or genuine content approval.", { exact: true })).toBeVisible();
+  await page.locator(".review-status summary").click();
   await page.getByRole("button", { name: "Open / restore private workspace" }).click();
   await page.getByLabel(/I consent to private local draft/).check();
   await page.getByLabel("Character", { exact: true }).fill(brief.character);

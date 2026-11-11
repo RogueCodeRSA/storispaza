@@ -7,7 +7,7 @@ On the development laptop, use the README’s session-local npm/npx functions as
 ## Commands
 
 ```sh
-git clone --branch codex/m7-hardening <repository-url> storispaza-evaluation
+git clone --branch codex/m7-design-polish <repository-url> storispaza-evaluation
 cd storispaza-evaluation
 node --version
 npm ci
@@ -20,7 +20,7 @@ npm start
 
 Use the submitted repository URL; before publishing, use the source repository's absolute local path. On Linux without browser dependencies, replace browser installation with `npx playwright install --with-deps chromium`. `check` must precede E2E because unit tests generate an ignored synthetic M6 export for the file-origin browser checks. `typecheck` creates Next route declarations and also works before a production build. Nothing copies private creator data or freezes fixtures.
 
-Open `http://127.0.0.1:3000` → **Try the mock journey** → **Start the mock journey** → **Load six-page demo story**. Confirm six pages, visible provisional labels and no credential prompt. `npm start` binds only loopback. Test servers use ports 3100/3200; avoid overlapping runs on those ports. Default databases are temporary or ignored evaluation-only directories. If port 3000 is already the recording server, do not stop it: `npm start '--' --port 3600` starts the new evaluation build separately. Quoting the separator preserves it through the laptop’s PowerShell npm function. Use a separate browser profile so its session/localStorage cannot replace the creator’s review cookie.
+Open `http://127.0.0.1:3000` → **Read the story** for the reader, or **Create your own** → **Start the mock journey** → **Load six-page demo story**. Confirm six pages, the collapsed Review status panel and one review badge and no credential prompt. `npm start` binds only loopback. Test servers use ports 3100/3200; avoid overlapping runs on those ports. Default databases are temporary or ignored evaluation-only directories. If port 3000 is already the recording server, do not stop it: `npm start '--' --port 3600` starts the new evaluation build separately. Quoting the separator preserves it through the laptop’s PowerShell npm function. Use a separate browser profile so its session/localStorage cannot replace the creator’s review cookie.
 
 Inherited shell configuration can override mock defaults even with no environment file. In that case, set **only in the evaluation process** `AI_PROVIDER=mock`, `ENABLE_LIVE_AI=0`, `NEXT_TELEMETRY_DISABLED=1` and clear provider keys. Do not edit the existing creator’s configuration or unset values globally. For a clean mock evaluation no `.env.local` is necessary; the optional `.env.example` copy has blank credentials and activation off.
 
@@ -28,7 +28,7 @@ Inherited shell configuration can override mock defaults even with no environmen
 
 The build creates `public/offline/storispaza-offline.html` and its hash/size metadata. Open that file directly, turn network off and use **Start the mock journey** → **Load six-page demo story** → **StoriPlay**. Expect a fixed provisional story, attributed reviewed source images, blank/unreviewed Sesotho slots and labelled non-speech audio. The new `/own` final HTML is a different, guarded export; incomplete M4 content must block it.
 
-## Validation record
+## Part A validation record (historical snapshot; visual addendum evidence is in design/README.md)
 
 Executed on **2026-11-11**, Windows/PowerShell, **Node 24.22.1**, existing npm CLI **8.16.0 explicitly launched by Node 24**. Fresh local clone of `codex/m7-hardening` candidate `6d70650` under ignored `.tools/m7-clean-clone`; no hardlinks, copied environment, data, dependencies or generated files. Initially `.env.local`, `data/` and `node_modules/` were all absent. The clone fast-forwarded to `0a82518` for the identified runtime/test-budget fixes; dependency lockfile/application code did not change. Later documentation closeout records these results and the tested quoted-separator invocation.
 

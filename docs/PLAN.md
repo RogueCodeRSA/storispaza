@@ -1,6 +1,12 @@
 # Approved StoriSpaza plan
 
-Approved 2026-11-10, amended 2026-11-11. **M7 Part A hardening is authorized with the gates below.** Creator selected OpenAI within $2/session and $10 development caps. Stop after the Part A report. Pitch/submission deadline: **2026-11-11, 23:00 SAST**.
+Approved 2026-11-10, amended 2026-11-11. **M7 visual addendum is authorized with the gates below.** Creator selected OpenAI within $2/session and $10 development caps. Stop after the addendum report. Pitch/submission deadline: **2026-11-11, 23:00 SAST**.
+
+## M7 visual addendum
+
+- Creator requested, in order: existing approved M3 illustrations for cover/landing and every reader page; repair placeholder wiring; consolidate developer/review status in one collapsible panel with at most one small page badge; show named Sesotho review only for actual current approval; primary Read the story → reader, secondary Create your own and small offline download; illustration-dominant reader/soft text/slim stage progress/large targets; then response spark/page-turn motion. Save public-safe before/after desktop/mobile screenshots in docs/design.
+- Work from merged Part A `029f445` on `codex/m7-design-polish`. Preserve current human review/consent/provenance and the active recording server/data. No automatic content approval, new generation, fixture freeze, private screenshot or voice commit. Approved source art may be previewed while its current draft association remains pending; final export gates do not relax. Missing audio stays text-only. A real-mode visitor with no private workspace may read the explicitly disclosed fixed mock edition without keys or demo speech.
+- Keep local/offline fixtures, mobile/keyboard/focus/status announcements and current consent/approval tests passing; update presentation assertions for new labels/panel placement, add image wiring/current-review/reduced-motion regressions. Complete full checks/diff review/docs/commit/report, then stop. No public push/hosting, new dependencies, paid calls or cap increase is authorized by this addendum.
 
 ## M7 Part A activation amendment
 

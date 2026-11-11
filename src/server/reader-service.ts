@@ -5,10 +5,11 @@ import { join } from "node:path";
 import { DatabaseSync } from "node:sqlite";
 import { z } from "zod";
 import { encodeCaptureWav } from "@/domain/capture";
-import { reviewedFixtureImage } from "@/domain/image-pack";
+import { reviewedFixtureImage, reviewedPageImage } from "@/domain/image-pack";
 import { newMockDraft } from "@/domain/mock-journey";
 import { currentReaderClip, readerBook } from "@/domain/reader";
 import { initialSpeechProject, speechProjectSchema } from "@/domain/speech";
+import { ownershipSchema } from "@/domain/ownership";
 import { sessionId } from "./capture-service";
 import { readConfig } from "./config";
 import { AppError, errorResponse } from "./errors";
@@ -42,10 +43,11 @@ export function createReaderHandler(config: typeof readConfig = readConfig) {
       const row = session && hasTable ? db!.prepare("SELECT payload FROM speech_projects WHERE session_id=?").get(session) : null;
       let project = row ? speechProjectSchema.parse(JSON.parse(String(row.payload))) : null;
       if (project && project.mode !== settings.AI_PROVIDER) throw new AppError("INVALID_INPUT", "Reader mode differs from this workspace; restore in the matching app mode.", 409);
-      const demo = !project && settings.AI_PROVIDER === "mock";
+      const demo = !project;
+      const demoSignal = demo && settings.AI_PROVIDER === "mock";
       if (demo) project = initialSpeechProject(newMockDraft().story, "00000000-0000-4000-8000-000000000005", "mock");
       if (url.searchParams.has("demoTone")) {
-        if (!demo) throw new AppError("NOT_FOUND", "No demo signal is available in this private workspace.", 404);
+        if (!demoSignal) throw new AppError("NOT_FOUND", "No demo signal is available in this private workspace.", 404);
         const signal = encodeCaptureWav(Float32Array.from({ length: 16000 * 6 }, (_, i) => Math.sin(i * 2 * Math.PI * 330 / 16000) * .035), 16000);
         return readerMedia(signal, "audio/wav", request.headers.get("range"));
       }
@@ -60,12 +62,18 @@ export function createReaderHandler(config: typeof readConfig = readConfig) {
       }
       if (url.searchParams.has("image")) {
         const page = z.coerce.number().int().min(1).max(6).parse(url.searchParams.get("image"));
-        const image = project ? reviewedFixtureImage(project.story.pages[page - 1].illustrationAssetId) : null;
+        // The private demo reader can show the approved source while its current
+        // association awaits review. This read-only display never upgrades IDs/approvals.
+        const image = project ? reviewedFixtureImage(project.story.pages[page - 1].illustrationAssetId) ?? reviewedPageImage(page).dataUrl : null;
         if (!image) throw new AppError("NOT_FOUND", "No illustration is available for this page.", 404);
         return readerMedia(new Uint8Array(Buffer.from(image.split(",")[1], "base64")), "image/webp", null);
       }
       const book = project ? readerBook(project) : null;
-      if (book && demo) for (const page of book.pages) for (const language of ["en", "st"] as const) page.text[language].audio = { id: `demo-${language}-${page.number}`, url: "/api/reader?demoTone=1", seconds: 6, provisional: true };
+      const hasOwnership = db?.prepare("SELECT name FROM sqlite_master WHERE type='table' AND name='ownership_settings'").get();
+      const attribution = hasOwnership && session && project ? db!.prepare("SELECT payload FROM ownership_settings WHERE session_id=? AND project_id=?").get(session, project.id) : null;
+      if (book && attribution) book.creator = ownershipSchema.parse(JSON.parse(String(attribution.payload))).creator;
+      if (book && project) book.pages.forEach((page, index) => { if (!reviewedFixtureImage(project.story.pages[index].illustrationAssetId)) page.imageReviewed = false; });
+      if (book && demoSignal) for (const page of book.pages) for (const language of ["en", "st"] as const) page.text[language].audio = { id: `demo-${language}-${page.number}`, url: "/api/reader?demoTone=1", seconds: 6, provisional: true };
       return Response.json({ book }, { headers: privateHeaders });
     } catch (error) { return errorResponse(error); } finally { db?.close(); }
   };

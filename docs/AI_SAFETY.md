@@ -1,5 +1,13 @@
 # AI safety and data lifecycle
 
+## M7 visual addendum — disclosure without approval changes
+
+Review/mode/provenance notes move into one native collapsible Review status panel with one small badge; controls that request consent or explain blocked approval remain explicit in creator workspaces. A named “Sesotho reviewed by…” badge requires actual current real script approval. Name comes from the project’s creator attribution (including project-bound saved ownership settings), with a generic creator fallback when no name is supplied. It is not authenticated third-party certification. Mock/edited/pending content never gets the reviewed badge. Non-speech samples are labelled as samples, never narration.
+
+Landing/reader art reuses existing approved/consented M3 bytes. Simulated previews keep source identity/history; restoring known legacy mock placeholders selects the already approved source while clearing current draft review/acknowledgement and retaining old metadata. The private reader’s fallback is display-only: it may show an approved page source with association pending, never mutate a private workspace or waive M6 final export gates. A guest with no workspace can read a disclosed fixed mock edition even in real server mode; that real-mode guest gets no audio signal and creates no storage. Existing mismatched private modes still fail closed. Clips retain owner/current-script/hash gates.
+
+Spark/page-turn motion is finite, decorative and disabled for reduced motion; no child microphone, synthetic speech, provider request or new tracking exists. Paired screenshots under docs/design use only an isolated mock process/data directory and public-safe source fixtures, not current creator reviews/recordings/corrections. M4 content review, final consent and speech-fixture freeze remain open and untouched.
+
 ## Current evaluation boundaries — M7 Part A
 
 M4 human content review/recording is still OPEN. The prior 17/24 script and 2/24 clip counts are a historical authorization baseline, not a live status. Hardening, documentation, a feedback template or a passing test never approves content, supplies missing traditional wording or authorises fixture freezing. No paid provider call, creator workspace mutation or recording export is part of Part A. Missing/unapproved/stale narration stays text-only; only consenting adults may record. There is no Sesotho recognition/TTS, cloning or child response processing.

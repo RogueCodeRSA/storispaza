@@ -11,6 +11,7 @@ import { encodeCaptureWav } from "@/domain/capture";
 import { createReaderHandler, readerMedia } from "@/server/reader-service";
 import { readConfig } from "@/server/config";
 import { openDatabase } from "@/server/storage";
+import { reviewedPageImage } from "@/domain/image-pack";
 
 let directory: string; let db: DatabaseSync;
 beforeEach(() => { directory = mkdtempSync(join(tmpdir(), "storispaza-reader-")); db = openDatabase(directory); });
@@ -45,7 +46,7 @@ it("reads a private project without altering reviews, consent, corrections or sp
   const { book } = await result.json(); expect(book.clipsApproved).toBe(1); expect(book.scriptsApproved).toBe(1);
   expect(db.prepare("SELECT payload FROM speech_projects WHERE session_id=?").get(session)!.payload).toBe(before);
   expect(db.prepare("SELECT COUNT(*) AS n FROM ai_operations").get()!.n).toBe(0);
-  expect((await (await handle(new Request("http://127.0.0.1:3000/api/reader"))).json()).book).toBeNull();
+  expect((await (await handle(new Request("http://127.0.0.1:3000/api/reader"))).json()).book.mode).toBe("mock");
 });
 it("serves only the current approved owner clip, verifies hashes and supports range resume", async () => {
   const { handle, request, page, bytes, project, save } = setup();
@@ -76,4 +77,22 @@ it("rejects hostile origins/hosts and cannot serve a mock signal as real narrati
   expect((await handle(request("", { host:"evil.example" }))).status).toBe(403);
   expect((await handle(request("?demoTone=1"))).status).toBe(404);
   expect((await handle(request("?image=1"))).headers.get("content-type")).toBe("image/webp");
+});
+it("shows all six approved sources for a legacy preview without modifying current approvals", async () => {
+  const s = setup(); s.project.story.pages[0].illustrationAssetId = "mock-image-1-r3"; s.save();
+  const before = db.prepare("SELECT payload FROM speech_projects WHERE session_id=?").get(s.session)!.payload;
+  const book = (await (await s.handle(s.request())).json()).book;
+  expect(book.pages[0].imageReviewed).toBe(false);
+  for (let page = 1; page <= 6; page++) {
+    const response = await s.handle(s.request(`?image=${page}`)); expect(response.status).toBe(200);
+    expect(Buffer.from(await response.arrayBuffer())).toEqual(Buffer.from(reviewedPageImage(page).dataUrl.split(",")[1], "base64"));
+  }
+  expect(db.prepare("SELECT payload FROM speech_projects WHERE session_id=?").get(s.session)!.payload).toBe(before);
+});
+it("lets a real-mode guest read the disclosed text-only fixed story without creating storage or exposing an owned clip", async () => {
+  const missing = join(directory,"guest-reader"); const handle = createReaderHandler(() => readConfig({ AI_PROVIDER:"real", DATA_DIR:missing }));
+  const response = await handle(new Request("http://localhost:3000/api/reader")); const {book} = await response.json();
+  expect(book.mode).toBe("mock"); expect(book.pages).toHaveLength(6); expect(book.pages.every((page: {text:{en:{reviewed:boolean;audio:unknown}}}) => !page.text.en.reviewed && page.text.en.audio === null)).toBe(true);
+  expect((await handle(new Request("http://localhost:3000/api/reader?demoTone=1"))).status).toBe(404);
+  expect(existsSync(missing)).toBe(false);
 });

@@ -21,7 +21,8 @@ it("ships exactly six consented, approved source fixtures with identical offline
   const draft = newMockDraft();
   expect(reviewedFixtureImage(draft.story.pages[0].illustrationAssetId)).toMatch(/^data:image\/webp;base64,/);
   const replaced = regenerateMockImage(draft, 0);
-  expect(reviewedFixtureImage(replaced.story.pages[0].illustrationAssetId)).toBeNull();
+  expect(reviewedFixtureImage(replaced.story.pages[0].illustrationAssetId)).toBe(imageForFirstPage());
+  expect(replaced.story.pages[0].assetSources.illustration).toEqual(draft.story.pages[0].assetSources.illustration);
   expect(replaced.story.pages[1].assetSources).toEqual(draft.story.pages[1].assetSources);
   Object.values(draft.acknowledgements).forEach(flags => flags.fill(true)); draft.culturalAcknowledgement = true;
   expect(mockReaderHtml(draft).includes("data:image/webp;base64,")).toBe(true);
@@ -29,3 +30,4 @@ it("ships exactly six consented, approved source fixtures with identical offline
   draft.story.pages[0].assetSources.illustration!.providerId = "creator-test-edit";
   expect(newMockDraft().story.pages[0].assetSources.illustration).toEqual(manifest.images.find(image => image.file === "page-1.webp")!.source);
 });
+function imageForFirstPage() { return reviewedImageFixtures.find(image => image.page === 1)!.dataUrl; }

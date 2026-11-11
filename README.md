@@ -4,20 +4,20 @@
 
 A local, creator-led storytelling studio for Grade R–3 teachers, parents and families. Create and edit six-page stories, review English and Sesotho side by side, read together, and decide what leaves your device. The demo, *The Girl Who Spoke to Electricity*, is a fictional Soweto story about curiosity, safe science and community.
 
-**Evaluation status:** M0–M6 implementation is committed; M7 Part A covers documentation and reproducible checks. **M4 content review remains OPEN** while the creator reviews and records. The earlier baseline was 17/24 approved scripts and 2/24 clips; it is not a live progress count. No complete reviewed bilingual/audio fixture pack is claimed. Submission deadline: **11 November 2026, 23:00 SAST**.
+**Evaluation status:** M0–M6 implementation is committed; M7 Part A covers documentation and reproducible checks; the visual addendum puts approved art and the reader first, with reduced-motion-aware page turns and response sparks. **M4 content review remains OPEN** while the creator reviews and records. The earlier baseline was 17/24 approved scripts and 2/24 clips; it is not a live progress count. No complete reviewed bilingual/audio fixture pack is claimed. Submission deadline: **11 November 2026, 23:00 SAST**.
 
 ## See it
 
-![Offline mock reader — provisional content](docs/screenshots/m1-desktop.png)
+![Story reader with approved M3 illustration](docs/design/after-reader-desktop.png)
 
-[Mobile reader](docs/screenshots/m1-mobile.png) · [Welcome screen](docs/screenshots/m1-welcome-desktop.png) · [English capture/editor](docs/screenshots/m2-desktop.png) · [Mobile editor](docs/screenshots/m2-mobile.png). Screenshots are automated mock/intercepted-fixture demonstrations, not proof of fluent language review, a real microphone result or educational outcomes. The image pack was reviewed separately in M3.
+[Mobile reader](docs/design/after-reader-mobile.png) · [Landing cover](docs/design/after-landing-desktop.png) · [Before/after design review](docs/design/README.md) · [English capture/editor](docs/screenshots/m2-desktop.png) · [Mobile editor](docs/screenshots/m2-mobile.png). Screenshots are automated mock/intercepted-fixture demonstrations, not proof of fluent language review, a real microphone result or educational outcomes. The image pack was reviewed separately in M3.
 
 ## Features and current boundaries
 
 | Stage | Implemented | What the evaluator should expect |
 | --- | --- | --- |
 | StoriStart | Six-page editing, real text structuring and consented **English-only** voice transcription with editable transcript/manual fallback | `/create` needs explicitly activated real mode for generation/transcription. `/studio` replays a fixed story and fixture transcript with no microphone/API. |
-| StoriCreate | Character sheet, reference-guided illustrations, complete-prompt checks, selective regeneration and per-image review/history | `/illustrate` mock uses labelled solid-colour placeholders. `/studio` replays the seven consented reviewed M3 source images; simulated regeneration replaces a placeholder only. |
+| StoriCreate | Character sheet, reference-guided illustrations, complete-prompt checks, selective regeneration and per-image review/history | `/illustrate` mock uses labelled solid-colour placeholders. `/studio` replays the seven consented reviewed M3 source images; simulated preview keeps the approved source image unchanged. |
 | StoriSpeak | Six English/Sesotho narrative pairs, uncertainty notes/corrections, explicit current approvals, exactly 24 adult recording slots and deletion | `/speak` uses a private browser session. Draft translations are unreviewed; vocabulary and interaction phrases come from the creator. No synthetic speech. |
 | StoriPlay | Bilingual navigation, current approved page/vocabulary audio, play/pause/resume/seek, page-level highlighting and tap/keyboard call-and-response | `/play` reads the same session. Missing/unapproved/stale audio stays text-only. Mock audio is a labelled non-speech signal. No child microphone is used. |
 | StoriOwn | Attribution, ownership explanation, private/shared manual files, final approval gates, optional narration consent and recording deletion | `/own` blocks incomplete final editions. JSON includes story/provenance/history; standalone HTML embeds reviewed images and optional approved page narration. Raw input recordings and private corrections are excluded. No public URL/gallery. |
@@ -33,14 +33,14 @@ One Next.js 16 App Router application, React 19, strict TypeScript 6, Tailwind 4
 Prerequisites: **Node 24.14+ within 24.x** (the pinned `.nvmrc` is **24.22.1**), npm and Git. Install/select that runtime with your usual runtime manager. Node 18 is unsupported. Installation needs npm registry access; mock application runtime needs no external network or key.
 
 ```sh
-git clone --branch codex/m7-hardening <repository-url> storispaza
+git clone --branch codex/m7-design-polish <repository-url> storispaza
 cd storispaza
 node --version
 npm ci
 npm run dev
 ```
 
-Use the repository URL supplied with the submission. Before this branch is published, a local clone can use the local repository path as `<repository-url>`. Open [http://127.0.0.1:3000](http://127.0.0.1:3000), choose **Try the mock journey** → **Start the mock journey** → **Load six-page demo story**. No environment file is required in a clean shell. `predev` builds the downloadable offline journey automatically. See [clean-clone validation](docs/CLEAN_CLONE.md) for tested commands and evidence.
+Use the repository URL supplied with the submission. Before this branch is published, a local clone can use the local repository path as `<repository-url>`. Open [http://127.0.0.1:3000](http://127.0.0.1:3000), choose **Read the story** to open the reader directly, or **Create your own** → **Start the mock journey** → **Load six-page demo story**. No environment file is required in a clean shell. `predev` builds the downloadable offline journey automatically. See [clean-clone validation](docs/CLEAN_CLONE.md) for tested commands and evidence.
 
 For this development laptop only, select the bundled Node without changing the global runtime:
 
@@ -58,7 +58,7 @@ Do not copy the creator's `.env.local`, `data/`, `.tools/` or browser profile in
 
 ## Mock mode and offline use
 
-At `/studio`, load the fixed six-page story, edit a page, move through the five named stage tabs, toggle the bilingual slots and try playback/response. Text/translations/tones/phrases remain visibly provisional. Real M3 image sources are separately attributed; placeholder replacements are simulated. No API call, credential or internet connection is needed after loading the journey.
+At `/studio`, load the fixed six-page story, edit a page, move through the five named stage tabs, toggle the bilingual slots and try playback/response. One small badge and a collapsible **Review status** panel preserve current review/mode/audio/provenance disclosure; acknowledgements never become real content approval. Real M3 image sources are separately attributed; preview requests keep those approved source images in place. No API call, credential or internet connection is needed after loading the journey.
 
 ```sh
 npm run build:offline

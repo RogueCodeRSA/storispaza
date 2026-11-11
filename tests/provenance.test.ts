@@ -21,9 +21,10 @@ describe("per-asset producer identity", () => {
     Object.values(draft.acknowledgements).forEach(flags => flags.fill(true)); draft.culturalAcknowledgement = true;
     const restored = normalizeMockDraft(JSON.parse(JSON.stringify(draft)));
     expect(restored.story.pages[0].assetSources.text.providerId).toBe("codex-authoring");
-    expect(restored.story.pages[0].assetHistory.at(-1)).toEqual(originalImageSource);
+    expect(restored.story.pages[0].assetSources.illustration).toEqual(originalImageSource);
+    expect(restored.story.pages[0].assetHistory).toEqual(initial.story.pages[0].assetHistory);
     const output = JSON.parse(mockExportJson(restored));
-    expect(output.story.pages[0].assetSources.illustration.providerId).toBe("local-placeholder");
+    expect(output.story.pages[0].assetSources.illustration).toEqual(originalImageSource);
     expect(mockReaderHtml(restored)).toContain("Sources — text: codex-authoring");
   });
   it("marks old missing sources unknown, never guesses a current provider", () => {

@@ -1,4 +1,5 @@
 "use client";
+import ReviewStatus from "./ReviewStatus";
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
@@ -142,8 +143,8 @@ export default function CaptureStudio({ enabled }: { enabled: boolean }) {
     } catch { report("Saved draft is incompatible or storage is blocked. Existing work has not been replaced.", true); }
   }
   const page = story?.pages[selected];
-  return <div className="mock-app"><header className="mock-header"><Link className="mock-brand" href="/">Stori<span>Spaza</span> ✦</Link><span className="mock-label">Real story capture · human review required</span></header><main id="main" className="mock-main">
-    <div className="stage-heading"><div><p className="kicker">StoriStart</p><h1>Your idea, in six pages.</h1></div><span className="provisional">Unreviewed AI assistance</span></div>
+  return <div className="mock-app"><header className="mock-header"><Link className="mock-brand" href="/">Stori<span>Spaza</span> ✦</Link></header><main id="main" className="mock-main"><ReviewStatus badge="Private draft"><p>AI output stays unreviewed until explicit current approval. Private by default; no public URL. Creator recordings require separate consent. Missing audio stays text-only.</p></ReviewStatus>
+    <div className="stage-heading"><div><p className="kicker">StoriStart</p><h1>Your idea, in six pages.</h1></div></div>
     <p><Link href="/illustrate">StoriCreate: review your brief and character sheet</Link> · Save your current story draft before continuing.</p>
     {!enabled && <p className="notice">Live capture is disabled on the server. You can type and edit an idea here, or <a href="/studio">try the offline mock journey</a>.</p>}
     <div className="editor-grid capture-layout"><section className="edit-card" aria-label="Story idea"><h2>Tell your story</h2><label>Story idea<textarea maxLength={3000} rows={5} value={idea} onChange={e => setIdea(e.target.value)} /></label><div className="form-grid"><label>Optional title<input maxLength={200} value={title} onChange={e => setTitle(e.target.value)} /></label><label>Story text language<select value={language} onChange={e => setLanguage(e.target.value as "en" | "st")}><option value="en">English</option><option value="st">Sesotho text — fluent review required</option></select></label></div><label>Creator cultural context<textarea maxLength={3000} rows={3} value={context} onChange={e => setContext(e.target.value)} /></label><label>Educational objective<input maxLength={1000} value={objective} onChange={e => setObjective(e.target.value)} /></label><p className="fine-print">Grade R–3. Use fictional people and avoid personal details. Continue to StoriCreate for reviewed images. Translation and narration require later milestones.</p><label className="check-label"><input type="checkbox" checked={textConsent} onChange={e => setTextConsent(e.target.checked)} />Send this idea and context to the configured AI provider. I will review all output.</label><button className="primary" disabled={!enabled || busy || recording || !textConsent || idea.trim().length < 3 || !context.trim() || !objective.trim()} onClick={() => void generate()}>Create six-page story</button><button className="quiet" disabled={busy} onClick={restore}>Restore saved story</button></section>

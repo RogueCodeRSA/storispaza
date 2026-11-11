@@ -1,4 +1,5 @@
 "use client";
+import ReviewStatus from "./ReviewStatus";
 
 import { useState } from "react";
 import Link from "next/link";
@@ -56,11 +57,11 @@ export default function IllustrationStudio({ mode }: { mode: "mock" | "real" }) 
     }
     setMessage("Six-page contact sheet ready. Review identity, context and electrical safety on every page.");
   }
-  return <div className="mock-app"><header className="mock-header"><Link href="/" className="mock-brand">Stori<span>Spaza</span></Link><span className="mock-label">{mode === "mock" ? "MOCK — placeholder image rehearsal" : "REAL — paid image workflow"}</span></header>
-    <main className="mock-main" id="main"><p className="kicker">StoriCreate · human review at every gate</p><h1>Picture your story</h1>
+  return <div className="mock-app"><header className="mock-header"><Link href="/" className="mock-brand">Stori<span>Spaza</span></Link></header>
+    <main className="mock-main" id="main"><ReviewStatus badge="Private draft"><p>{mode === "mock" ? "Mock rehearsal: no live generation or genuine content approval." : "Private workspace; explicit human review required."}</p><p>AI output stays unreviewed until explicit current approval. Private by default; no public URL. Creator recordings require separate consent. Missing audio stays text-only.</p></ReviewStatus><p className="kicker">StoriCreate · human review at every gate</p><h1>Picture your story</h1>
       <p>Supply your character, Soweto setting and art style. Generate one character sheet, review its real usage and approve it before any pages. All AI output starts unreviewed.</p>
       <p><Link href="/create">Back to StoriStart</Link> · <Link href="/speak">StoriSpeak: review translation and record</Link> · <Link href="/studio">Offline mock journey</Link></p>
-      {mode === "mock" && <p className="provisional">Solid-colour placeholders only. No real images, paid calls, safety certification or genuine human approval.</p>}
+      {mode === "mock" && <p className="fine-print review-field-state">Solid-colour placeholders only. No real images, paid calls, safety certification or genuine human approval.</p>}
       <p role="status" aria-live="polite">{busy ? "Working. Keep this tab open; no automatic retries." : message}</p>{error && <p role="alert">{error}</p>}
       <button className="secondary" disabled={busy} onClick={() => void run(open)}>Open / restore private workspace</button>
       {status && <p>Development image attempts: {status.attempts}/{status.attemptLimit}. Accounted exposure: US${status.exposureUsd.toFixed(6)} (includes reservations). Limits: US${status.sessionBudgetUsd}/session, US${status.developmentBudgetUsd}/development. Provider invoices may differ.</p>}
@@ -97,7 +98,7 @@ export default function IllustrationStudio({ mode }: { mode: "mock" | "real" }) 
               <img src={imageUrl(image.assetId)} alt={`Page ${page.number} illustration — ${image.approved ? "review acknowledged" : "unreviewed"}`} /></a> : <p>No page image generated.</p>}
             <p>{image ? `${sourceLabel(image.source)} · ${image.frozen ? "Frozen approved copy" : image.approved ? (mode === "real" ? "Approved" : "Mock acknowledgement") : "Unreviewed"}` : "Awaiting sheet approval"}</p>
             <label>Page {page.number} prompt<textarea value={prompts[index] ?? ""} maxLength={3000} disabled={busy} onChange={event => { setScenesConfirmed(false); setPrompts(values => values.map((value, i) => i === index ? event.target.value : value)); }} /></label>
-            {dirty && <p className="provisional">Edited prompt: generate and review a new image before approval.</p>}
+            {dirty && <p className="fine-print review-field-state">Edited prompt: generate and review a new image before approval.</p>}
             <button className="secondary" disabled={busy || !consent || !scenesConfirmed || !project.sheet?.approved || project.halted || !prompts[index]?.trim()} onClick={() => void run(() => command("page", { page: page.number, prompt: prompts[index], sceneConfirmed: scenesConfirmed }))}>{image ? "Regenerate only this page" : "Generate this page"}</button>
             {image && <button className="secondary" disabled={busy || !consent || dirty || image.approved || project.halted} onClick={() => void run(() => command("approve-page", { page: page.number, assetId: image.assetId }))}>{mode === "mock" ? "Acknowledge mock page" : "Approve current image"}</button>}
           </article>; })}</div>

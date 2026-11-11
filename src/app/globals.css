@@ -25,6 +25,17 @@ h1 { font-size: clamp(3.5rem, 6.5vw, 6rem); line-height: 1; letter-spacing: -.05
 .book-panel { padding: 1.5rem; background: #efdfba; border-radius: 45% 45% 1rem 1rem; transform: rotate(2deg); }
 .book-panel img { width: 100%; height: auto; }
 .book-panel p { margin: .5rem 0 0; text-align: center; font-size: .8rem; }
+.site-header .header-link { font-size: .85rem; min-height: 48px; display: inline-flex; align-items: center; }
+.hero { grid-template-columns: .9fr 1.1fr; gap: 2.5rem; padding-top: 3rem; }
+.hero-actions { display: flex; flex-wrap: wrap; gap: .7rem; }
+.button-secondary { background: transparent; color: var(--ink); border: 1px solid #8b9a83; }
+.button-secondary:hover { background: #e7e8da; }
+.book-panel { margin: 0; padding: 0; border-radius: 1.5rem 1.5rem .6rem .6rem; overflow: hidden; transform: none; box-shadow: 0 16px 40px #4c3a1720; }
+.book-panel img { display: block; aspect-ratio: 1; object-fit: cover; }
+.book-panel figcaption { padding: .7rem; font: 1rem Georgia,serif; text-align: center; background: #efdfba; }
+main > .review-status { margin-inline: 2rem; }
+@media(max-width:700px) { .hero { grid-template-columns: 1fr; padding-top: 2rem; gap: 2rem; } .hero .book-panel { max-width: 100%; } .hero-actions .button { justify-content: center; gap: 1rem; } .site-header .header-link { font-size: .75rem; } }
+@media(prefers-reduced-motion:reduce) { html { scroll-behavior: auto; } }
 .journey { padding: 2rem; border-block: 1px solid #d6d3c2; }
 h2 { font-size: clamp(1.9rem, 3vw, 2.6rem); line-height: 1.15; font-weight: 500; margin: 0 0 1.3rem; letter-spacing: -.03em; }
 .journey h2 { font-size: 1.7rem; }
