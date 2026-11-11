@@ -31,11 +31,14 @@ export async function readBoundedBody(request: Request, limit: number): Promise<
 
 export function requireLocalOrigin(request: Request): void {
   const url = new URL(request.url);
-  if (!["127.0.0.1", "localhost", "[::1]"].includes(url.hostname) || request.headers.get("origin") !== url.origin || request.headers.get("sec-fetch-site") === "cross-site") {
+  // Next can canonicalize request.url to localhost while the browser uses
+  // 127.0.0.1. Validate the local Host and exact browser Origin together.
+  const browserUrl = new URL(`${url.protocol}//${request.headers.get("host") ?? url.host}`);
+  if (![url.hostname, browserUrl.hostname].every(host => ["127.0.0.1", "localhost", "[::1]"].includes(host)) || request.headers.get("origin") !== browserUrl.origin || request.headers.get("sec-fetch-site") === "cross-site") {
     throw new AppError("INVALID_INPUT", "Only same-origin requests to this local app are accepted.", 403);
   }
 }
-function sessionId(request: Request, db: DatabaseSync): string | null {
+export function sessionId(request: Request, db: DatabaseSync): string | null {
   const value = request.headers.get("cookie")?.split(";").map(part => part.trim()).find(part => part.startsWith(`${COOKIE}=`))?.slice(COOKIE.length + 1);
   if (!value || !/^[a-f0-9-]{36}$/.test(value)) return null;
   return db.prepare("SELECT id FROM ai_sessions WHERE id = ? AND expires_at > ?").get(value, Date.now()) ? value : null;

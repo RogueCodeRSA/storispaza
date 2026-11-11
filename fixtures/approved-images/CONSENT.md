@@ -1,0 +1,7 @@
+# M3 image review and redistribution consent
+
+On 2026-11-11 the creator supplied and confirmed the Palesa/Soweto/art-style brief, approved the single character sheet and its measured cost, confirmed the six AI-suggested scene plans, approved all six images as shown in the contact sheet, and explicitly answered “Yes, freeze and commit these fixtures” to the redistribution-consent request.
+
+The sheet's floral dress and footwear were identified as AI suggestions and explicitly accepted. Review flagged the fantasy ribbons around the classroom kit in pages 2–3 and proposed removing them; the creator chose to approve all six images as shown. They remain fictional picture-book illustrations, not real electrical instructions. No child touches mains, sockets, exposed wires or electrical infrastructure in these images. This review does not establish cultural authenticity, educational effectiveness or language approval.
+
+Only these seven reviewed images and their public-safe brief/prompts/provenance are authorized for fixture redistribution. Original text, translations, recordings and future regenerations have independent approval/consent requirements. Images were generated through the selected provider; producer/model and reported token usage are in manifest.json. Costs are published-rate calculations, not verified invoices. Private SQLite, session identifiers, credentials and raw recordings are excluded.

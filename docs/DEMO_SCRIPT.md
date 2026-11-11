@@ -1,5 +1,7 @@
 # Planned pitch — not yet rehearsed
 
+M3 update: the creator approved one character sheet and six reference-guided illustrations, their suggestions and redistribution. Show the reviewed source fixtures in the offline reader; their producers remain visible. Explain that placeholder replacement simulates regeneration; the separate local `/illustrate` workspace performs checked real regeneration. English text, Sesotho slots and audio/phrases still need later review. Do not describe images replayed offline as newly live-generated. The sheet cost was reported before approval/pages; seven images plus prompt screening cost US$0.388950 at published rates, not a verified invoice. New hosted CI and educator feedback remain unverified.
+
 Pitch date: **not set**. M1 now supports a five-stage mock rehearsal on localhost or the downloaded self-contained HTML. The creator reported successful real-device testing; metadata/limits are in MOBILE_OFFLINE_TEST.md. Current text/symbols/tone/phrases are provisional and unreviewed; the final pitch requires the M4 reviewed fixture pack.
 
 | Time | Show |

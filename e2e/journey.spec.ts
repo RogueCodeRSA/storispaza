@@ -45,7 +45,7 @@ for (const source of ["Next.js", "standalone file"] as const) {
         await page.getByRole("button", { name: "Regenerate this page placeholder" }).click();
         await expect(page.getByRole("status")).toContainText("Page 2 placeholder changed");
       }
-      await page.getByLabel(/I acknowledge this illustration is only a placeholder/).check();
+      await page.getByLabel(/I acknowledge this image source and draft review status/).check();
     }
     await page.getByRole("button", { name: "Continue to StoriSpeak" }).click();
     for (let n = 1; n <= 6; n++) {

@@ -18,6 +18,7 @@ const envelopeSchema = z.object({
   assets: z.array(assetSourceSchema),
   usage: z.object({ estimatedUsd: nonnegative, actualUsd: nonnegative.nullable(),
     tokens: z.object({ input: nonnegative.int(), output: nonnegative.int() }).nullable(),
+    imageTokens: z.object({ textInput: nonnegative.int(), imageInput: nonnegative.int(), imageOutput: nonnegative.int() }).optional(),
     allowance: z.object({ unit: z.string().min(1).max(80), estimated: nonnegative, actual: nonnegative.nullable() }).nullable(),
   }),
 });
@@ -25,9 +26,9 @@ const dataSchemas = {
   structureStory: storySchema,
   transcribe: z.string().min(1).max(20_000),
   translate: z.array(z.string().min(1).max(5000)).length(6),
-  checkIllustrationPrompt: z.object({ status: z.enum(["needs-review", "blocked"]), reasons: z.array(z.string()) }),
-  createCharacterSheet: z.object({ assetId: z.string().regex(/^[a-zA-Z0-9_-]+$/) }),
-  illustrate: z.object({ assetId: z.string().regex(/^[a-zA-Z0-9_-]+$/) }),
+  checkIllustrationPrompt: z.object({ status: z.enum(["ready", "needs-review", "blocked"]), reasons: z.array(z.string()) }),
+  createCharacterSheet: z.object({ assetId: z.string().regex(/^[a-zA-Z0-9_-]+$/), imageBase64: z.string().max(16_000_000).optional(), mimeType: z.literal("image/webp").optional() }),
+  illustrate: z.object({ assetId: z.string().regex(/^[a-zA-Z0-9_-]+$/), imageBase64: z.string().max(16_000_000).optional(), mimeType: z.literal("image/webp").optional() }),
 };
 
 export function protectProvider(adapter: StoryProvider, guard?: ProviderAllowanceGuard): StoryProvider {
@@ -92,7 +93,23 @@ export function protectProvider(adapter: StoryProvider, guard?: ProviderAllowanc
     },
     translate: (story, target) => call("translate", () => adapter.translate(story, target)),
     checkIllustrationPrompt: prompt => call("checkIllustrationPrompt", () => adapter.checkIllustrationPrompt(prompt)),
-    createCharacterSheet: story => call("createCharacterSheet", () => adapter.createCharacterSheet(story)),
-    illustrate: input => call("illustrate", () => adapter.illustrate(input)),
+    createCharacterSheet: async (story, prompt) => {
+      if (adapter.mode === "mock") await call("checkIllustrationPrompt", () => adapter.checkIllustrationPrompt(prompt ?? "Mock character sheet rehearsal"));
+      if (adapter.mode === "real" && adapter.capabilities.createCharacterSheet === "available") {
+        if (!prompt?.trim()) throw new AppError("INVALID_INPUT", "A complete creator-confirmed image prompt is required.");
+        const check = await call("checkIllustrationPrompt", () => adapter.checkIllustrationPrompt(prompt));
+        if (check.data.status !== "ready") throw new AppError("APPROVAL_REQUIRED", "Prompt safety check requires correction or creator review. No image was dispatched.");
+      }
+      return call("createCharacterSheet", () => adapter.createCharacterSheet(story, prompt));
+    },
+    illustrate: async input => {
+      if (adapter.mode === "mock") await call("checkIllustrationPrompt", () => adapter.checkIllustrationPrompt(input.prompt ?? input.page.illustrationDescription));
+      if (adapter.mode === "real" && adapter.capabilities.illustrate === "available") {
+        if (!input.prompt?.trim() || !input.referenceImageBase64) throw new AppError("INVALID_INPUT", "A complete prompt and reference image are required.");
+        const check = await call("checkIllustrationPrompt", () => adapter.checkIllustrationPrompt(input.prompt!));
+        if (check.data.status !== "ready") throw new AppError("APPROVAL_REQUIRED", "Prompt safety check requires correction or creator review. No image was dispatched.");
+      }
+      return call("illustrate", () => adapter.illustrate(input));
+    },
   };
 }

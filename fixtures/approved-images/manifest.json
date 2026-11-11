@@ -1,0 +1,281 @@
+{
+  "milestone": "M3",
+  "approvedBy": "creator",
+  "redistributionConsent": true,
+  "approvedDate": "2026-11-11",
+  "textStatus": "provisional; images only approved",
+  "brief": {
+    "character": "Palesa, a fictional girl about 9, Grade 3. Dark brown skin, round friendly face, big curious eyes. Neat braids with yellow hair ties, identical face and proportions throughout. School: white shirt, grey skirt, green jersey, small school bag. Out of school: mustard-yellow cardigan over a simple dress. Curious, kind, brave, never boastful. Name and uniform colours explicitly confirmed by creator; no claims about name meaning in image prompts.",
+    "setting": "Modern, dignified Soweto. Brick matchbox houses, painted walls, tiled or corrugated roofs, small yards, washing lines, security gates. Corner spaza shop with painted but unreadable signage, street vendors, minibus taxi, children in uniform. Colourful murals; Orlando Towers in the distance explicitly confirmed by creator. Community hall or school yard gathering. Evening load-shedding with candles and cellphone torches, dark street. Cars, cellphones, solar panels; power lines only at a safe distance. Warm connected community, no hardship as decoration. Fantasy golden-white ribbons gently guided from a safe distance, community lights or neighbour's fridge returning to operation. No fire-handling by children.",
+    "style": "Warm hand-painted picture book, gouache or watercolour, soft outlines. Ochre, terracotta, deep teal and blue, golden glow accent. Gentle lighting, expressive faces, uncluttered compositions, space for text above or below, no readable text. Consistent character and style. Avoid stereotypes, caricature, exaggerated features, real people's likenesses, logos, brands, savanna, safari animals, huts, generic Africa, scary or unsafe content for ages 5–8.",
+    "confirmed": true
+  },
+  "scenePrompts": [
+    "Palesa at home during evening load-shedding, wearing her approved mustard-yellow cardigan and dress. An adult is nearby. She wonders at soft golden-white fantasy ribbons hovering above her open hand, visually separate from all real electrical objects. No sockets, wiring, repair or fire-handling. A dignified modern domestic scene using only the confirmed Soweto brief. Space for page text; no readable text.",
+    "School classroom: Palesa in her approved white shirt, grey skirt and green jersey watches an adult teacher demonstrate a purpose-made enclosed battery learning kit. The adult handles the kit; Palesa observes from a safe distance. No loose or exposed conductors, sockets, mains or unsafe child actions. Gentle daylight, uncluttered classroom, space for text; no readable writing or labels.",
+    "School classroom: an adult teacher operates the kit's closed, protected switch and its small enclosed lamp lights up. Palesa, in her approved school uniform, watches with curiosity. All contacts and conductors remain enclosed; no child touching the equipment or any infrastructure. No schematic or readable labels. Warm picture-book lighting and space for text.",
+    "A community room in modern Soweto: Palesa in her approved cardigan and dress listens kindly as adult neighbours plan safe rechargeable lamps for reading. Show enclosed portable lamps resting on a table, no chargers, wiring or repair. Warm connected community, uncluttered composition, space for text; no readable text or new cultural symbols.",
+    "Evening community gathering: families read storybooks together under enclosed rechargeable lamps. Palesa wears her approved cardigan and dress. Soft golden-white fantasy ribbons float gently in the room, clearly separate from every real electrical object. Adults oversee the gathering. No candles being handled, no wiring or sockets, no readable text. Warm, welcoming, dignified and uncluttered.",
+    "Palesa carries a storybook to the community reading group in modern Soweto, wearing her approved cardigan and dress. Use confirmed brick houses, painted walls, small yards and security gates; Orlando Towers appear quietly in the distance. Warm connected community, curious and kind expression. No real electrical interaction or unsafe actions, no brands or readable text. Space for page text."
+  ],
+  "images": [
+    {
+      "file": "character-sheet.webp",
+      "source": {
+        "assetId": "image-2d05da75-0de4-47eb-bd18-dfb17bafe6f0",
+        "providerId": "openai",
+        "model": "gpt-image-2.6-sunburst",
+        "origin": "generated",
+        "editedByCreator": false
+      },
+      "usage": {
+        "actualUsd": 0.04614,
+        "tokens": {
+          "input": 534,
+          "output": 1449
+        },
+        "imageTokens": {
+          "textInput": 534,
+          "imageInput": 0,
+          "imageOutput": 1449
+        }
+      },
+      "approved": true,
+      "frozen": true,
+      "bytes": 123736,
+      "sha256": "0780e0a415a8d99520cb30dc8e86f0cfd52c7479c26224ea62ee06122a8c8b29"
+    },
+    {
+      "file": "page-1.webp",
+      "source": {
+        "assetId": "image-5b6f0fc8-efd6-4be8-a8ee-fee2c872f921",
+        "providerId": "openai",
+        "model": "gpt-image-2.6-sunburst",
+        "origin": "generated",
+        "editedByCreator": false
+      },
+      "usage": {
+        "actualUsd": 0.054732,
+        "tokens": {
+          "input": 1638,
+          "output": 1449
+        },
+        "imageTokens": {
+          "textInput": 614,
+          "imageInput": 1024,
+          "imageOutput": 1449
+        }
+      },
+      "approved": true,
+      "frozen": true,
+      "bytes": 144318,
+      "sha256": "bdd88e03c495867c00645b6aa2a6470216faaf1390cccb349ae25cf4dbe5f3f0"
+    },
+    {
+      "file": "page-2.webp",
+      "source": {
+        "assetId": "image-20d92b8f-8770-4e2d-a18f-090bdffbe342",
+        "providerId": "openai",
+        "model": "gpt-image-2.6-sunburst",
+        "origin": "generated",
+        "editedByCreator": false
+      },
+      "usage": {
+        "actualUsd": 0.054712,
+        "tokens": {
+          "input": 1634,
+          "output": 1449
+        },
+        "imageTokens": {
+          "textInput": 610,
+          "imageInput": 1024,
+          "imageOutput": 1449
+        }
+      },
+      "approved": true,
+      "frozen": true,
+      "bytes": 110166,
+      "sha256": "f6676ce61f90e8b8f67b67fd1ca39a2b2a17904dfd19cad149ca3b9d05d8b203"
+    },
+    {
+      "file": "page-3.webp",
+      "source": {
+        "assetId": "image-368c2f51-e6c1-4dde-814a-ebb97dd27e80",
+        "providerId": "openai",
+        "model": "gpt-image-2.6-sunburst",
+        "origin": "generated",
+        "editedByCreator": false
+      },
+      "usage": {
+        "actualUsd": 0.054662,
+        "tokens": {
+          "input": 1624,
+          "output": 1449
+        },
+        "imageTokens": {
+          "textInput": 600,
+          "imageInput": 1024,
+          "imageOutput": 1449
+        }
+      },
+      "approved": true,
+      "frozen": true,
+      "bytes": 148022,
+      "sha256": "5936021bd31f0560cb7912dc388f99bb08a9b48100e1a61a38615a402ab7bf52"
+    },
+    {
+      "file": "page-4.webp",
+      "source": {
+        "assetId": "image-48d25731-2f44-4f71-b821-76abf3ca8aed",
+        "providerId": "openai",
+        "model": "gpt-image-2.6-sunburst",
+        "origin": "generated",
+        "editedByCreator": false
+      },
+      "usage": {
+        "actualUsd": 0.054652,
+        "tokens": {
+          "input": 1622,
+          "output": 1449
+        },
+        "imageTokens": {
+          "textInput": 598,
+          "imageInput": 1024,
+          "imageOutput": 1449
+        }
+      },
+      "approved": true,
+      "frozen": true,
+      "bytes": 108222,
+      "sha256": "bd64ae4c2e61f15877ce8f6df11342651e147f3c411a3eb762bd0f2ce4c77cc6"
+    },
+    {
+      "file": "page-5.webp",
+      "source": {
+        "assetId": "image-904d7559-3981-4051-8a31-22c5ef7c79a2",
+        "providerId": "openai",
+        "model": "gpt-image-2.6-sunburst",
+        "origin": "generated",
+        "editedByCreator": false
+      },
+      "usage": {
+        "actualUsd": 0.054692,
+        "tokens": {
+          "input": 1630,
+          "output": 1449
+        },
+        "imageTokens": {
+          "textInput": 606,
+          "imageInput": 1024,
+          "imageOutput": 1449
+        }
+      },
+      "approved": true,
+      "frozen": true,
+      "bytes": 153410,
+      "sha256": "d9a8ed574f8537b5be61656e349760b5bff1876473c48841084b2da8528ec46e"
+    },
+    {
+      "file": "page-6.webp",
+      "source": {
+        "assetId": "image-af1abcd2-a729-48a6-bf87-8fdccd4ec867",
+        "providerId": "openai",
+        "model": "gpt-image-2.6-sunburst",
+        "origin": "generated",
+        "editedByCreator": false
+      },
+      "usage": {
+        "actualUsd": 0.054692,
+        "tokens": {
+          "input": 1630,
+          "output": 1449
+        },
+        "imageTokens": {
+          "textInput": 606,
+          "imageInput": 1024,
+          "imageOutput": 1449
+        }
+      },
+      "approved": true,
+      "frozen": true,
+      "bytes": 168564,
+      "sha256": "da0c3f4564e35e137161b544ba27a36e48162e73e8fb1907cfd124ff5f540645"
+    }
+  ],
+  "invoiceVerified": false,
+  "history": [
+    {
+      "page": 1,
+      "sources": [
+        {
+          "assetId": "provisional-placeholder",
+          "providerId": "local-placeholder",
+          "model": null,
+          "origin": "fixture",
+          "editedByCreator": false
+        }
+      ]
+    },
+    {
+      "page": 2,
+      "sources": [
+        {
+          "assetId": "provisional-placeholder",
+          "providerId": "local-placeholder",
+          "model": null,
+          "origin": "fixture",
+          "editedByCreator": false
+        }
+      ]
+    },
+    {
+      "page": 3,
+      "sources": [
+        {
+          "assetId": "provisional-placeholder",
+          "providerId": "local-placeholder",
+          "model": null,
+          "origin": "fixture",
+          "editedByCreator": false
+        }
+      ]
+    },
+    {
+      "page": 4,
+      "sources": [
+        {
+          "assetId": "provisional-placeholder",
+          "providerId": "local-placeholder",
+          "model": null,
+          "origin": "fixture",
+          "editedByCreator": false
+        }
+      ]
+    },
+    {
+      "page": 5,
+      "sources": [
+        {
+          "assetId": "provisional-placeholder",
+          "providerId": "local-placeholder",
+          "model": null,
+          "origin": "fixture",
+          "editedByCreator": false
+        }
+      ]
+    },
+    {
+      "page": 6,
+      "sources": [
+        {
+          "assetId": "provisional-placeholder",
+          "providerId": "local-placeholder",
+          "model": null,
+          "origin": "fixture",
+          "editedByCreator": false
+        }
+      ]
+    }
+  ],
+  "reviewNotes": "Creator approved sheet, suggested dress/footwear, six scenes and all images as shown; classroom fantasy ribbons in pages 2–3 were flagged and explicitly accepted. Redistribution consent recorded separately in CONSENT.md."
+}

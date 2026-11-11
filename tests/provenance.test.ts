@@ -15,11 +15,13 @@ describe("per-asset producer identity", () => {
     expect(original.assetHistory).toEqual([]);
   });
   it("preserves producer metadata during mock replay, restore and exports", () => {
-    const draft = regenerateMockImage(newMockDraft(), 0);
+    const initial = newMockDraft();
+    const originalImageSource = initial.story.pages[0].assetSources.illustration;
+    const draft = regenerateMockImage(initial, 0);
     Object.values(draft.acknowledgements).forEach(flags => flags.fill(true)); draft.culturalAcknowledgement = true;
     const restored = normalizeMockDraft(JSON.parse(JSON.stringify(draft)));
     expect(restored.story.pages[0].assetSources.text.providerId).toBe("codex-authoring");
-    expect(restored.story.pages[0].assetHistory[0].providerId).toBe("local-placeholder");
+    expect(restored.story.pages[0].assetHistory.at(-1)).toEqual(originalImageSource);
     const output = JSON.parse(mockExportJson(restored));
     expect(output.story.pages[0].assetSources.illustration.providerId).toBe("local-placeholder");
     expect(mockReaderHtml(restored)).toContain("Sources — text: codex-authoring");

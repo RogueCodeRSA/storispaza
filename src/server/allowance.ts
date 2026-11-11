@@ -5,8 +5,8 @@ import { AppError } from "./errors";
 import type { ProviderAllowanceGuard } from "./providers/boundary";
 import type { ProviderOperation, StoryProvider } from "./providers/types";
 
-export function createDollarGuard(db: DatabaseSync, session: string, adapter: StoryProvider, limits = { sessionUsd: 2, developmentUsd: 10, requestsPerMinute: 10 }): ProviderAllowanceGuard {
-  const ledger = new BudgetLedger(db, limits);
+export function createDollarGuard(db: DatabaseSync, session: string, adapter: StoryProvider, limits = { sessionUsd: 2, developmentUsd: 10, requestsPerMinute: 10 }, imageAttemptLimit = 20): ProviderAllowanceGuard {
+  const ledger = new BudgetLedger(db, limits, imageAttemptLimit);
   return {
     async reserve(operation: ProviderOperation) {
       const estimate = adapter.operationEstimates?.[operation];

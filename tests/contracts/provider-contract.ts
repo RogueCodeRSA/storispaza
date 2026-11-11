@@ -12,8 +12,8 @@ export function invokeOperation(provider: StoryProvider, operation: ProviderOper
     case "transcribe": return provider.transcribe({ bytes: encodeCaptureWav(new Float32Array(16000), 16000), language: "en", apiConsent: true });
     case "translate": return provider.translate(structuredClone(demoStory), "st");
     case "checkIllustrationPrompt": return provider.checkIllustrationPrompt("An adult-led classroom activity, awaiting creator review.");
-    case "createCharacterSheet": return provider.createCharacterSheet(structuredClone(demoStory));
-    case "illustrate": return provider.illustrate({ page: structuredClone(demoStory.pages[0]), characterSheetAssetId: "fixture-sheet", sharedStyle: "picture book", culturalContext: "Creator context" });
+    case "createCharacterSheet": return provider.createCharacterSheet(structuredClone(demoStory), "Creator-confirmed fictional child character sheet, no unsafe electrical actions.");
+    case "illustrate": return provider.illustrate({ page: structuredClone(demoStory.pages[0]), characterSheetAssetId: "fixture-sheet", sharedStyle: "picture book", culturalContext: "Creator context", prompt: "Creator-confirmed adult-led safe activity.", referenceImageBase64: "dGVzdA==" });
   }
 }
 

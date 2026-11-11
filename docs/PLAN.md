@@ -1,6 +1,16 @@
 # Approved StoriSpaza plan
 
-Approved 2026-11-10, amended 2026-11-11. **M2 is authorized.** Creator selected OpenAI within $2/session and $10 development caps and confirmed hosted CI passed. Stop after M2's report; M3 requires approval. Pitch date: **not set**.
+Approved 2026-11-10, amended 2026-11-11. **M3 is authorized with the gates below.** Creator selected OpenAI within $2/session and $10 development caps. Stop for character-sheet approval before page images, then stop after M3's report; M4 requires new approval. Pitch date: **not set**.
+
+## M3 activation and creative approval amendment
+
+- Work on `codex/m3-storicreate` from completed M2. M3 only: creator brief, ONE character sheet first, six reference-guided illustrations after explicit sheet approval, contact-sheet review, selective page regeneration and approved optimized images. No M4 work.
+- Creator supplied the brief in `M3_CREATIVE_BRIEF.json` and separately confirmed Palesa, white shirt/grey skirt/green jersey and Orlando Towers. The name's meaning is omitted from prompts. Other AI suggestions remain suggestions pending creator confirmation; scene descriptions require explicit confirmation before generation.
+- Use the first character sheet as the **single paid image measurement**. Report actual reported text/image input and image output tokens plus published-rate cost, separately from prompt screening and reservations; do not claim invoice verification. No additional images before the creator approves the sheet and measured cost. Unknown measurements, billing/access failures or ambiguous outcomes stop image work, with reservations retained and no automatic retry/fallback.
+- Maximum **20 development image attempts total**, inclusive of the sheet measurement, sheets, all six pages, failed/ambiguous dispatched operations and regenerations. The creator's suggested split is guidance, not permission to exceed the cap or skip sheet approval. Durable shared SQLite counts persist across sessions/restarts; lowering `IMAGE_ATTEMPT_LIMIT` is allowed, raising it above 20 is rejected. Retain US$2/session and US$10/development including M2 spend/holds. App accounting cannot guarantee external provider billing.
+- Every complete image prompt, including the sheet and every regeneration, passes the prompt-safety stage before image dispatch. Powers are explicitly fantasy; no child touching mains, sockets, exposed wires, power lines or substations; no unsafe imitable actions or lightning striking people. Human review remains necessary.
+- After sheet approval, generate six pages sequentially with the actual approved sheet bytes as reference. Present a contact sheet with individual approval and regeneration; preserve unrelated pages and producer history. Freeze optimized copies privately only after all current images are approved and redistribution consent is explicit. No fixture images are committed before that approval.
+- The first-image gate is an intentional pause within M3, not a completed milestone report. Complete checks/review/docs/commit and the required eight-part milestone report after the creator's image gates are satisfied; then stop before M4.
 
 ## M2 activation amendment
 

@@ -8,14 +8,18 @@ const dollars = z.number().finite().positive();
 const micros = (value: number) => Math.ceil(dollars.parse(value) * 1_000_000);
 
 export class BudgetLedger {
-  constructor(private readonly db: DatabaseSync, private readonly limits = { sessionUsd: 2, developmentUsd: 10, requestsPerMinute: 10 }) {
+  constructor(private readonly db: DatabaseSync, private readonly limits = { sessionUsd: 2, developmentUsd: 10, requestsPerMinute: 10 }, private readonly imageAttemptLimit = 20) {
     z.object({ sessionUsd: dollars.max(2), developmentUsd: dollars.max(10), requestsPerMinute: z.number().int().min(1).max(10) }).parse(limits);
+    z.number().int().min(1).max(20).parse(imageAttemptLimit);
   }
   reserve(sessionId: string, estimatedUsd: number, kind: "text" | "image" | "transcription", now = Date.now()): string {
     z.string().uuid().parse(sessionId);
     const reservation = micros(estimatedUsd);
     this.db.exec("BEGIN IMMEDIATE");
     try {
+      if (kind === "image" && Number(this.db.prepare("SELECT COUNT(*) AS n FROM ai_operations WHERE kind = 'image'").get()!.n) >= this.imageAttemptLimit) {
+        throw new AppError("BUDGET_EXCEEDED", "Development image attempt cap reached. Stop and report; no image was dispatched.", 429);
+      }
       const totals = this.db.prepare(`SELECT
         COALESCE(SUM(COALESCE(actual, reserved)), 0) AS total,
         COALESCE(SUM(CASE WHEN session_id = ? THEN COALESCE(actual, reserved) ELSE 0 END), 0) AS session

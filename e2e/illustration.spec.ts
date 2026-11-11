@@ -1,0 +1,53 @@
+import { test, expect } from "@playwright/test";
+import brief from "../docs/M3_CREATIVE_BRIEF.json" with { type: "json" };
+
+test("M3 mock sheet approval, contact sheet, selective regeneration and freeze", async ({ page }, info) => {
+  const external: string[] = [];
+  await page.route("**/*", route => {
+    if (!route.request().url().startsWith("http://127.0.0.1:3100") && !route.request().url().startsWith("data:")) { external.push(route.request().url()); return route.abort(); }
+    return route.continue();
+  });
+  await page.goto("/illustrate");
+  await expect(page.getByText("MOCK — placeholder image rehearsal", { exact: true })).toBeVisible();
+  await page.getByRole("button", { name: "Open / restore private workspace" }).click();
+  await page.getByLabel(/I consent to private local draft/).check();
+  await page.getByLabel("Character", { exact: true }).fill(brief.character);
+  await page.getByLabel("Soweto setting", { exact: true }).fill(brief.setting);
+  await page.getByLabel("Art style", { exact: true }).fill(brief.style);
+  await page.getByLabel(/I confirm these details/).check();
+  await page.getByRole("button", { name: "Use explicit fixture story" }).click();
+  await expect(page.getByRole("button", { name: "Generate missing six reference-guided pages" })).toBeDisabled();
+  await page.getByRole("button", { name: "Generate ONE sheet and stop" }).click();
+  await expect(page.getByAltText(/Character reference sheet awaiting/)).toBeVisible();
+  await expect(page.getByRole("button", { name: "Generate missing six reference-guided pages" })).toBeDisabled();
+  await page.getByRole("button", { name: "Acknowledge mock sheet and simulated cost" }).click();
+  await page.getByLabel(/I reviewed and confirm the scene/).check();
+  await page.getByRole("button", { name: "Generate missing six reference-guided pages" }).click();
+  await expect(page.getByRole("status")).toContainText("Six-page contact sheet ready", { timeout: 20000 });
+  const otherImage = await page.getByAltText("Page 2 illustration — unreviewed", { exact: true }).getAttribute("src");
+  const first = page.locator("article").first();
+  await first.getByRole("button", { name: "Acknowledge mock page" }).click();
+  const secondPrompt = page.getByLabel("Page 2 prompt");
+  const originalSecondPrompt = await secondPrompt.inputValue();
+  await secondPrompt.fill("Unsaved creator edits for page two must survive page one regeneration.");
+  await first.getByLabel("Page 1 prompt").fill("Creator-confirmed fictional school-yard gathering, soft fantasy glow away from infrastructure.");
+  await expect(first.getByRole("button", { name: "Acknowledge mock page" })).toBeDisabled();
+  await page.getByLabel(/I reviewed and confirm the scene/).check();
+  await first.getByRole("button", { name: "Regenerate only this page" }).click();
+  await expect(first.getByAltText("Page 1 illustration — unreviewed")).toBeVisible();
+  await expect(page.getByAltText("Page 2 illustration — unreviewed", { exact: true })).toHaveAttribute("src", otherImage!);
+  await expect(secondPrompt).toHaveValue("Unsaved creator edits for page two must survive page one regeneration.");
+  await secondPrompt.fill(originalSecondPrompt);
+  for (const article of await page.locator("article").all()) await article.getByRole("button", { name: "Acknowledge mock page" }).click();
+  await page.getByLabel(/I approve all current images/).check();
+  await page.getByRole("button", { name: "Optimize and freeze approved copies" }).click();
+  await expect(page.getByRole("status")).toContainText("optimized and frozen privately");
+  await page.reload(); await page.getByRole("button", { name: "Open / restore private workspace" }).click();
+  await expect(page.locator("article").getByText(/Frozen approved copy/)).toHaveCount(6);
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+  expect(external).toEqual([]);
+  await page.screenshot({ path: info.outputPath("m3-contact-sheet.png"), fullPage: true });
+  await page.getByLabel(/I consent to private local draft/).check();
+  await page.getByRole("button", { name: "Delete private workspace and its images" }).click();
+  await expect(page.getByRole("heading", { name: "Your creative brief" })).toBeVisible();
+});

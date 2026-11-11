@@ -1,4 +1,7 @@
 .mock-app { --paper: #faf5e9; --ink: #203e35; --rust: #92351f; --gold: #e1ad4e; background: var(--paper); color: var(--ink); min-height: 100vh; font-family: Arial, Helvetica, sans-serif; line-height: 1.6; }
+.illustration-contact { display: grid; grid-template-columns: repeat(auto-fit,minmax(min(100%,280px),1fr)); gap: 1rem; margin-top: 1rem; }
+.illustration-contact img { width: 100%; height: auto; border-radius: .4rem; }
+.character-preview { width: min(100%,640px); height: auto; }
 .mock-app *, .mock-app *::before, .mock-app *::after { box-sizing: border-box; }
 .mock-app button, .mock-app input, .mock-app textarea, .mock-app select { font: inherit; }
 .mock-app button { min-height: 48px; cursor: pointer; border: 1px solid transparent; border-radius: .45rem; padding: .65rem 1rem; font-weight: 700; }

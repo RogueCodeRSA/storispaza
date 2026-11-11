@@ -10,7 +10,7 @@ export function openDatabase(directory: string): DatabaseSync {
   mkdirSync(directory, { recursive: true });
   const db = new DatabaseSync(join(directory, "storispaza.sqlite"));
   const version = db.prepare("PRAGMA user_version").get();
-  if (Number(version?.user_version) > 2) {
+  if (Number(version?.user_version) > 3) {
     db.close();
     throw new AppError("API_UNAVAILABLE", "This database requires a newer StoriSpaza version.", 503);
   }
@@ -24,7 +24,9 @@ export function openDatabase(directory: string): DatabaseSync {
     );
     CREATE TABLE IF NOT EXISTS ai_sessions (id TEXT PRIMARY KEY, expires_at INTEGER NOT NULL);
     CREATE TABLE IF NOT EXISTS ai_measurements (operation_id TEXT PRIMARY KEY, usage_json TEXT NOT NULL);
-    PRAGMA user_version = 2;
+    CREATE TABLE IF NOT EXISTS illustration_projects (session_id TEXT PRIMARY KEY, payload TEXT NOT NULL, busy INTEGER NOT NULL DEFAULT 0);
+    CREATE TABLE IF NOT EXISTS illustration_assets (id TEXT PRIMARY KEY, session_id TEXT NOT NULL, bytes BLOB NOT NULL, frozen_bytes BLOB);
+    PRAGMA user_version = 3;
     COMMIT;`);
   return db;
 }

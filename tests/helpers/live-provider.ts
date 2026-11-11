@@ -8,7 +8,8 @@ export function wireStory() {
 }
 export function fakeTransport(): OpenAITransport {
   return {
-    async respond() { return { status: "completed", output_text: JSON.stringify(wireStory()), model: "gpt-5.6-terra", usage: { input_tokens: 100, output_tokens: 100, input_tokens_details: { cached_tokens: 0 } } }; },
+    async respond(input) { return { status: "completed", output_text: JSON.stringify(input.max_output_tokens === 512 ? { status: "ready", reasons: [] } : wireStory()), model: "gpt-5.6-terra", usage: { input_tokens: 100, output_tokens: 100, input_tokens_details: { cached_tokens: 0 } } }; },
+    async image() { return { data: [{ b64_json: "dGVzdA==" }], usage: { input_tokens: 100, input_tokens_details: { text_tokens: 80, image_tokens: 20 }, output_tokens: 1000 } }; },
     async transcribe() { return { text: "A fictional girl helps her neighbours.", languages: [{ code: "en" }], usage: { type: "duration", seconds: 1 } }; },
   };
 }

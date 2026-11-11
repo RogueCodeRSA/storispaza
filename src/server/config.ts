@@ -9,5 +9,6 @@ const envSchema = z.object({
   SESSION_BUDGET_USD: z.coerce.number().positive().max(2).default(2),
   DEVELOPMENT_BUDGET_USD: z.coerce.number().positive().max(10).default(10),
   AI_REQUESTS_PER_MINUTE: z.coerce.number().int().positive().max(10).default(10),
+  IMAGE_ATTEMPT_LIMIT: z.coerce.number().int().positive().max(20).default(20),
 });
 export function readConfig(env: Record<string, string | undefined> = process.env) { return envSchema.parse(env); }

@@ -1,5 +1,17 @@
 # AI safety and data lifecycle
 
+## M3 image workflow (creator-reviewed fixtures)
+
+The first sheet cost was measured/reported before pages; creator approved it, confirmed scene plans and then approved all six images. Explicit redistribution consent permits the seven optimized images under fixtures/approved-images and the embedded offline image pack. CONSENT.md records accepted suggestions and the classroom-glow review observation. These are frozen source fixtures; editing a story draft does not inherit their original review approval. Text/translations/audio remain provisional. Real selective regeneration was not paid-tested; its safety/reference/history/isolation mechanisms were tested offline.
+
+`/illustrate` stores the creator-confirmed brief, six-page draft and review state in ignored local SQLite only after explicit storage/transmission consent. The same-origin loopback API requires a server-issued HttpOnly SameSite session. Private WebP bytes are stored in SQLite outside public files, served only to that session with no-store/same-origin headers. Workspaces persist for review across restarts; the review session lasts seven days when opened. Local data is unencrypted. Delete workspace removes its project and image records; shared accounting/usage metadata remains so deletion cannot reset spend or attempts. SQLite/WAL deletion is logical deletion, not guaranteed physical erasure. Provider retention remains governed by endpoint/account policies; no remote deletion claim.
+
+The confirmed brief is in M3_CREATIVE_BRIEF.json. No invented name meaning or cultural claim is inserted. Scene descriptions originating from a model remain labelled suggestions requiring creator confirmation. Complete prompts are screened on every sheet/page/regeneration; only a ready result permits real image dispatch. Screening is not human approval or a guarantee of safe/accurate pixels. Reference edits send the approved sheet bytes, never a file path or asset identifier alone. No real-person likeness is requested.
+
+The first sheet doubles as the single-image cost measurement. Page requests remain blocked until explicit approval of the current sheet and measured cost; unknown usage stops the workflow. All images start unreviewed. Current-image IDs/revisions prevent stale approvals; replacement invalidates that image approval, retains producer/history and preserves other pages. Frozen optimized copies require all six current images plus sheet approval and explicit redistribution consent. Freezing is private; it neither publishes nor commits fixtures. Mock uses visibly labelled solid-colour placeholders, no network/credentials; acknowledgements do not become genuine story approvals.
+
+Image attempts include dispatch reservations even on failed/ambiguous outcomes, with a maximum of 20 shared across sessions/restarts. Dollar reservations retain M2 exposure and enforce US$2/session/US$10 development. One unresolved image blocks more work. No retries/fallback; a durable workspace lease stops duplicate work after a crash. Usage reports exclude prompts, image bytes, keys and story content. Real pixels, safety, identity, culture and science still require creator review.
+
 ## M2 current data flows and limits
 
 Live capture was authorized after the creator confirmed hosted CI and bounded access checks. Only text structuring and English transcription are enabled by the OpenAI adapter; Cloudflare and later operations remain deferred. M0/M1 sections below are historical, not descriptions of current `/create` behavior.

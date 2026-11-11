@@ -1,20 +1,28 @@
 # StoriSpaza
 
+M3 adds the local `/illustrate` review workspace. Save your six-page draft in `/create`, open the illustration workspace, supply/confirm the creative brief, and consent to private local storage/transmission. Generate **one sheet only**, inspect its reported tokens and published-rate cost, then explicitly approve it before any pages. Scene descriptions are suggestions until confirmed. Six pages use the sheet as a visual reference; each can be regenerated and approved separately in the contact sheet. Freeze optimizes private copies only after approval of all current images and redistribution consent. Mock produces labelled solid-colour placeholders with no paid/network calls.
+
+`IMAGE_ATTEMPT_LIMIT=20` is the hard maximum for real development image dispatch attempts, including measurement, failures and regeneration; it can only be lowered. Existing US$2/session and US$10/development guards remain active. Unknown usage or an ambiguous failure stops further image work; never delete/reset the ledger or automatically retry. Local workspaces/images are unencrypted SQLite data under ignored DATA_DIR; Delete workspace removes logical image/project records while preserving accounting. No public hosting or new accounts.
+
+The approved image pack replays without a key/network in `/studio`, the standalone download and provisional HTML export; text/translation/audio remain unreviewed. `/illustrate` mock is a separate solid-colour workflow rehearsal. Original image source IDs/history survive replay and simulated replacement. Paid fixture maintenance is explicitly gated via `scripts/image-workflow.mjs` (`M3_ACTION=pages|regenerate|freeze`); generation needs confirmed scenes, and freezing needs current image approvals plus redistribution consent. `regenerate` selects exactly one `M3_PAGE` and uses its confirmed prompt from docs/M3_SCENES.json. All runners respect locally lowered limits; the measurement also tightens the session ceiling to at most US$0.75. Never treat an env flag as a substitute for creator authorization.
+
+The one-off authorized measurement is `RUN_PAID_IMAGE=1 npm run measure:image` (local only, never CI). It generates **only the character sheet**, uses a tighter US$0.75 session ceiling, stores private review material under ignored `.tools`, and refuses an existing measurement/prior image attempt. It does not approve/freeze the sheet or generate pages. Use only after creator approval of the brief and budget; rate-derived cost is not an invoice.
+
 **Every Story Has a Place. Tell It. Create It. Own It.**
 
 A creator-led African storytelling studio for Grade R–3 teachers, parents and families. Planned journey: StoriStart → StoriCreate → StoriSpeak → StoriPlay → StoriOwn. Read the [spec](docs/SPEC.md) and [approved plan](docs/PLAN.md).
 
-## Current status: M2 capture plus M1 offline journey
+## Current status: M3 reviewed illustrations plus live capture
 
-M2 adds `/create`: real text-to-six-pages, consented English microphone/upload transcription, editable transcript/manual fallback, all page fields editable, and explicit browser draft save/restore/deletion. Output is private/unreviewed. OpenAI text/audio passed a bounded paid smoke; images, translation and narration remain later work. See [M2 evidence](docs/REVIEWS.md) for costs and limitations.
+`/create` provides real text-to-six-pages, consented English microphone/upload transcription, editable transcript/manual fallback, page editing and explicit browser draft save/restore/deletion. Output is private/unreviewed. M3's seven reviewed image fixtures are recorded in [image consent/provenance](fixtures/approved-images/CONSENT.md); translation and narration remain later work. See [review evidence](docs/REVIEWS.md) for costs and limitations.
 
 [M2 desktop editor](docs/screenshots/m2-desktop.png) · [mobile editor](docs/screenshots/m2-mobile.png). Browser captures use intercepted public fixture data; they do not expose paid output or recordings.
 
-The offline mock implements all five stages with six editable fixture pages, per-page illustration placeholders/regeneration, editable Sesotho slots, bilingual reader, non-speech audio play/pause/resume, opening/pause/tap-to-continue interaction, demo acknowledgements, browser-local save/restore, consented tone-copy attachment/deletion and provisional JSON/HTML exports. Real images, reviewed translations and creator narration remain later milestones. M0's server-only provider/storage/budget foundations remain intact.
+The offline mock implements all five stages with six editable fixture pages, reviewed image-source replay, simulated placeholder replacement, editable Sesotho slots, bilingual reader, non-speech audio play/pause/resume, opening/pause/tap-to-continue interaction, demo acknowledgements, browser-local save/restore, consented tone-copy attachment/deletion and provisional JSON/HTML exports. Original images have creator approval; edited story drafts, translations and audio do not. Provider/storage/budget foundations remain intact.
 
 Open `/studio` for the journey. The first screen explains six-page illustrated bilingual storytelling immediately. Every placeholder text/image/audio/phrase stays visibly **provisional / unreviewed**; checking demo acknowledgements never grants actual language/cultural approval or enables final publication.
 
-Providers have isolated adapters, a reusable contract suite and per-asset producer/model/history labels. Mock remains the default; OpenAI supports M2 text/audio, while Cloudflare is deferred. Follow [Switching providers](docs/SWITCHING_PROVIDERS.md) and [decisions](docs/DECISIONS.md) for configuration, guard requirements and evidence.
+Providers have isolated adapters, a reusable contract suite and per-asset producer/model/history labels. Mock remains the default; OpenAI supports text/audio capture, prompt checks and images, while Cloudflare is deferred. Follow [Switching providers](docs/SWITCHING_PROVIDERS.md) and [decisions](docs/DECISIONS.md) for configuration, guard requirements and evidence.
 
 **Real-device check: passed, creator-reported.** The creator confirmed successful Android/Chrome airplane-mode checklist completion; model/OS/browser versions and tested-file hash are pending. See the [device test record](docs/MOBILE_OFFLINE_TEST.md) for the distinction between human-reported and automated evidence.
 
@@ -66,7 +74,7 @@ Follow the [real-device checklist](docs/MOBILE_OFFLINE_TEST.md), including audib
 | CLOUDFLARE_ACCOUNT_ID / CLOUDFLARE_API_TOKEN | unset | Actual values only in ignored .env.local; no live integration is enabled by setting them. |
 | OPENAI_API_KEY | unset | Server-only M2 credential in ignored .env.local; never NEXT_PUBLIC_. |
 | OPENAI_TEXT_MODEL | gpt-5.6-terra | Approved M2 structured text model. |
-| OPENAI_IMAGE_MODEL | gpt-image-2.6-sunburst | Retained future illustration research. |
+| OPENAI_IMAGE_MODEL | gpt-image-2.6-sunburst | Approved M3 image model with bounded live evidence. |
 | OPENAI_TRANSCRIPTION_MODEL | gpt-transcribe | Approved English transcription model. |
 | DATA_DIR | ./data | Ignored SQLite/private asset directory. |
 | SESSION_BUDGET_USD | 2 | Approved session allowance; may be lowered. |

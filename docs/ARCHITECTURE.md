@@ -1,4 +1,14 @@
-# Architecture — through M2
+# Architecture — through M3
+
+## M3 illustrations (current)
+
+`/illustrate` uses one vendor-neutral image workspace API plus a local session route. SQLite v3 adds session-owned project JSON, a durable busy lease and private still-WebP blobs/approved optimized copies. Explicit storage/transmission consent, local Host/Origin validation, bounded JSON, revisions and current asset IDs gate mutations/approvals. Image GET requires the private session and returns no-store, same-origin media. Delete removes project/image records but retains shared spend/attempt accounting. No accounts or hosting.
+
+Creator-confirmed brief data builds a complete generic prompt. The protected provider invokes prompt screening before every sheet/page/regeneration and requires ready for real dispatch. The isolated adapter requests one 1024-square medium WebP; page edits receive actual approved sheet bytes. Guards reserve US$0.03 for screening and US$0.50 for images. Unknown outcomes remain reserved and stop image work. Image attempt count is checked atomically inside the ledger transaction, maximum 20 across sessions/restarts, with one pending image globally. Modality token measurements support published-rate calculations, not invoice verification.
+
+The first sheet is also the single-image cost probe. Pages require current-sheet/measured-cost approval plus scene confirmation. Generation is sequential; errors stop with no retry. Replacing one page preserves unrelated images and producer history, resetting only its approval and redistribution consent. Freeze requires sheet and six approvals plus explicit redistribution consent, then optimizes privately. The separately authorized fixture workflow writes reviewed WebPs, consent/provenance and an embedded data-URL pack. `/studio`, standalone offline journey and HTML export replay original image sources without external requests, while edited drafts/text/language/audio stay unreviewed. The mock replacement action produces a placeholder, never claims to generate another real image. `/illustrate` mock remains an explicitly labelled solid-colour workflow rehearsal.
+
+The historical sections below describe earlier milestones; their unavailable-image statements are superseded by M3.
 
 ## M2 live capture (current)
 

@@ -2,15 +2,42 @@
   "version": 1,
   "status": "provisional",
   "story": "demo-story.ts",
-  "origin": "Codex-authored planning fixture; not a real API run",
+  "origin": "English planning draft; original reviewed image producers and consent recorded separately",
   "humanReviewed": false,
-  "assets": { "provisional-placeholder": "/fixtures/placeholder.svg" },
-  "missing": ["real API provenance", "creator-approved English", "Sesotho translation and review", "six consistent illustrations", "24 creator audio clips", "redistribution consent for recordings"],
+  "assets": {
+    "provisional-placeholder": "/fixtures/placeholder.svg"
+  },
+  "missing": [
+    "real-generated reviewed story text",
+    "creator-approved English",
+    "Sesotho translation and review",
+    "24 creator audio clips",
+    "redistribution consent for recordings"
+  ],
   "recordingsCommitted": false,
   "producers": {
-    "englishText": { "providerId": "codex-authoring", "model": null, "origin": "fixture" },
-    "imageSymbols": { "providerId": "local-placeholder", "model": null, "origin": "fixture" },
-    "sesothoSlots": { "providerId": "local-placeholder", "model": null, "origin": "fixture" },
-    "audioTone": { "providerId": "local-placeholder", "model": null, "origin": "fixture" }
-  }
+    "englishText": {
+      "providerId": "codex-authoring",
+      "model": null,
+      "origin": "fixture"
+    },
+    "imageSymbols": {
+      "providerId": "local-placeholder",
+      "model": null,
+      "origin": "fixture"
+    },
+    "sesothoSlots": {
+      "providerId": "local-placeholder",
+      "model": null,
+      "origin": "fixture"
+    },
+    "audioTone": {
+      "providerId": "local-placeholder",
+      "model": null,
+      "origin": "fixture"
+    }
+  },
+  "imagePack": "image-pack.json",
+  "imagesHumanReviewed": true,
+  "imageRedistributionConsent": true
 }

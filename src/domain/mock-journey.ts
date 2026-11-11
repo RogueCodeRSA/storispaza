@@ -2,6 +2,7 @@ import { z } from "zod";
 import { demoStory } from "../../fixtures/demo-story";
 import { replaceIllustration, storySchema, type Story, type StoryPage } from "./story";
 import { fixtureSource, sourceLabel } from "./provenance";
+import { reviewedImageFixtures, reviewedFixtureImage } from "./image-pack";
 
 const sixFlags = z.array(z.boolean()).length(6);
 export const mockDraftSchema = z.object({
@@ -22,6 +23,8 @@ export const PROVISIONAL = "Provisional / unreviewed";
 export function newMockDraft(): MockDraft {
   const story = structuredClone(demoStory);
   story.pages.forEach(page => {
+    const image = reviewedImageFixtures.find(image => image.page === page.number);
+    if (image) { page.illustrationAssetId = image.source.assetId; page.assetSources.illustration = structuredClone(image.source); page.assetHistory = structuredClone(image.history); }
     page.translation = { text: `[Sesotho placeholder for page ${page.number}. Creator translation pending.]`, status: "machine-translated" };
     page.assetSources.translation = fixtureSource(`demo-translation-${page.number}`, "local-placeholder");
     page.assetSources.narration = { en: fixtureSource("demo-tone-en", "local-placeholder"), st: fixtureSource("demo-tone-st", "local-placeholder") };
@@ -94,14 +97,14 @@ export function demoExportIssues(draft: MockDraft): string[] {
 
 export function mockExportJson(draft: MockDraft): string {
   if (demoExportIssues(draft).length) throw new Error(demoExportIssues(draft).join(" "));
-  return JSON.stringify({ ...normalizeMockDraft(draft), reviewStatus: "provisional-unreviewed", attribution: "M1 mock fixture; Codex-assisted English draft; image symbols and non-speech placeholder tones. No real API generation or verified Sesotho.", recordingCopy: false }, null, 2);
+  return JSON.stringify({ ...normalizeMockDraft(draft), reviewStatus: "provisional-unreviewed", attribution: "Offline fixture replay; original asset source metadata identifies real-generated image fixtures where present. Codex-assisted English draft, Sesotho slots and non-speech tones remain provisional. No live generation during replay or verified Sesotho.", recordingCopy: false }, null, 2);
 }
 
 export function mockReaderHtml(draft: MockDraft): string {
   if (demoExportIssues(draft).length) throw new Error(demoExportIssues(draft).join(" "));
   const story = normalizeMockDraft(draft).story;
   const escape = (value: string) => value.replace(/[&<>"']/g, char => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[char]!);
-  return `<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'"><title>${escape(story.title)}</title><style>body{max-width:48rem;margin:auto;padding:1.5rem;font:1.15rem/1.7 system-ui;background:#faf5e9;color:#203e35}article{border-top:2px solid;padding-block:1.5rem}p{white-space:pre-wrap}.badge{font-weight:bold;color:#92351f}h1,h2{line-height:1.2}</style><h1>${escape(story.title)}</h1><p class="badge">PROVISIONAL / UNREVIEWED — mock demo, not an approved publication.</p><p>Codex-assisted draft. Illustrations, Sesotho text and creator narration require review. No audio or recording copies included.</p>${story.pages.map(page => `<article><h2>Page ${page.number}: ${escape(page.title)}</h2><p>${escape(page.narrative)}</p><h3>Sesotho — provisional / unreviewed</h3><p lang="st">${escape(page.translation?.text ?? "Creator translation pending")}</p><p><strong>Learning moment:</strong> ${escape(page.learningMoment)}</p><p>Illustration placeholder: ${escape(page.illustrationDescription)}</p><p>Sources — text: ${escape(sourceLabel(page.assetSources.text))}; image: ${escape(sourceLabel(page.assetSources.illustration))}; translation: ${escape(sourceLabel(page.assetSources.translation))}.</p><p>Earlier asset sources: ${escape(page.assetHistory.map(sourceLabel).join("; ") || "None recorded")}.</p></article>`).join("")}</html>`;
+  return `<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; img-src data:"><title>${escape(story.title)}</title><style>body{max-width:48rem;margin:auto;padding:1.5rem;font:1.15rem/1.7 system-ui;background:#faf5e9;color:#203e35}article{border-top:2px solid;padding-block:1.5rem}img{max-width:100%;height:auto}p{white-space:pre-wrap}.badge{font-weight:bold;color:#92351f}h1,h2{line-height:1.2}</style><h1>${escape(story.title)}</h1><p class="badge">PROVISIONAL / UNREVIEWED — mock demo, not an approved publication.</p><p>Codex-assisted draft. Original image fixtures may be creator-reviewed; this edited draft, Sesotho text and narration still require review. No audio or recording copies included.</p>${story.pages.map(page => `<article><h2>Page ${page.number}: ${escape(page.title)}</h2>${reviewedFixtureImage(page.illustrationAssetId) ? `<img alt="Page ${page.number} reviewed image source; draft unreviewed" src="${reviewedFixtureImage(page.illustrationAssetId)}">` : ""}<p>${escape(page.narrative)}</p><h3>Sesotho — provisional / unreviewed</h3><p lang="st">${escape(page.translation?.text ?? "Creator translation pending")}</p><p><strong>Learning moment:</strong> ${escape(page.learningMoment)}</p><p>Illustration description: ${escape(page.illustrationDescription)}</p><p>Sources — text: ${escape(sourceLabel(page.assetSources.text))}; image: ${escape(sourceLabel(page.assetSources.illustration))}; translation: ${escape(sourceLabel(page.assetSources.translation))}.</p><p>Earlier asset sources: ${escape(page.assetHistory.map(sourceLabel).join("; ") || "None recorded")}.</p></article>`).join("")}</html>`;
 }
 
 export function setMockMetadata(draft: MockDraft, field: "title" | "culturalContext" | "educationalObjective", value: string): MockDraft {

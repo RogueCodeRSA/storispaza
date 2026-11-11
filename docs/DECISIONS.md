@@ -1,6 +1,14 @@
 # Decisions and research
 
-**Current strategy (2026-11-11): creator-selected OpenAI for M2.** This supersedes the historical free-first provider preparation below. Hosted CI passed according to the creator; bounded text access probes passed before branching/implementation, including a probe after key rotation. Cloudflare remains deferred. Stop before M3.
+**Current strategy (2026-11-11): creator-selected OpenAI through M3.** This supersedes historical free-first preparation. Cloudflare remains deferred; translation/narration remain unavailable. Stop after M3; no M4 authorization.
+
+## M3 image evidence and decisions — 2026-11-11
+
+- **VERIFIED, official OpenAI documentation:** selected `gpt-image-2.6-sunburst` supports image generation/reference edits. Published rates: US$5/M text input, US$8/M image input, US$30/M image output. Rechecked [model](https://developers.openai.com/api/docs/models/gpt-image-2.6-sunburst), [guide](https://developers.openai.com/api/docs/guides/image-generation) and [pricing](https://developers.openai.com/api/docs/pricing). SDK 7.55.0 supports still WebP outputs, edits and reported modality tokens. Use one 1024-square medium image, no retries; reserve US$0.50/image and US$0.03/prompt check. Reservations are conservative application guards, not provider billing guarantees.
+- **VERIFIED, observed:** first sheet used **534 text-input / 0 image-input / 1,449 image-output tokens**, rate-derived **US$0.046140**; its screening used **712 input / 19 output**, **US$0.001652**. Reported both before creator approval and page generation. Creator approved sheet/cost and explicitly accepted suggested floral dress/footwear.
+- **VERIFIED, observed:** six pages each used **1,024 reference-image input tokens and 1,449 image-output tokens**; text input counts **614, 610, 600, 598, 606, 606**. Costs: **US$0.054732, 0.054712, 0.054662, 0.054652, 0.054692, 0.054692**. Seven image attempts total, zero retries/regenerations. Seven prompt checks cost **US$0.014668** combined; image total **US$0.374282**; M3 total **US$0.388950**. M2 measured **US$0.014328** plus retained **US$0.150000** hold yields development exposure **US$0.553278**. All amounts are reported-usage × published rate, not independently verified invoices.
+- **VERIFIED, creator-reported review:** brief, scene suggestions, sheet and all six images approved, followed by explicit consent to freeze/commit redistributable fixtures. Contact-sheet review identified classroom fantasy ribbons on pages 2–3; creator approved them as shown. No unsafe child infrastructure contact is depicted. This does not establish broad cultural accuracy or educational outcomes.
+- **ASSUMED/unverified:** real selective-regeneration quality (offline transport/UI tests cover the mechanism), future provider availability/cost, automatic identity consistency beyond these reviewed outputs, fluent language quality and learning benefit. English demo text remains provisional; M4 recordings/translations were not started.
 
 ## M2 evidence and decisions — 2026-11-11
 
