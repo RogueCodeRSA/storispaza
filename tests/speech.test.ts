@@ -102,7 +102,8 @@ it("freezes only a fully reviewed 24-clip pack and clears export consent after r
   expect(writeReviewedSpeechFixtures(db, session, join(directory, "test-only-not-committed"))).toMatchObject({ clips: 24 });
   expect(db.prepare("SELECT busy FROM speech_projects WHERE session_id=?").get(session)!.busy).toBe(0);
   await command("edit", { slot: "en-word-01", text: "Changed word" }); expect(workspace.read()!.frozen).toBe(false); expect(() => workspace.fixtureExport()).toThrow();
-});
+// This temporary-DB integration checks all 24 durable clips and fixture output; allow cold-disk latency.
+}, 20_000);
 it("keeps existing review available with live AI disabled and rejects cross-origin/consentless uploads before dispatch", async () => {
   const { session, transport } = await setup();
   db.prepare("INSERT INTO ai_sessions VALUES (?, ?)").run(session, Date.now() + 60000);

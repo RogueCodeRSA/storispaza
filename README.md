@@ -46,8 +46,13 @@ For this development laptop only, select the bundled Node without changing the g
 
 ```powershell
 $env:PATH = "$env:USERPROFILE\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\bin;$env:PATH"
+function npm { & "$env:USERPROFILE\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\bin\node.exe" "$env:APPDATA\npm\node_modules\npm\bin\npm-cli.js" @args }
+function npx { & "$env:USERPROFILE\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\bin\node.exe" "$env:APPDATA\npm\node_modules\npm\bin\npx-cli.js" @args }
 node --version
+npm --version
 ```
+
+These functions affect only the current PowerShell session and explicitly run the existing npm CLI with Node 24. On this laptop, changing PATH alone leaves a global `npm.cmd` that launches its adjacent Node 18, even when `node --version` says 24. Other contributors should select a matching Node/npm installation with their runtime manager; do not copy these machine-specific paths.
 
 Do not copy the creator's `.env.local`, `data/`, `.tools/` or browser profile into an evaluator checkout. If inherited shell variables select real mode, set `AI_PROVIDER=mock` and `ENABLE_LIVE_AI=0` for the evaluation process. Keep existing personal configuration and the recording server unchanged.
 

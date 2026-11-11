@@ -13,6 +13,10 @@ User authorized merge M6 first, branch `codex/m7-hardening`, evaluation docs/pit
 
 ### Validation before clean-clone closeout
 
+Clean-clone review caught a real setup issue: prepending the bundled Node path made `node --version` report 24.22.1, but the laptop’s global `npm.cmd` launched its adjacent Node 18.6.0 during install. Interrupted that warning-filled install and explicitly invoked the existing npm CLI with Node 24. README now supplies session-only npm/npx functions for this laptop; normal runtime-manager users should select matching Node/npm. No global runtime, dependency version or creator configuration was changed.
+
+The first fresh-clone `check` passed lint/typecheck and 110 tests, but the existing 24-clip temporary-SQLite integration exceeded Vitest’s default five-second timeout (7.1 seconds). This test deliberately performs all script/clip approval transactions plus consented test-only fixture output; no creator content is used. Gave this one disk-heavy test an explicit 20-second budget, retaining every assertion and the stricter default for all others. Full clone validation is rerun after the fix; the initial failed check is not hidden or counted as passed.
+
 Initial `npm run check` passed full lint, strict typecheck, **111 unit/integration tests**, **five skipped paid checks**, production/offline build. Current-tree/artifact public scan passed across 166 files and 46 generated artifacts. No dependency or application behavior change is needed; package scripts/CI and one scanner regression are the tooling changes. Complete changed/new docs/tooling reviewed for scope, privacy, provenance and truthful demo claims. Clean-clone/browser/final staged evidence follows at closeout; pending steps are not reported as passed. Actual teacher/parent feedback, M4 acceptance/freeze consent, physical-device/screen-reader validation, hosted CI, pitch rehearsal and backup recording remain outside Part A completion.
 
 ## M6 — slimmed StoriOwn implementation review (2026-11-11)

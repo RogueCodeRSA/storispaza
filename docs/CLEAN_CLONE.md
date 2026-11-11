@@ -2,6 +2,8 @@
 
 Use a new directory with no copied `.env.local`, `data/`, `.tools/`, `node_modules/`, `.next/` or browser profile. The active creator recording server and workspace must stay running unchanged. Node 24.14+ within 24.x is required; `.nvmrc` pins 24.22.1. npm/Git and registry access are installation prerequisites. Browser installation requires network/OS dependencies; mock runtime and default tests need no provider key or paid service.
 
+On the development laptop, use the README’s session-local npm/npx functions as well as the Node PATH selection. A fresh-clone attempt showed that the global npm shim still launched Node 18 despite `node --version` reporting 24, producing `EBADENGINE` warnings; that attempt was interrupted and rerun with the existing npm CLI explicitly launched by Node 24. Do not suppress engine warnings or change the project’s runtime requirement to accommodate an old shim.
+
 ## Commands
 
 ```sh
