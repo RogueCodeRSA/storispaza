@@ -14,6 +14,7 @@ import ReviewStatus from "./ReviewStatus";
 import ResponseSpark from "./ResponseSpark";
 import "./journey.css";
 import "./reader.css";
+import type { Story } from "@/domain/story";
 
 const stages = ["StoriStart", "StoriCreate", "StoriSpeak", "StoriPlay", "StoriOwn"];
 const subtitles = ["Tell it", "Picture it", "Make it bilingual", "Read together", "Keep your story"];
@@ -28,8 +29,8 @@ export function downloadFile(name: string, content: string, type: string): void 
   setTimeout(() => URL.revokeObjectURL(url), 30_000);
 }
 
-export default function MockJourney() {
-  const [draft, setDraft] = useState<MockDraft>(newMockDraft);
+export default function MockJourney({ seed, onReturn }: { seed?: Story; onReturn?: () => void } = {}) {
+  const [draft, setDraft] = useState<MockDraft>(() => newMockDraft(seed));
   const [started, setStarted] = useState(false);
   const [loaded, setLoaded] = useState(false);
   const [step, setStep] = useState(0);
@@ -90,7 +91,7 @@ export default function MockJourney() {
   async function loadFixture(voice = false) {
     setBusy(true); report(voice ? "Loading a fixture transcript; no microphone is used." : "Loading the six-page fixture…");
     await new Promise(resolve => setTimeout(resolve, 300));
-    const next = newMockDraft();
+    const next = newMockDraft(seed);
     next.idea = voice ? "Fixture transcript: a girl from Soweto helps her community with an imaginary power." : draft.idea;
     next.story.title = draft.story.title;
     next.story.culturalContext = draft.story.culturalContext;
@@ -157,7 +158,7 @@ export default function MockJourney() {
 
   return <div className="mock-app studio-app">
     <a className="mock-skip" href="#main">Skip to story studio</a>
-    <header className="mock-header"><span className="mock-brand">Stori<span>Spaza</span> ✦</span></header>
+    <header className="mock-header"><span className="mock-brand">Stori<span>Spaza</span> ✦</span>{onReturn && <button className="quiet" aria-label="Return to reviewed story" onClick={onReturn}>Reviewed story</button>}</header>
     <main id="main" className="mock-main">      <ReviewStatus>
         <p>This is an offline mock journey with a fixed story, not live generation. Text and Sesotho slots are provisional / unreviewed; acknowledgements never approve language or culture.</p>
         <p>All six displayed illustrations use the approved, consented M3 image sources. Preview requests create no new pixels and do not replace them. Edited draft associations still require review.</p>

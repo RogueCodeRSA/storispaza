@@ -24,6 +24,7 @@ for (const source of ["Next.js", "standalone file"] as const) {
     });
     if (source === "standalone file") await context.setOffline(true);
     await page.goto(source === "Next.js" ? "/studio" : pathToFileURL(resolve("public/offline/storispaza-offline.html")).href);
+    if (source === "standalone file") await page.getByRole("button", { name: "Create / edit an unreviewed copy", exact: true }).click();
     await expect(page.getByText("Create a six-page illustrated story, review English and Sesotho side by side, then read and respond together.")).toBeVisible();
     await expect(page.getByText("Create a six-page illustrated story, review English and Sesotho side by side, then read and respond together.")).toBeInViewport();
     await expect(page.getByRole("button", { name: "Start the mock journey" })).toBeInViewport();
@@ -114,6 +115,7 @@ for (const source of ["Next.js", "standalone file"] as const) {
     await expect(page.getByRole("button", { name: "Export provisional story JSON" })).toBeDisabled();
     if (source === "standalone file") {
       await page.reload();
+      await page.getByRole("button", { name: "Create / edit an unreviewed copy", exact: true }).click();
       await page.getByRole("button", { name: "Restore saved demo draft" }).click();
       await expect(page.getByLabel("English narrative")).toHaveValue(/Creator edit 1/);
     }

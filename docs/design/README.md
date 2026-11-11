@@ -1,5 +1,9 @@
 # M7 visual addendum — before / after
 
+## M4 reviewed snapshot — 2026-11-11
+
+The later M4 freeze adds [desktop](m4-frozen-chromium.png) and [mobile emulation](m4-frozen-mobile.png) captures of the actual consented reviewed reader from the freshly generated standalone HTML, with network disabled. All 24 reviewed adult clips and six approved images were exercised. These screenshots show the creator-approved text, not intercepted test wording. Creator attribution is still a placeholder, so the badge honestly says “the creator”. No private journal/session or child recording is shown. The historical M7 comparisons below predate completed content review.
+
 Captured 2026-11-11 from an isolated **mock** production server on loopback 3700, with external browser requests blocked. Desktop **1365 × 900**, mobile **390 × 844**, DPR 1; full-page PNGs, reduced motion enabled for comparable stills. Before is merged Part A `029f445`; after is this visual addendum. No actual creator reviews, private recordings, corrections or session identifiers are shown. M4 content review remains open; screenshots are not language approval evidence.
 
 | View | Before | After |

@@ -1,5 +1,5 @@
 import { execFileSync } from "node:child_process";
-import { mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import { cpSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
 import { expect, it } from "vitest";
@@ -24,3 +24,22 @@ it("public evaluation scan rejects tracked private paths and credentials without
     expect(readFileSync(join(directory, "README.md"), "utf8")).toBe("Public-safe project");
   } finally { rmSync(directory, { recursive: true, force: true }); }
 });
+
+it("allows only manifest-verified adult fixtures and cannot use unstaged consent to authorize staged audio", () => {
+  const directory = mkdtempSync(join(tmpdir(), "storispaza-consented-index-"));
+  const script = resolve("scripts/check-repo.mjs");
+  const git = (args: string[]) => execFileSync("git", args, { cwd: directory, stdio: "pipe" });
+  const scan = () => { try { execFileSync(process.execPath, [script, "--staged"], { cwd: directory, stdio: "pipe" }); return 0; } catch (error) { return (error as { status: number }).status; } };
+  try {
+    git(["init", "--quiet"]); mkdirSync(join(directory, "fixtures"));
+    cpSync(resolve("fixtures/approved-speech"), join(directory, "fixtures/approved-speech"), { recursive: true });
+    git(["add", "fixtures"]); expect(scan()).toBe(0);
+    const path = join(directory, "fixtures/approved-speech/manifest.json"); const original = readFileSync(path);
+    const manifest = JSON.parse(original.toString()); manifest.redistributionConsent = false;
+    writeFileSync(path, JSON.stringify(manifest)); git(["add", "fixtures/approved-speech/manifest.json"]);
+    writeFileSync(path, original); expect(scan()).toBe(1);
+    git(["add", "fixtures/approved-speech/manifest.json"]); expect(scan()).toBe(0);
+    const clip = join(directory, "fixtures/approved-speech/en-page-01.wav"); const changed = readFileSync(clip); changed[44] ^= 1;
+    writeFileSync(clip, changed); git(["add", "fixtures/approved-speech/en-page-01.wav"]); expect(scan()).toBe(1);
+  } finally { rmSync(directory, { recursive: true, force: true }); }
+}, 20_000);

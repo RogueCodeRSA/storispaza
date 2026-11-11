@@ -1,5 +1,12 @@
 # Decisions and research
 
+## M4 reviewed freeze — 2026-11-11
+
+- **ADR-025:** freeze the unique settled real M4 workspace at revision 89 only after verifying all 24 current scripts/clips, existing freeze and redistribution consent. Creator confirmed no skipped clips and publication consent for all 24. Keep private corrections excluded regardless of the private journal-export setting. Preserve actual script/image/recording sources, source histories and cost evidence; do not overwrite an existing pack or infer ownership/cultural approval.
+- **ADR-026:** default guest and standalone reading replay the consented reviewed fixture; existing private sessions retain their own current projection. Embed approved image bytes and exact reviewed WAVs in the standalone HTML. No synthetic speech or server/network/microphone is required. Retain the editable five-stage sandbox as an explicitly provisional copy with approvals/private-sharing/cultural confirmations reset and source history preserved. Its tone samples remain distinct from reviewed speech.
+- **ADR-027:** allow repository audio only when the full reviewed manifest, current approved script version, adult-own-voice/redistribution consent, canonical WAV header, duration and SHA-256 match. Scan index bytes for staged validation. Preserve blanket blocking of unlisted recordings/private data. Audio range responses copy to exact-size buffers, because Node Buffer.slice otherwise exposes a larger backing ArrayBuffer.
+- **Current limits:** placeholder attribution and unconfirmed cultural assumptions remain in the saved story and block final publication. Educator feedback, physical-device testing of this new 17 MiB file, pitch rehearsal and backup video remain pending. Earlier M4-open sections below are historical. Local test evidence does not establish educational effectiveness or fluent-language quality independently of the creator's review.
+
 ## M7 visual addendum — 2026-11-11
 
 - **ADR-022:** reuse approved M3 source art for the product cover and reader instead of generating more assets. Simulated previews produce no pixels, so they must preserve actual source identity/history rather than replace it with a placeholder ID. Known legacy mock IDs migrate only on explicit draft restore, clearing current review/acknowledgement. Private reader fallbacks are display-only with pending association; M6 final gates remain strict. No image attempt or spend is incurred.

@@ -6,6 +6,7 @@ export interface ReaderText { text: string; reviewed: boolean; flags: string[]; 
 export interface ReaderPage { number: number; title: string; imageUrl: string; imageReviewed: boolean; text: Record<Language, ReaderText> }
 export interface ReaderWord { slot: string; text: string | null; audio: ReaderTrack | null }
 export interface ReaderBook {
+  fixtureReplay?: boolean;
   mode: "mock" | "real"; revision: number; title: string; creator: string;
   scriptsApproved: number; clipsApproved: number; pages: ReaderPage[];
   vocabulary: Record<Language, ReaderWord[]>;

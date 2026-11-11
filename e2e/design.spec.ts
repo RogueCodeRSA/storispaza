@@ -37,6 +37,7 @@ test("only current reviewed Sesotho gets a named review badge", async ({ page })
 });
 
 test("page-turn and response spark preserve keyboard flow and respect reduced motion", async ({ page }) => {
+  await page.route("**/api/reader", route => route.fulfill({ json: { book: readerBook(initialSpeechProject(structuredClone(demoStory), randomUUID(), "mock")) } }));
   await page.emulateMedia({ reducedMotion:"no-preference" }); await page.goto("/play");
   await expect(page.getByRole("heading",{name:"Page 1 · English",exact:true})).toBeVisible();
   expect(await page.locator(".page-turn").evaluate(value=>getComputedStyle(value).animationName)).toBe("story-page-turn");

@@ -1,6 +1,5 @@
 "use client";
 import { useCallback, useEffect, useRef, useState } from "react";
-import Link from "next/link";
 import type { Language } from "@/domain/story";
 import type { ReaderBook, ReaderText } from "@/domain/reader";
 import { useReaderAudio } from "./reader-audio";
@@ -10,8 +9,8 @@ import "./journey.css";
 import "./reader.css";
 
 type Turn = "idle" | "opening" | "waiting" | "response" | "continuation" | "complete";
-export default function StoryPlayer({ mode }: { mode: "mock" | "real" }) {
-  const [book, setBook] = useState<ReaderBook | null>(null); const [loaded, setLoaded] = useState(false); const [busy, setBusy] = useState(true);
+export default function StoryPlayer({ mode, initialBook, onCreateCopy }: { mode: "mock" | "real"; initialBook?: ReaderBook; onCreateCopy?: () => void }) {
+  const [book, setBook] = useState<ReaderBook | null>(initialBook ?? null); const [loaded, setLoaded] = useState(!!initialBook); const [busy, setBusy] = useState(!initialBook);
   const [pageIndex, setPageIndex] = useState(0); const [language, setLanguage] = useState<Language>("en");
   const [direction, setDirection] = useState("forward");
   const [turn, setTurn] = useState<Turn>("idle"); const [message, setMessage] = useState(""); const [error, setError] = useState("");
@@ -38,6 +37,7 @@ export default function StoryPlayer({ mode }: { mode: "mock" | "real" }) {
   }, [stopAudio]);
   const cancelPending = useCallback(() => { requestNumber.current++; }, []);
   useEffect(() => {
+    if (initialBook) return;
     const controller = new AbortController();
     void fetch("/api/reader", { cache: "no-store", signal: controller.signal }).then(response => {
       if (!controller.signal.aborted) void load(false, response);
@@ -45,7 +45,7 @@ export default function StoryPlayer({ mode }: { mode: "mock" | "real" }) {
     const refresh = () => { if (document.visibilityState === "visible") { setBusy(true); void load(); } };
     document.addEventListener("visibilitychange", refresh);
     return () => { controller.abort(); cancelPending(); document.removeEventListener("visibilitychange", refresh); };
-  }, [load, cancelPending]);
+  }, [load, cancelPending, initialBook]);
   useEffect(() => {
     if (turn === "waiting") responseButton.current?.focus();
     if (turn === "complete") completion.current?.focus();
@@ -80,18 +80,18 @@ export default function StoryPlayer({ mode }: { mode: "mock" | "real" }) {
   const phraseReady = phrases && Object.values(phrases).every(value => value.reviewed && value.audio && !value.audio.provisional);
   const reviewer = book?.creator && !/pending|demo creator/i.test(book.creator) ? book.creator : "the creator";
   return <div className="mock-app play-app reading-room">
-    <header className="mock-header"><Link className="mock-brand" href="/">Stori<span>Spaza</span></Link><nav aria-label="Story links"><Link href="/studio">Create your own</Link><Link href="/own">Keep this story</Link></nav></header>
+    <header className="mock-header"><a className="mock-brand" href={initialBook ? "#main" : "/"}>Stori<span>Spaza</span></a><nav aria-label="Story links">{onCreateCopy ? <button className="secondary" onClick={onCreateCopy}>Create / edit an unreviewed copy</button> : <><a href="/studio">Create your own</a><a href="/own">Keep this story</a></>}</nav></header>
     <main className="mock-main" id="main"><div className="reading-intro"><p className="kicker">Read · wonder · respond</p><h1>{book?.title ?? "A story, at your pace."}</h1></div>
       <p className="sr-only" role="status" aria-live="polite">{busy ? "Loading story…" : message}</p>{error && <p role="alert">{error} Text already on screen remains available; refresh when the connection returns.</p>}
       <ReviewStatus badge={page?.text.st.reviewed ? `Sesotho reviewed by ${reviewer}` : "Language review pending"}>
-        <p>{(book?.mode ?? mode) === "mock" ? "Mock preview: fixed story, no live generation. Any demo audio is a non-speech signal, never narration or pronunciation." : "Private read-only edition. Reading changes no approvals or consent."}</p>
-        <p>M4 content review remains open. Saved scripts: {book?.scriptsApproved ?? 0}/24 approved. Current clips: {book?.clipsApproved ?? 0}/24 approved.</p>
+        <p>{book?.fixtureReplay ? "Reviewed fixture replay: approved adult recordings and saved human reviews, not live generation. No synthetic speech." : (book?.mode ?? mode) === "mock" ? "Mock preview: fixed story, no live generation. Any demo audio is a non-speech signal, never narration or pronunciation." : "Private read-only edition. Reading changes no approvals or consent."}</p>
+        <p>{book?.scriptsApproved === 24 && book.clipsApproved === 24 ? "All current scripts and clips in this snapshot have saved human approval." : "M4 content review remains open."} Saved scripts: {book?.scriptsApproved ?? 0}/24 approved. Current clips: {book?.clipsApproved ?? 0}/24 approved.</p>
         <p>{text?.reviewed ? "Current text reviewed in app." : "Provisional text — review pending."} {page?.imageReviewed ? "Image association reviewed in app." : "Approved M3 source illustration; the current draft association needs review."}</p>
         <p>{!narration ? "Provisional audio — recording pending; text-only page." : narration.provisional ? "Provisional non-speech demo audio." : "Current adult recording reviewed in app."}</p>
         <p>{phraseReady ? "Creator-reviewed phrases and current recordings." : "Provisional interaction — missing phrase review or recordings."}</p>
         <ul>{text?.flags.map((flag, i) => <li key={i}>{flag}</li>)}</ul>
-        <p>Enter wording at <Link href="/speak#interaction-scripts">StoriSpeak → Open / restore → “Your vocabulary and phrases”</Link>: {language}-opening, {language}-response and {language}-continuation. Save and explicitly review each script, then record/listen/approve its adult clip. Missing wording is never invented.</p>
-        <p><Link href="/speak">Review words and recordings</Link> · <Link href="/studio">Offline fixture journey</Link></p><button className="secondary" disabled={busy} onClick={() => { setBusy(true); void load(true); }}>Open / refresh private reader</button>
+        {!initialBook && <p>Enter wording at <a href="/speak#interaction-scripts">StoriSpeak → Open / restore → “Your vocabulary and phrases”</a>: {language}-opening, {language}-response and {language}-continuation. Save and explicitly review each script, then record/listen/approve its adult clip. Missing wording is never invented.</p>}
+        {!initialBook && <><p><a href="/speak">Review words and recordings</a> · <a href="/studio">Offline fixture journey</a></p><button className="secondary" disabled={busy} onClick={() => { setBusy(true); void load(true); }}>Open / refresh private reader</button></>}
       </ReviewStatus>
       {loaded && !book && <aside className="notice">Open your story in StoriSpeak using the same browser as your recordings, then refresh here.</aside>}
       <audio ref={audioElement} preload="none" aria-label="Reader audio" />

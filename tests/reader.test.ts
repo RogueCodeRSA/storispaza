@@ -24,7 +24,7 @@ function setup() {
   const save = () => db.prepare("INSERT OR REPLACE INTO speech_projects VALUES (?, ?, 0)").run(session, JSON.stringify(project));
   save(); db.prepare("INSERT INTO ai_sessions VALUES (?, ?)").run(session, Date.now() + 60000);
   db.prepare("INSERT INTO speech_clips VALUES (?, ?, ?, ?)").run(page.clip.id, session, page.id, bytes);
-  const handle = createReaderHandler(() => readConfig({ AI_PROVIDER: "real", DATA_DIR: directory }));
+  const handle = createReaderHandler(() => readConfig({ AI_PROVIDER: "real", DATA_DIR: directory }), null);
   const request = (query = "", headers = {}) => new Request(`http://127.0.0.1:3000/api/reader${query}`, { headers: { cookie: `storispaza-session=${session}`, ...headers } });
   return { session, project, page, bytes, save, handle, request };
 }
@@ -64,7 +64,7 @@ it("bounds byte ranges and implements suffix/open ranges without returning unrel
   for (const range of ["bytes=9-10","bytes=3-1","bytes=0-1,3-4","bytes=-0","bytes=-","bytes=0-999999999999999999999999"]) expect(readerMedia(bytes,"audio/wav",range).status).toBe(416);
 });
 it("mock defaults are clearly provisional, use non-speech signals and never create storage", async () => {
-  const missingDirectory = join(directory,"not-created"); const handle = createReaderHandler(() => readConfig({ AI_PROVIDER:"mock", DATA_DIR:missingDirectory }));
+  const missingDirectory = join(directory,"not-created"); const handle = createReaderHandler(() => readConfig({ AI_PROVIDER:"mock", DATA_DIR:missingDirectory }), null);
   const response = await handle(new Request("http://localhost:3000/api/reader")); const { book } = await response.json();
   expect(book.mode).toBe("mock"); expect(book.pages[0].text.en.reviewed).toBe(false); expect(book.pages[0].text.en.audio.provisional).toBe(true);
   expect(book.interaction.st.opening.text).toBe(""); expect(book.vocabulary.en.every((word: {text: string | null}) => word.text === null)).toBe(true);
@@ -90,7 +90,7 @@ it("shows all six approved sources for a legacy preview without modifying curren
   expect(db.prepare("SELECT payload FROM speech_projects WHERE session_id=?").get(s.session)!.payload).toBe(before);
 });
 it("lets a real-mode guest read the disclosed text-only fixed story without creating storage or exposing an owned clip", async () => {
-  const missing = join(directory,"guest-reader"); const handle = createReaderHandler(() => readConfig({ AI_PROVIDER:"real", DATA_DIR:missing }));
+  const missing = join(directory,"guest-reader"); const handle = createReaderHandler(() => readConfig({ AI_PROVIDER:"real", DATA_DIR:missing }), null);
   const response = await handle(new Request("http://localhost:3000/api/reader")); const {book} = await response.json();
   expect(book.mode).toBe("mock"); expect(book.pages).toHaveLength(6); expect(book.pages.every((page: {text:{en:{reviewed:boolean;audio:unknown}}}) => !page.text.en.reviewed && page.text.en.audio === null)).toBe(true);
   expect((await handle(new Request("http://localhost:3000/api/reader?demoTone=1"))).status).toBe(404);

@@ -1,5 +1,11 @@
 # AI safety and data lifecycle
 
+## M4 reviewed fixture freeze — 2026-11-11
+
+The creator completed all 24 current script and clip approvals and explicitly consented to publication of all 24 adult clips, none skipped. The local freeze command reads actual saved approvals, clip versions/hashes and redistribution consent, takes a settled-workspace lease, and refuses to overwrite an existing pack. `fixtures/approved-speech/CONSENT.md` scopes this exception to those exact clips. Private corrections are excluded even if the private workspace retains them. Repository scans validate the full manifest and exact WAV bytes; staged scanning uses index blobs, so an unstaged consent change cannot authorize staged recordings. Unlisted recordings, databases, credentials and generated bundles stay blocked.
+
+Default guest/offline reading uses the reviewed snapshot, explicitly disclosed as fixture replay. Editing an offline copy clears approvals and sharing/cultural confirmations. No private session is replaced by the public pack. The saved creator attribution and unconfirmed cultural assumptions remain outstanding; content review does not invent ownership/publication approval. Earlier M4-open notes below are historical. No synthetic speech, voice clone, paid operation, hosting or push accompanies this freeze.
+
 ## M7 visual addendum — disclosure without approval changes
 
 Review/mode/provenance notes move into one native collapsible Review status panel with one small badge; controls that request consent or explain blocked approval remain explicit in creator workspaces. A named “Sesotho reviewed by…” badge requires actual current real script approval. Name comes from the project’s creator attribution (including project-bound saved ownership settings), with a generic creator fallback when no name is supplied. It is not authenticated third-party certification. Mock/edited/pending content never gets the reviewed badge. Non-speech samples are labelled as samples, never narration.

@@ -5,6 +5,7 @@ import { join } from "node:path";
 import type { DatabaseSync } from "node:sqlite";
 import { recordApprovedCreatorSelections, speechFreezeIssues, speechProjectSchema } from "@/domain/speech";
 import { validateCaptureWav } from "@/domain/capture";
+import { readerBook } from "@/domain/reader";
 import { AppError } from "./errors";
 
 // Local maintenance only, never a browser route. Reads the actual in-app state;
@@ -29,9 +30,16 @@ export function writeReviewedSpeechFixtures(db: DatabaseSync, session: string, d
   for (const recording of recordings) writeFileSync(join(directory, recording.filename), recording.bytes, { flag: "wx" });
   const manifest = { format: "storispaza-reviewed-speech-v1", approvalMethod: "explicit-in-app", frozenAt: new Date().toISOString(), adultCreatorOnly: true, redistributionConsent: true,
     story: project.story, scripts: project.scripts, recordings: recordings.map(({ bytes, ...metadata }) => ({ ...metadata, byteLength: bytes.length })),
-    translationUsage: project.usage, invoiceVerified: false, corrections: project.includeCorrections ? project.corrections : [],
+    translationUsage: project.usage, invoiceVerified: false, corrections: [],
     provenanceNotice: "Preserve mixed actual sources: existing Codex-authored English, real-generated images/translations, creator edits and consenting adult recordings. No synthetic Sesotho speech." };
   writeFileSync(join(directory, "manifest.json"), JSON.stringify(manifest, null, 2), { flag: "wx" });
+  const book = readerBook(project); book.fixtureReplay = true;
+  const tracks = [...book.pages.flatMap(page => [page.text.en, page.text.st]), ...Object.values(book.interaction).flatMap(Object.values), ...Object.values(book.vocabulary).flat()];
+  for (const value of tracks) if (value.audio) {
+    const script = project.scripts.find(script => script.clip?.id === value.audio!.id)!;
+    value.audio.url = `/api/reader?fixtureClip=${script.id}`;
+  }
+  writeFileSync(join(directory, "reader.json"), JSON.stringify(book), { flag: "wx" });
   return { clips: recordings.length, bytes: recordings.reduce((sum, recording) => sum + recording.bytes.length, 0) };
   } finally { db.prepare("UPDATE speech_projects SET busy=0 WHERE session_id=?").run(session); }
 }

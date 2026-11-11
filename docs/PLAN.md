@@ -1,5 +1,9 @@
 # Approved StoriSpaza plan
 
+## M4 freeze activation — latest instruction, 2026-11-11
+
+The creator explicitly completed M4 review (24/24 scripts and clips) and confirmed no skipped clips, all consented for publication. This supersedes the historical no-freeze/M4-open instructions below for this exact snapshot only. Freeze from the actual settled, approved, consented local workspace on `codex/m4-fixture-freeze`; preserve private corrections and other workspaces. Commit only the 24 approved adult clips, reviewed scripts and actual provenance, with a manifest-based hash/approval/consent allowlist. Regenerate the standalone offline file and test the full reading and editable-copy journeys on desktop/mobile. No synthetic Sesotho speech, paid call, public hosting or push. Preserve outstanding attribution/cultural/ownership gates, report remaining provisional material and stop.
+
 Approved 2026-11-10, amended 2026-11-11. **M7 visual addendum is authorized with the gates below.** Creator selected OpenAI within $2/session and $10 development caps. Stop after the addendum report. Pitch/submission deadline: **2026-11-11, 23:00 SAST**.
 
 ## M7 visual addendum

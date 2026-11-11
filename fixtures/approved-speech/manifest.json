@@ -1,0 +1,1411 @@
+{
+  "format": "storispaza-reviewed-speech-v1",
+  "approvalMethod": "explicit-in-app",
+  "frozenAt": "2026-11-11T18:43:08.953Z",
+  "adultCreatorOnly": true,
+  "redistributionConsent": true,
+  "story": {
+    "id": "00000000-0000-4000-8000-000000000001",
+    "title": "The Girl Who Spoke to Electricity",
+    "creator": "Demo creator — approval pending",
+    "ageGroup": "Grade R–3",
+    "sourceLanguage": "en",
+    "culturalContext": "Soweto, as specified in the product brief. Specific household, school and community details require creator review.",
+    "culturalAssumptions": [
+      "The draft household, classroom and community scenes are fictional suggestions, not claims about all Soweto residents."
+    ],
+    "assumptionsConfirmed": false,
+    "educationalObjective": "Distinguish fantasy from electrical safety; introduce a complete circuit and community cooperation.",
+    "characters": [
+      {
+        "id": "girl",
+        "description": "A fictional young girl from Soweto. Name, appearance and clothing await creator direction."
+      }
+    ],
+    "sharedStyle": "Warm picture-book illustration; specific creator-reviewed setting; no generic cultural shorthand.",
+    "pages": [
+      {
+        "number": 1,
+        "title": "An evening in Soweto",
+        "narrative": "When the lights went out, a girl imagined a little glow above her hand. It was a storybook power, not something people can do in real life.",
+        "illustrationDescription": "A girl at a kitchen table during an evening power interruption; an adult nearby; a clearly imaginary glow.",
+        "characterRefs": [
+          "girl"
+        ],
+        "learningMoment": "Electricity powers many useful things. Magical powers belong to fiction.",
+        "translation": {
+          "text": "Ha mabone a tima, ngoanana o ile a inahanela khanya e nyenyane ka holim'a letsoho la hae. E ne e le matla a bukeng ea lipale, eseng ntho eo batho ba ka e etsang bophelong ba sebele.",
+          "status": "approved"
+        },
+        "illustrationAssetId": "image-5b6f0fc8-efd6-4be8-a8ee-fee2c872f921",
+        "narrationAssetIds": {
+          "en": "recording-67092637-d0e8-46c7-9951-7baada3a2530",
+          "st": "recording-17fbff60-e3a2-432a-85ba-458ed8ee0405"
+        },
+        "approvals": {
+          "text": true,
+          "illustration": true,
+          "audio": true
+        },
+        "provenance": "ai-assisted",
+        "assetSources": {
+          "text": {
+            "assetId": "demo-text-1",
+            "providerId": "codex-authoring",
+            "model": null,
+            "origin": "fixture",
+            "editedByCreator": false
+          },
+          "illustration": {
+            "assetId": "image-5b6f0fc8-efd6-4be8-a8ee-fee2c872f921",
+            "providerId": "openai",
+            "model": "gpt-image-2.6-sunburst",
+            "origin": "generated",
+            "editedByCreator": false
+          },
+          "translation": {
+            "assetId": "translation-10db2c10-a553-48a1-b7c9-dd10a0fd2d9f-1",
+            "providerId": "openai",
+            "model": "gpt-5.6-terra",
+            "origin": "generated",
+            "editedByCreator": false
+          },
+          "narration": {
+            "en": {
+              "assetId": "recording-67092637-d0e8-46c7-9951-7baada3a2530",
+              "providerId": "creator",
+              "model": null,
+              "origin": "creator",
+              "editedByCreator": false
+            },
+            "st": {
+              "assetId": "recording-17fbff60-e3a2-432a-85ba-458ed8ee0405",
+              "providerId": "creator",
+              "model": null,
+              "origin": "creator",
+              "editedByCreator": false
+            }
+          }
+        },
+        "assetHistory": [
+          {
+            "assetId": "provisional-placeholder",
+            "providerId": "local-placeholder",
+            "model": null,
+            "origin": "fixture",
+            "editedByCreator": false
+          }
+        ]
+      },
+      {
+        "number": 2,
+        "title": "A question for tomorrow",
+        "narrative": "At school, she asked how a light could shine. Her teacher brought a small classroom battery kit. No one touched a wall socket or loose wire.",
+        "illustrationDescription": "Teacher demonstrating a purpose-made enclosed battery learning kit to children.",
+        "characterRefs": [
+          "girl"
+        ],
+        "learningMoment": "Ask an adult to help with science activities. Never experiment with mains electricity.",
+        "translation": {
+          "text": "Sekolong, o ile a botsa hore na lebone le ka khanya joang. Tichere ea hae e ile ea tlisa sete e nyenyane ea libeteri ea tlelaseng. Ha ho motho ea ileng a ama sokete ea leboteng kapa terata e hlephileng.",
+          "status": "approved"
+        },
+        "illustrationAssetId": "image-20d92b8f-8770-4e2d-a18f-090bdffbe342",
+        "narrationAssetIds": {
+          "en": "recording-5a8af040-6d4d-4463-bf60-510db62d998f",
+          "st": "recording-67a0ffcf-36ac-4dff-a5c9-a9b84eefbafc"
+        },
+        "approvals": {
+          "text": true,
+          "illustration": true,
+          "audio": true
+        },
+        "provenance": "ai-assisted",
+        "assetSources": {
+          "text": {
+            "assetId": "demo-text-2",
+            "providerId": "codex-authoring",
+            "model": null,
+            "origin": "fixture",
+            "editedByCreator": false
+          },
+          "illustration": {
+            "assetId": "image-20d92b8f-8770-4e2d-a18f-090bdffbe342",
+            "providerId": "openai",
+            "model": "gpt-image-2.6-sunburst",
+            "origin": "generated",
+            "editedByCreator": false
+          },
+          "translation": {
+            "assetId": "translation-10db2c10-a553-48a1-b7c9-dd10a0fd2d9f-2",
+            "providerId": "openai",
+            "model": "gpt-5.6-terra",
+            "origin": "generated",
+            "editedByCreator": false
+          },
+          "narration": {
+            "en": {
+              "assetId": "recording-5a8af040-6d4d-4463-bf60-510db62d998f",
+              "providerId": "creator",
+              "model": null,
+              "origin": "creator",
+              "editedByCreator": false
+            },
+            "st": {
+              "assetId": "recording-67a0ffcf-36ac-4dff-a5c9-a9b84eefbafc",
+              "providerId": "creator",
+              "model": null,
+              "origin": "creator",
+              "editedByCreator": false
+            }
+          }
+        },
+        "assetHistory": [
+          {
+            "assetId": "provisional-placeholder",
+            "providerId": "local-placeholder",
+            "model": null,
+            "origin": "fixture",
+            "editedByCreator": false
+          }
+        ]
+      },
+      {
+        "number": 3,
+        "title": "A complete path",
+        "narrative": "The teacher closed the kit's switch. Its tiny lamp lit up. A complete circuit makes a path for electric current, the teacher explained.",
+        "illustrationDescription": "An adult pointing to the closed switch on an enclosed battery classroom kit.",
+        "characterRefs": [
+          "girl"
+        ],
+        "learningMoment": "A closed circuit provides a complete path for current.",
+        "translation": {
+          "text": "Tichere e ile ea koala switjhe ea sete eo. Lebone la eona le lenyenyane la khanya. Tichere e ile ea hlalosa hore potoloho e feletseng e etsa tsela eo motlakase oa motlakase o fetang ho eona.",
+          "status": "approved"
+        },
+        "illustrationAssetId": "image-368c2f51-e6c1-4dde-814a-ebb97dd27e80",
+        "narrationAssetIds": {
+          "en": "recording-c82a7468-f50e-4e83-9b27-27232cefe8d7",
+          "st": "recording-297f86e9-06be-481b-927d-a2667d844da0"
+        },
+        "approvals": {
+          "text": true,
+          "illustration": true,
+          "audio": true
+        },
+        "provenance": "ai-assisted",
+        "assetSources": {
+          "text": {
+            "assetId": "demo-text-3",
+            "providerId": "codex-authoring",
+            "model": null,
+            "origin": "fixture",
+            "editedByCreator": false
+          },
+          "illustration": {
+            "assetId": "image-368c2f51-e6c1-4dde-814a-ebb97dd27e80",
+            "providerId": "openai",
+            "model": "gpt-image-2.6-sunburst",
+            "origin": "generated",
+            "editedByCreator": false
+          },
+          "translation": {
+            "assetId": "translation-10db2c10-a553-48a1-b7c9-dd10a0fd2d9f-3",
+            "providerId": "openai",
+            "model": "gpt-5.6-terra",
+            "origin": "generated",
+            "editedByCreator": false
+          },
+          "narration": {
+            "en": {
+              "assetId": "recording-c82a7468-f50e-4e83-9b27-27232cefe8d7",
+              "providerId": "creator",
+              "model": null,
+              "origin": "creator",
+              "editedByCreator": false
+            },
+            "st": {
+              "assetId": "recording-297f86e9-06be-481b-927d-a2667d844da0",
+              "providerId": "creator",
+              "model": null,
+              "origin": "creator",
+              "editedByCreator": false
+            }
+          }
+        },
+        "assetHistory": [
+          {
+            "assetId": "provisional-placeholder",
+            "providerId": "local-placeholder",
+            "model": null,
+            "origin": "fixture",
+            "editedByCreator": false
+          }
+        ]
+      },
+      {
+        "number": 4,
+        "title": "A useful idea",
+        "narrative": "The girl thought about neighbours reading after dark. In her imaginary adventure, her glow could help. In everyday life, safe rechargeable lamps could help too.",
+        "illustrationDescription": "Neighbours discussing rechargeable reading lamps in a community room.",
+        "characterRefs": [
+          "girl"
+        ],
+        "learningMoment": "Real communities can plan safe sources of light together.",
+        "translation": {
+          "text": "Ngoanana o ile a nahana ka baahisani ba balang ha ho se ho le lefifi. Leetong la hae la boinahanelo, khanya ea hae e ne e ka thusa. Bophelong ba letsatsi le letsatsi, mabone a bolokehileng a ka tjhajoang hape le ’ona a ne a ka thusa.",
+          "status": "approved"
+        },
+        "illustrationAssetId": "image-48d25731-2f44-4f71-b821-76abf3ca8aed",
+        "narrationAssetIds": {
+          "en": "recording-d92ae5d4-2fb5-4491-9c89-23e218d159bc",
+          "st": "recording-cc8ae81b-da74-49b8-b515-41143675117c"
+        },
+        "approvals": {
+          "text": true,
+          "illustration": true,
+          "audio": true
+        },
+        "provenance": "ai-assisted",
+        "assetSources": {
+          "text": {
+            "assetId": "demo-text-4",
+            "providerId": "codex-authoring",
+            "model": null,
+            "origin": "fixture",
+            "editedByCreator": false
+          },
+          "illustration": {
+            "assetId": "image-48d25731-2f44-4f71-b821-76abf3ca8aed",
+            "providerId": "openai",
+            "model": "gpt-image-2.6-sunburst",
+            "origin": "generated",
+            "editedByCreator": false
+          },
+          "translation": {
+            "assetId": "translation-10db2c10-a553-48a1-b7c9-dd10a0fd2d9f-4",
+            "providerId": "openai",
+            "model": "gpt-5.6-terra",
+            "origin": "generated",
+            "editedByCreator": false
+          },
+          "narration": {
+            "en": {
+              "assetId": "recording-d92ae5d4-2fb5-4491-9c89-23e218d159bc",
+              "providerId": "creator",
+              "model": null,
+              "origin": "creator",
+              "editedByCreator": false
+            },
+            "st": {
+              "assetId": "recording-cc8ae81b-da74-49b8-b515-41143675117c",
+              "providerId": "creator",
+              "model": null,
+              "origin": "creator",
+              "editedByCreator": false
+            }
+          }
+        },
+        "assetHistory": [
+          {
+            "assetId": "provisional-placeholder",
+            "providerId": "local-placeholder",
+            "model": null,
+            "origin": "fixture",
+            "editedByCreator": false
+          }
+        ]
+      },
+      {
+        "number": 5,
+        "title": "Stories together",
+        "narrative": "That evening, families met to read. Adults set out charged lamps. In the story, the girl's little glow joined them. Everyone had a place around the table.",
+        "illustrationDescription": "Families reading together with enclosed rechargeable lamps and a small imaginary glow.",
+        "characterRefs": [
+          "girl"
+        ],
+        "learningMoment": "Shared resources can help people learn together.",
+        "translation": {
+          "text": "Mantsiboeeng ao, malapa a ile a kopana ho bala. Batho ba baholo ba ile ba beha mabone a tjhajiloeng. Paleng, khanya e nyenyane ea ngoanana e ile ea ikopanya le ’ona. E mong le e mong o ne a e-na le sebaka haufi le tafole.",
+          "status": "approved"
+        },
+        "illustrationAssetId": "image-904d7559-3981-4051-8a31-22c5ef7c79a2",
+        "narrationAssetIds": {
+          "en": "recording-2fd97c80-3142-4703-bdcb-de6a0bcae766",
+          "st": "recording-8aa09bcf-5be9-438e-b476-dffaa1dc61c3"
+        },
+        "approvals": {
+          "text": true,
+          "illustration": true,
+          "audio": true
+        },
+        "provenance": "ai-assisted",
+        "assetSources": {
+          "text": {
+            "assetId": "demo-text-5",
+            "providerId": "codex-authoring",
+            "model": null,
+            "origin": "fixture",
+            "editedByCreator": false
+          },
+          "illustration": {
+            "assetId": "image-904d7559-3981-4051-8a31-22c5ef7c79a2",
+            "providerId": "openai",
+            "model": "gpt-image-2.6-sunburst",
+            "origin": "generated",
+            "editedByCreator": false
+          },
+          "translation": {
+            "assetId": "translation-10db2c10-a553-48a1-b7c9-dd10a0fd2d9f-5",
+            "providerId": "openai",
+            "model": "gpt-5.6-terra",
+            "origin": "generated",
+            "editedByCreator": false
+          },
+          "narration": {
+            "en": {
+              "assetId": "recording-2fd97c80-3142-4703-bdcb-de6a0bcae766",
+              "providerId": "creator",
+              "model": null,
+              "origin": "creator",
+              "editedByCreator": false
+            },
+            "st": {
+              "assetId": "recording-8aa09bcf-5be9-438e-b476-dffaa1dc61c3",
+              "providerId": "creator",
+              "model": null,
+              "origin": "creator",
+              "editedByCreator": false
+            }
+          }
+        },
+        "assetHistory": [
+          {
+            "assetId": "provisional-placeholder",
+            "providerId": "local-placeholder",
+            "model": null,
+            "origin": "fixture",
+            "editedByCreator": false
+          }
+        ]
+      },
+      {
+        "number": 6,
+        "title": "A brighter question",
+        "narrative": "She could not change everything, but she could ask questions and help her neighbours. Tomorrow, she would bring another story to share.",
+        "illustrationDescription": "The girl carrying a storybook to a community reading group in Soweto.",
+        "characterRefs": [
+          "girl"
+        ],
+        "learningMoment": "Curiosity, reading and cooperation are powers we can practise.",
+        "translation": {
+          "text": "O ne a ke ke a fetola ntho e ’ngoe le e ’ngoe, empa o ne a ka botsa lipotso le ho thusa baahisani ba hae. Hosane, o ne a tla tlisa pale e ’ngoe hore ba e arolelane.",
+          "status": "approved"
+        },
+        "illustrationAssetId": "image-af1abcd2-a729-48a6-bf87-8fdccd4ec867",
+        "narrationAssetIds": {
+          "en": "recording-593205f7-cd4a-4f0b-9c9c-672e779e9973",
+          "st": "recording-49b326cd-24ac-4e91-86ff-319a27461ad1"
+        },
+        "approvals": {
+          "text": true,
+          "illustration": true,
+          "audio": true
+        },
+        "provenance": "ai-assisted",
+        "assetSources": {
+          "text": {
+            "assetId": "demo-text-6",
+            "providerId": "codex-authoring",
+            "model": null,
+            "origin": "fixture",
+            "editedByCreator": false
+          },
+          "illustration": {
+            "assetId": "image-af1abcd2-a729-48a6-bf87-8fdccd4ec867",
+            "providerId": "openai",
+            "model": "gpt-image-2.6-sunburst",
+            "origin": "generated",
+            "editedByCreator": false
+          },
+          "translation": {
+            "assetId": "translation-10db2c10-a553-48a1-b7c9-dd10a0fd2d9f-6",
+            "providerId": "openai",
+            "model": "gpt-5.6-terra",
+            "origin": "generated",
+            "editedByCreator": false
+          },
+          "narration": {
+            "en": {
+              "assetId": "recording-593205f7-cd4a-4f0b-9c9c-672e779e9973",
+              "providerId": "creator",
+              "model": null,
+              "origin": "creator",
+              "editedByCreator": false
+            },
+            "st": {
+              "assetId": "recording-49b326cd-24ac-4e91-86ff-319a27461ad1",
+              "providerId": "creator",
+              "model": null,
+              "origin": "creator",
+              "editedByCreator": false
+            }
+          }
+        },
+        "assetHistory": [
+          {
+            "assetId": "provisional-placeholder",
+            "providerId": "local-placeholder",
+            "model": null,
+            "origin": "fixture",
+            "editedByCreator": false
+          }
+        ]
+      }
+    ],
+    "visibility": "private",
+    "sharingConsent": false
+  },
+  "scripts": [
+    {
+      "id": "en-page-01",
+      "language": "en",
+      "kind": "page",
+      "page": 1,
+      "maxSeconds": 45,
+      "text": "When the lights went out, a girl imagined a little glow above her hand. It was a storybook power, not something people can do in real life.",
+      "version": 0,
+      "status": "approved",
+      "source": {
+        "assetId": "demo-text-1",
+        "providerId": "codex-authoring",
+        "model": null,
+        "origin": "fixture",
+        "editedByCreator": false
+      },
+      "history": [],
+      "flags": [
+        "Power interruption/load-shedding, imagined glow, fiction versus real life"
+      ],
+      "recordingHistory": [],
+      "clip": {
+        "id": "67092637-d0e8-46c7-9951-7baada3a2530",
+        "scriptVersion": 0,
+        "sha256": "82f63d8113b93c7441fb4ebccfd641592e6e088d24d18f23193f0c293d80efd5",
+        "seconds": 12.864,
+        "approved": true,
+        "adultOwnVoice": true
+      }
+    },
+    {
+      "id": "en-page-02",
+      "language": "en",
+      "kind": "page",
+      "page": 2,
+      "maxSeconds": 45,
+      "text": "At school, she asked how a light could shine. Her teacher brought a small classroom battery kit. No one touched a wall socket or loose wire.",
+      "version": 0,
+      "status": "approved",
+      "source": {
+        "assetId": "demo-text-2",
+        "providerId": "codex-authoring",
+        "model": null,
+        "origin": "fixture",
+        "editedByCreator": false
+      },
+      "history": [],
+      "flags": [
+        "Battery learning kit, wall socket/mains, loose wire"
+      ],
+      "recordingHistory": [],
+      "clip": {
+        "id": "5a8af040-6d4d-4463-bf60-510db62d998f",
+        "scriptVersion": 0,
+        "sha256": "5ea3eb8f5ffb04903dd293c451768f665dbb2b5d327b8b076b838474498b9768",
+        "seconds": 17.904,
+        "approved": true,
+        "adultOwnVoice": true
+      }
+    },
+    {
+      "id": "en-page-03",
+      "language": "en",
+      "kind": "page",
+      "page": 3,
+      "maxSeconds": 45,
+      "text": "The teacher closed the kit's switch. Its tiny lamp lit up. A complete circuit makes a path for electric current, the teacher explained.",
+      "version": 0,
+      "status": "approved",
+      "source": {
+        "assetId": "demo-text-3",
+        "providerId": "codex-authoring",
+        "model": null,
+        "origin": "fixture",
+        "editedByCreator": false
+      },
+      "history": [],
+      "flags": [
+        "Switch, complete circuit, electric current"
+      ],
+      "recordingHistory": [],
+      "clip": {
+        "id": "c82a7468-f50e-4e83-9b27-27232cefe8d7",
+        "scriptVersion": 0,
+        "sha256": "d47548e11428fcb7b4ceeea5c0b54b89d226c07248859620b56c691ffb3f1cb2",
+        "seconds": 15.264,
+        "approved": true,
+        "adultOwnVoice": true
+      }
+    },
+    {
+      "id": "en-page-04",
+      "language": "en",
+      "kind": "page",
+      "page": 4,
+      "maxSeconds": 45,
+      "text": "The girl thought about neighbours reading after dark. In her imaginary adventure, her glow could help. In everyday life, safe rechargeable lamps could help too.",
+      "version": 0,
+      "status": "approved",
+      "source": {
+        "assetId": "demo-text-4",
+        "providerId": "codex-authoring",
+        "model": null,
+        "origin": "fixture",
+        "editedByCreator": false
+      },
+      "history": [],
+      "flags": [
+        "Imaginary adventure, safe rechargeable lamps"
+      ],
+      "recordingHistory": [],
+      "clip": {
+        "id": "d92ae5d4-2fb5-4491-9c89-23e218d159bc",
+        "scriptVersion": 0,
+        "sha256": "9c4ecdd3cf49603da34c26a9a52653ba93211c5483667d96f9fb6ac506177828",
+        "seconds": 22.656,
+        "approved": true,
+        "adultOwnVoice": true
+      }
+    },
+    {
+      "id": "en-page-05",
+      "language": "en",
+      "kind": "page",
+      "page": 5,
+      "maxSeconds": 45,
+      "text": "That evening, families met to read. Adults set out charged lamps. In the story, the girl's little glow joined them. Everyone had a place around the table.",
+      "version": 0,
+      "status": "approved",
+      "source": {
+        "assetId": "demo-text-5",
+        "providerId": "codex-authoring",
+        "model": null,
+        "origin": "fixture",
+        "editedByCreator": false
+      },
+      "history": [],
+      "flags": [
+        "Charged lamps, families reading together, imagined glow"
+      ],
+      "recordingHistory": [],
+      "clip": {
+        "id": "2fd97c80-3142-4703-bdcb-de6a0bcae766",
+        "scriptVersion": 0,
+        "sha256": "46d3efc2a47d7945bc9b831e0fa37d9ba04aef32c68e217d98d929d4c77a2767",
+        "seconds": 19.296,
+        "approved": true,
+        "adultOwnVoice": true
+      }
+    },
+    {
+      "id": "en-page-06",
+      "language": "en",
+      "kind": "page",
+      "page": 6,
+      "maxSeconds": 45,
+      "text": "She could not change everything, but she could ask questions and help her neighbours. Tomorrow, she would bring another story to share.",
+      "version": 0,
+      "status": "approved",
+      "source": {
+        "assetId": "demo-text-6",
+        "providerId": "codex-authoring",
+        "model": null,
+        "origin": "fixture",
+        "editedByCreator": false
+      },
+      "history": [],
+      "flags": [
+        "Curiosity, neighbours, cooperation"
+      ],
+      "recordingHistory": [],
+      "clip": {
+        "id": "593205f7-cd4a-4f0b-9c9c-672e779e9973",
+        "scriptVersion": 0,
+        "sha256": "697bb023b0f69a3c2a1f2746aaed7d993609d4dc96389c5bbd1ba7a28332e7ca",
+        "seconds": 15.576,
+        "approved": true,
+        "adultOwnVoice": true
+      }
+    },
+    {
+      "id": "en-word-01",
+      "language": "en",
+      "kind": "word",
+      "page": null,
+      "maxSeconds": 5,
+      "text": "light",
+      "version": 0,
+      "status": "approved",
+      "source": {
+        "assetId": "creator-selection-49c7d6a9-7657-4327-af19-d7682a1e845d-en-word-01-v0",
+        "providerId": "creator",
+        "model": null,
+        "origin": "creator",
+        "editedByCreator": false
+      },
+      "history": [],
+      "flags": [
+        "Creator-selected concept; confirm exact wording and pronunciation."
+      ],
+      "recordingHistory": [],
+      "clip": {
+        "id": "922ed0d1-bd17-4dcb-805d-855ba24593a3",
+        "scriptVersion": 0,
+        "sha256": "61c99d5707a3dea5b2e027147b5f878e6e5f150b663168d5da99bb7ba32406f4",
+        "seconds": 1.296,
+        "approved": true,
+        "adultOwnVoice": true
+      }
+    },
+    {
+      "id": "en-word-02",
+      "language": "en",
+      "kind": "word",
+      "page": null,
+      "maxSeconds": 5,
+      "text": "story",
+      "version": 0,
+      "status": "approved",
+      "source": {
+        "assetId": "creator-selection-49c7d6a9-7657-4327-af19-d7682a1e845d-en-word-02-v0",
+        "providerId": "creator",
+        "model": null,
+        "origin": "creator",
+        "editedByCreator": false
+      },
+      "history": [],
+      "flags": [
+        "Creator-selected concept; confirm exact wording and pronunciation."
+      ],
+      "recordingHistory": [],
+      "clip": {
+        "id": "c6dcc311-31cd-4e79-ab4b-d77a1e5b721a",
+        "scriptVersion": 0,
+        "sha256": "b21930c403c907d523edcfd67d07fcb9467c5786be94b2c368183f5b9a107554",
+        "seconds": 1.344,
+        "approved": true,
+        "adultOwnVoice": true
+      }
+    },
+    {
+      "id": "en-word-03",
+      "language": "en",
+      "kind": "word",
+      "page": null,
+      "maxSeconds": 5,
+      "text": "electricity",
+      "version": 0,
+      "status": "approved",
+      "source": {
+        "assetId": "creator-selection-49c7d6a9-7657-4327-af19-d7682a1e845d-en-word-03-v0",
+        "providerId": "creator",
+        "model": null,
+        "origin": "creator",
+        "editedByCreator": false
+      },
+      "history": [],
+      "flags": [
+        "Creator-selected concept; confirm exact wording and pronunciation."
+      ],
+      "recordingHistory": [],
+      "clip": {
+        "id": "02989a56-ec6d-468b-ab66-7ebcb9adab86",
+        "scriptVersion": 0,
+        "sha256": "1a694041eff2c362ae7ff30420feb2cc37060b779b6bc86931ccff76c5b00f04",
+        "seconds": 1.512,
+        "approved": true,
+        "adultOwnVoice": true
+      }
+    },
+    {
+      "id": "en-opening",
+      "language": "en",
+      "kind": "opening",
+      "page": null,
+      "maxSeconds": 8,
+      "text": "Once upon a time",
+      "version": 1,
+      "status": "approved",
+      "source": {
+        "assetId": "creator-7c65ad03-0be4-490f-aac8-795c67ab8ff1",
+        "providerId": "creator",
+        "model": null,
+        "origin": "creator",
+        "editedByCreator": true
+      },
+      "history": [],
+      "flags": [
+        "Creator must supply this exact phrase. No traditional wording is inferred."
+      ],
+      "recordingHistory": [],
+      "clip": {
+        "id": "33f40c58-91a3-49f4-8f1b-116a929a81bb",
+        "scriptVersion": 1,
+        "sha256": "65dbcee17cbe2525294eb01a00aa2e67fb969303c0819076ae27a142d2a2de96",
+        "seconds": 1.896,
+        "approved": true,
+        "adultOwnVoice": true
+      }
+    },
+    {
+      "id": "en-response",
+      "language": "en",
+      "kind": "response",
+      "page": null,
+      "maxSeconds": 8,
+      "text": "We are listening ",
+      "version": 1,
+      "status": "approved",
+      "source": {
+        "assetId": "creator-2a362f65-eea0-4f84-9047-654e64142b32",
+        "providerId": "creator",
+        "model": null,
+        "origin": "creator",
+        "editedByCreator": true
+      },
+      "history": [],
+      "flags": [
+        "Creator must supply this exact phrase. No traditional wording is inferred."
+      ],
+      "recordingHistory": [],
+      "clip": {
+        "id": "830e7086-97b1-486f-8bed-220466c42948",
+        "scriptVersion": 1,
+        "sha256": "12b7037fab43cf40304c2ac686869f94af0277ce23a39da56f49196f4d381aa7",
+        "seconds": 2.136,
+        "approved": true,
+        "adultOwnVoice": true
+      }
+    },
+    {
+      "id": "en-continuation",
+      "language": "en",
+      "kind": "continuation",
+      "page": null,
+      "maxSeconds": 10,
+      "text": "The story of The Girl Who Spoke to Electricity.",
+      "version": 1,
+      "status": "approved",
+      "source": {
+        "assetId": "creator-7ca1aaec-590a-47e8-8b07-37c29e76c635",
+        "providerId": "creator",
+        "model": null,
+        "origin": "creator",
+        "editedByCreator": true
+      },
+      "history": [],
+      "flags": [
+        "Creator must supply this exact phrase. No traditional wording is inferred."
+      ],
+      "recordingHistory": [],
+      "clip": {
+        "id": "d3a17716-8e68-4d97-9e22-63f76e5dde92",
+        "scriptVersion": 1,
+        "sha256": "179068f030fad089c5eba76823d64f5c3783a9d98351b588f5b86993aff95f9d",
+        "seconds": 4.464,
+        "approved": true,
+        "adultOwnVoice": true
+      }
+    },
+    {
+      "id": "st-page-01",
+      "language": "st",
+      "kind": "page",
+      "page": 1,
+      "maxSeconds": 60,
+      "text": "Ha mabone a tima, ngoanana o ile a inahanela khanya e nyenyane ka holim'a letsoho la hae. E ne e le matla a bukeng ea lipale, eseng ntho eo batho ba ka e etsang bophelong ba sebele.",
+      "version": 1,
+      "status": "approved",
+      "source": {
+        "assetId": "translation-10db2c10-a553-48a1-b7c9-dd10a0fd2d9f-1",
+        "providerId": "openai",
+        "model": "gpt-5.6-terra",
+        "origin": "generated",
+        "editedByCreator": false
+      },
+      "history": [],
+      "flags": [
+        "Power interruption/load-shedding, imagined glow, fiction versus real life",
+        "storybook power: A fictional/supernatural ability in a story, not a real human ability; check the preferred child-friendly Sesotho wording.",
+        "glow: A soft light or shine; check whether “khanya” gives the intended gentle-light meaning."
+      ],
+      "recordingHistory": [],
+      "clip": {
+        "id": "17fbff60-e3a2-432a-85ba-458ed8ee0405",
+        "scriptVersion": 1,
+        "sha256": "2ee0e8ae304a614e48fd9baadbcd4e4746ef662b9e31e9e332e43348c912b36e",
+        "seconds": 29.592,
+        "approved": true,
+        "adultOwnVoice": true
+      }
+    },
+    {
+      "id": "st-page-02",
+      "language": "st",
+      "kind": "page",
+      "page": 2,
+      "maxSeconds": 60,
+      "text": "Sekolong, o ile a botsa hore na lebone le ka khanya joang. Tichere ea hae e ile ea tlisa sete e nyenyane ea libeteri ea tlelaseng. Ha ho motho ea ileng a ama sokete ea leboteng kapa terata e hlephileng.",
+      "version": 1,
+      "status": "approved",
+      "source": {
+        "assetId": "translation-10db2c10-a553-48a1-b7c9-dd10a0fd2d9f-2",
+        "providerId": "openai",
+        "model": "gpt-5.6-terra",
+        "origin": "generated",
+        "editedByCreator": false
+      },
+      "history": [],
+      "flags": [
+        "Battery learning kit, wall socket/mains, loose wire",
+        "battery kit: A small classroom set of batteries and parts for learning; check the most natural Sesotho term.",
+        "wall socket: The electrical outlet fixed to a wall; check the preferred term for “sokete” in South African Sesotho.",
+        "loose wire: A wire that is not securely connected and may be unsafe; safety meaning must remain clear."
+      ],
+      "recordingHistory": [],
+      "clip": {
+        "id": "67a0ffcf-36ac-4dff-a5c9-a9b84eefbafc",
+        "scriptVersion": 1,
+        "sha256": "02410eecf9c32597dfc0f6872f52b55c641c9661424860899157db5edf5d3547",
+        "seconds": 35.832,
+        "approved": true,
+        "adultOwnVoice": true
+      }
+    },
+    {
+      "id": "st-page-03",
+      "language": "st",
+      "kind": "page",
+      "page": 3,
+      "maxSeconds": 60,
+      "text": "Tichere e ile ea koala switjhe ea sete eo. Lebone la eona le lenyenyane la khanya. Tichere e ile ea hlalosa hore potoloho e feletseng e etsa tsela eo motlakase oa motlakase o fetang ho eona.",
+      "version": 1,
+      "status": "approved",
+      "source": {
+        "assetId": "translation-10db2c10-a553-48a1-b7c9-dd10a0fd2d9f-3",
+        "providerId": "openai",
+        "model": "gpt-5.6-terra",
+        "origin": "generated",
+        "editedByCreator": false
+      },
+      "history": [],
+      "flags": [
+        "Switch, complete circuit, electric current",
+        "switch: The control that opens or closes an electrical circuit; check whether “switjhe” is the preferred learner-friendly term.",
+        "complete circuit: An unbroken electrical path that allows current to flow; science meaning needs checking.",
+        "electric current: The flow of electricity through a circuit; the Sesotho wording should be checked for scientific accuracy."
+      ],
+      "recordingHistory": [],
+      "clip": {
+        "id": "297f86e9-06be-481b-927d-a2667d844da0",
+        "scriptVersion": 1,
+        "sha256": "9c1550157833748f0b9e4fe797940c50eb01f6696c0cefaa5f0beb229ee85471",
+        "seconds": 37.104,
+        "approved": true,
+        "adultOwnVoice": true
+      }
+    },
+    {
+      "id": "st-page-04",
+      "language": "st",
+      "kind": "page",
+      "page": 4,
+      "maxSeconds": 60,
+      "text": "Ngoanana o ile a nahana ka baahisani ba balang ha ho se ho le lefifi. Leetong la hae la boinahanelo, khanya ea hae e ne e ka thusa. Bophelong ba letsatsi le letsatsi, mabone a bolokehileng a ka tjhajoang hape le ’ona a ne a ka thusa.",
+      "version": 1,
+      "status": "approved",
+      "source": {
+        "assetId": "translation-10db2c10-a553-48a1-b7c9-dd10a0fd2d9f-4",
+        "providerId": "openai",
+        "model": "gpt-5.6-terra",
+        "origin": "generated",
+        "editedByCreator": false
+      },
+      "history": [],
+      "flags": [
+        "Imaginary adventure, safe rechargeable lamps",
+        "neighbours: People living nearby; check whether “baahisani” is the preferred term for the intended age group.",
+        "imaginary adventure: A make-believe adventure; check the most natural child-friendly Sesotho phrasing.",
+        "glow: A soft fictional light; check whether “khanya” preserves this meaning.",
+        "rechargeable: Able to be charged again for reuse; check the clearest Sesotho wording."
+      ],
+      "recordingHistory": [],
+      "clip": {
+        "id": "cc8ae81b-da74-49b8-b515-41143675117c",
+        "scriptVersion": 1,
+        "sha256": "3ddc949735e638a52ce36c875dc622bebc069daa6183d3a099a9470112c80d53",
+        "seconds": 40.296,
+        "approved": true,
+        "adultOwnVoice": true
+      }
+    },
+    {
+      "id": "st-page-05",
+      "language": "st",
+      "kind": "page",
+      "page": 5,
+      "maxSeconds": 60,
+      "text": "Mantsiboeeng ao, malapa a ile a kopana ho bala. Batho ba baholo ba ile ba beha mabone a tjhajiloeng. Paleng, khanya e nyenyane ea ngoanana e ile ea ikopanya le ’ona. E mong le e mong o ne a e-na le sebaka haufi le tafole.",
+      "version": 1,
+      "status": "approved",
+      "source": {
+        "assetId": "translation-10db2c10-a553-48a1-b7c9-dd10a0fd2d9f-5",
+        "providerId": "openai",
+        "model": "gpt-5.6-terra",
+        "origin": "generated",
+        "editedByCreator": false
+      },
+      "history": [],
+      "flags": [
+        "Charged lamps, families reading together, imagined glow",
+        "charged lamps: Lamps whose batteries have been charged and are ready to use; check the wording and keep the safety distinction clear.",
+        "glow: The girl’s fictional soft light; check whether “khanya e nyenyane” is the preferred wording."
+      ],
+      "recordingHistory": [],
+      "clip": {
+        "id": "8aa09bcf-5be9-438e-b476-dffaa1dc61c3",
+        "scriptVersion": 1,
+        "sha256": "237b8da9831be418a0275a4d519339b7a4e0a8cfc63367b1d564aabbfcfe7008",
+        "seconds": 41.592,
+        "approved": true,
+        "adultOwnVoice": true
+      }
+    },
+    {
+      "id": "st-page-06",
+      "language": "st",
+      "kind": "page",
+      "page": 6,
+      "maxSeconds": 60,
+      "text": "O ne a ke ke a fetola ntho e ’ngoe le e ’ngoe, empa o ne a ka botsa lipotso le ho thusa baahisani ba hae. Hosane, o ne a tla tlisa pale e ’ngoe hore ba e arolelane.",
+      "version": 1,
+      "status": "approved",
+      "source": {
+        "assetId": "translation-10db2c10-a553-48a1-b7c9-dd10a0fd2d9f-6",
+        "providerId": "openai",
+        "model": "gpt-5.6-terra",
+        "origin": "generated",
+        "editedByCreator": false
+      },
+      "history": [],
+      "flags": [
+        "Curiosity, neighbours, cooperation",
+        "help her neighbours: Helping people who live nearby; check that the phrasing keeps the intended meaning.",
+        "share: Here it means to tell or enjoy a story together; check the most natural Sesotho wording."
+      ],
+      "recordingHistory": [],
+      "clip": {
+        "id": "49b326cd-24ac-4e91-86ff-319a27461ad1",
+        "scriptVersion": 1,
+        "sha256": "e9b206f32a047cd54a7c4e1c8d4e4232847381b98d3fd3ffd5bdffe4d393fc23",
+        "seconds": 32.496,
+        "approved": true,
+        "adultOwnVoice": true
+      }
+    },
+    {
+      "id": "st-word-01",
+      "language": "st",
+      "kind": "word",
+      "page": null,
+      "maxSeconds": 5,
+      "text": "lebone ",
+      "version": 1,
+      "status": "approved",
+      "source": {
+        "assetId": "creator-2b9c89c5-700e-4917-9485-e1c896b0261d",
+        "providerId": "creator",
+        "model": null,
+        "origin": "creator",
+        "editedByCreator": true
+      },
+      "history": [],
+      "flags": [
+        "Creator-selected concept; confirm exact wording and pronunciation."
+      ],
+      "recordingHistory": [],
+      "clip": {
+        "id": "854a1346-ad6f-4e18-ad94-793858eab8e2",
+        "scriptVersion": 1,
+        "sha256": "18c95e514566b20ea4a05f9d45eeae4cb806dc574c917261f029e7ca22fefe86",
+        "seconds": 1.272,
+        "approved": true,
+        "adultOwnVoice": true
+      }
+    },
+    {
+      "id": "st-word-02",
+      "language": "st",
+      "kind": "word",
+      "page": null,
+      "maxSeconds": 5,
+      "text": "pale ",
+      "version": 1,
+      "status": "approved",
+      "source": {
+        "assetId": "creator-2ca8d0c3-959c-4481-89af-3d298c02ca8c",
+        "providerId": "creator",
+        "model": null,
+        "origin": "creator",
+        "editedByCreator": true
+      },
+      "history": [],
+      "flags": [
+        "Creator-selected concept; confirm exact wording and pronunciation."
+      ],
+      "recordingHistory": [],
+      "clip": {
+        "id": "2b9e92dc-0eba-4912-ae1b-9dfb99f16faa",
+        "scriptVersion": 1,
+        "sha256": "161676073b1fcfb876dfe2c1db237c8641a2440e844a9f60f1da5a0486439151",
+        "seconds": 2.856,
+        "approved": true,
+        "adultOwnVoice": true
+      }
+    },
+    {
+      "id": "st-word-03",
+      "language": "st",
+      "kind": "word",
+      "page": null,
+      "maxSeconds": 5,
+      "text": "motlakase",
+      "version": 1,
+      "status": "approved",
+      "source": {
+        "assetId": "creator-70c5f7f4-b37b-40dd-9902-946404f7c6fb",
+        "providerId": "creator",
+        "model": null,
+        "origin": "creator",
+        "editedByCreator": true
+      },
+      "history": [],
+      "flags": [
+        "Creator-selected concept; confirm exact wording and pronunciation."
+      ],
+      "recordingHistory": [],
+      "clip": {
+        "id": "46385145-b43e-4b44-8904-817044ed7196",
+        "scriptVersion": 1,
+        "sha256": "de79056011848ea6feb40e9e11108ec02d20d16ebd94358071d87821fbd2559e",
+        "seconds": 1.632,
+        "approved": true,
+        "adultOwnVoice": true
+      }
+    },
+    {
+      "id": "st-opening",
+      "language": "st",
+      "kind": "opening",
+      "page": null,
+      "maxSeconds": 8,
+      "text": "Ba re e ne ere ",
+      "version": 1,
+      "status": "approved",
+      "source": {
+        "assetId": "creator-a152aa60-4dee-4e94-9820-af8af481c641",
+        "providerId": "creator",
+        "model": null,
+        "origin": "creator",
+        "editedByCreator": true
+      },
+      "history": [],
+      "flags": [
+        "Creator must supply this exact phrase. No traditional wording is inferred."
+      ],
+      "recordingHistory": [],
+      "clip": {
+        "id": "b6c90993-35fe-44b5-8bec-4273adbdef5e",
+        "scriptVersion": 1,
+        "sha256": "22259b81ff8306a58155155f0fb31ae69ebd3154a67ce541f51d99c9441821a8",
+        "seconds": 2.544,
+        "approved": true,
+        "adultOwnVoice": true
+      }
+    },
+    {
+      "id": "st-response",
+      "language": "st",
+      "kind": "response",
+      "page": null,
+      "maxSeconds": 8,
+      "text": "Qoi",
+      "version": 1,
+      "status": "approved",
+      "source": {
+        "assetId": "creator-6b4ec929-0f15-4a4f-9744-620bccb11296",
+        "providerId": "creator",
+        "model": null,
+        "origin": "creator",
+        "editedByCreator": true
+      },
+      "history": [],
+      "flags": [
+        "Creator must supply this exact phrase. No traditional wording is inferred."
+      ],
+      "recordingHistory": [],
+      "clip": {
+        "id": "3ed4ffaf-87cb-4a81-a3a8-9707ad7ca3f6",
+        "scriptVersion": 1,
+        "sha256": "35d43fb8185db7343c3325c2af808543cda4d3e7718b7c3f82e7643483994695",
+        "seconds": 1.296,
+        "approved": true,
+        "adultOwnVoice": true
+      }
+    },
+    {
+      "id": "st-continuation",
+      "language": "st",
+      "kind": "continuation",
+      "page": null,
+      "maxSeconds": 10,
+      "text": "Pale ea Ngoanana ea Buileng le Motlakase.",
+      "version": 1,
+      "status": "approved",
+      "source": {
+        "assetId": "creator-c7680501-32bf-4a61-a28c-d7729c75dbc7",
+        "providerId": "creator",
+        "model": null,
+        "origin": "creator",
+        "editedByCreator": true
+      },
+      "history": [],
+      "flags": [
+        "Creator must supply this exact phrase. No traditional wording is inferred."
+      ],
+      "recordingHistory": [],
+      "clip": {
+        "id": "8229a6bb-fe67-4173-9d27-fabadef8cdab",
+        "scriptVersion": 1,
+        "sha256": "b48f361bb6c676e44da6b805a31a8a885d2d789b3b6b31c38d360c726767fd18",
+        "seconds": 4.656,
+        "approved": true,
+        "adultOwnVoice": true
+      }
+    }
+  ],
+  "recordings": [
+    {
+      "filename": "en-page-01.wav",
+      "sha256": "82f63d8113b93c7441fb4ebccfd641592e6e088d24d18f23193f0c293d80efd5",
+      "scriptVersion": 0,
+      "adultOwnVoice": true,
+      "creatorApproved": true,
+      "byteLength": 411692
+    },
+    {
+      "filename": "en-page-02.wav",
+      "sha256": "5ea3eb8f5ffb04903dd293c451768f665dbb2b5d327b8b076b838474498b9768",
+      "scriptVersion": 0,
+      "adultOwnVoice": true,
+      "creatorApproved": true,
+      "byteLength": 572972
+    },
+    {
+      "filename": "en-page-03.wav",
+      "sha256": "d47548e11428fcb7b4ceeea5c0b54b89d226c07248859620b56c691ffb3f1cb2",
+      "scriptVersion": 0,
+      "adultOwnVoice": true,
+      "creatorApproved": true,
+      "byteLength": 488492
+    },
+    {
+      "filename": "en-page-04.wav",
+      "sha256": "9c4ecdd3cf49603da34c26a9a52653ba93211c5483667d96f9fb6ac506177828",
+      "scriptVersion": 0,
+      "adultOwnVoice": true,
+      "creatorApproved": true,
+      "byteLength": 725036
+    },
+    {
+      "filename": "en-page-05.wav",
+      "sha256": "46d3efc2a47d7945bc9b831e0fa37d9ba04aef32c68e217d98d929d4c77a2767",
+      "scriptVersion": 0,
+      "adultOwnVoice": true,
+      "creatorApproved": true,
+      "byteLength": 617516
+    },
+    {
+      "filename": "en-page-06.wav",
+      "sha256": "697bb023b0f69a3c2a1f2746aaed7d993609d4dc96389c5bbd1ba7a28332e7ca",
+      "scriptVersion": 0,
+      "adultOwnVoice": true,
+      "creatorApproved": true,
+      "byteLength": 498476
+    },
+    {
+      "filename": "en-word-01.wav",
+      "sha256": "61c99d5707a3dea5b2e027147b5f878e6e5f150b663168d5da99bb7ba32406f4",
+      "scriptVersion": 0,
+      "adultOwnVoice": true,
+      "creatorApproved": true,
+      "byteLength": 41516
+    },
+    {
+      "filename": "en-word-02.wav",
+      "sha256": "b21930c403c907d523edcfd67d07fcb9467c5786be94b2c368183f5b9a107554",
+      "scriptVersion": 0,
+      "adultOwnVoice": true,
+      "creatorApproved": true,
+      "byteLength": 43052
+    },
+    {
+      "filename": "en-word-03.wav",
+      "sha256": "1a694041eff2c362ae7ff30420feb2cc37060b779b6bc86931ccff76c5b00f04",
+      "scriptVersion": 0,
+      "adultOwnVoice": true,
+      "creatorApproved": true,
+      "byteLength": 48428
+    },
+    {
+      "filename": "en-opening.wav",
+      "sha256": "65dbcee17cbe2525294eb01a00aa2e67fb969303c0819076ae27a142d2a2de96",
+      "scriptVersion": 1,
+      "adultOwnVoice": true,
+      "creatorApproved": true,
+      "byteLength": 60716
+    },
+    {
+      "filename": "en-response.wav",
+      "sha256": "12b7037fab43cf40304c2ac686869f94af0277ce23a39da56f49196f4d381aa7",
+      "scriptVersion": 1,
+      "adultOwnVoice": true,
+      "creatorApproved": true,
+      "byteLength": 68396
+    },
+    {
+      "filename": "en-continuation.wav",
+      "sha256": "179068f030fad089c5eba76823d64f5c3783a9d98351b588f5b86993aff95f9d",
+      "scriptVersion": 1,
+      "adultOwnVoice": true,
+      "creatorApproved": true,
+      "byteLength": 142892
+    },
+    {
+      "filename": "st-page-01.wav",
+      "sha256": "2ee0e8ae304a614e48fd9baadbcd4e4746ef662b9e31e9e332e43348c912b36e",
+      "scriptVersion": 1,
+      "adultOwnVoice": true,
+      "creatorApproved": true,
+      "byteLength": 946988
+    },
+    {
+      "filename": "st-page-02.wav",
+      "sha256": "02410eecf9c32597dfc0f6872f52b55c641c9661424860899157db5edf5d3547",
+      "scriptVersion": 1,
+      "adultOwnVoice": true,
+      "creatorApproved": true,
+      "byteLength": 1146668
+    },
+    {
+      "filename": "st-page-03.wav",
+      "sha256": "9c1550157833748f0b9e4fe797940c50eb01f6696c0cefaa5f0beb229ee85471",
+      "scriptVersion": 1,
+      "adultOwnVoice": true,
+      "creatorApproved": true,
+      "byteLength": 1187372
+    },
+    {
+      "filename": "st-page-04.wav",
+      "sha256": "3ddc949735e638a52ce36c875dc622bebc069daa6183d3a099a9470112c80d53",
+      "scriptVersion": 1,
+      "adultOwnVoice": true,
+      "creatorApproved": true,
+      "byteLength": 1289516
+    },
+    {
+      "filename": "st-page-05.wav",
+      "sha256": "237b8da9831be418a0275a4d519339b7a4e0a8cfc63367b1d564aabbfcfe7008",
+      "scriptVersion": 1,
+      "adultOwnVoice": true,
+      "creatorApproved": true,
+      "byteLength": 1330988
+    },
+    {
+      "filename": "st-page-06.wav",
+      "sha256": "e9b206f32a047cd54a7c4e1c8d4e4232847381b98d3fd3ffd5bdffe4d393fc23",
+      "scriptVersion": 1,
+      "adultOwnVoice": true,
+      "creatorApproved": true,
+      "byteLength": 1039916
+    },
+    {
+      "filename": "st-word-01.wav",
+      "sha256": "18c95e514566b20ea4a05f9d45eeae4cb806dc574c917261f029e7ca22fefe86",
+      "scriptVersion": 1,
+      "adultOwnVoice": true,
+      "creatorApproved": true,
+      "byteLength": 40748
+    },
+    {
+      "filename": "st-word-02.wav",
+      "sha256": "161676073b1fcfb876dfe2c1db237c8641a2440e844a9f60f1da5a0486439151",
+      "scriptVersion": 1,
+      "adultOwnVoice": true,
+      "creatorApproved": true,
+      "byteLength": 91436
+    },
+    {
+      "filename": "st-word-03.wav",
+      "sha256": "de79056011848ea6feb40e9e11108ec02d20d16ebd94358071d87821fbd2559e",
+      "scriptVersion": 1,
+      "adultOwnVoice": true,
+      "creatorApproved": true,
+      "byteLength": 52268
+    },
+    {
+      "filename": "st-opening.wav",
+      "sha256": "22259b81ff8306a58155155f0fb31ae69ebd3154a67ce541f51d99c9441821a8",
+      "scriptVersion": 1,
+      "adultOwnVoice": true,
+      "creatorApproved": true,
+      "byteLength": 81452
+    },
+    {
+      "filename": "st-response.wav",
+      "sha256": "35d43fb8185db7343c3325c2af808543cda4d3e7718b7c3f82e7643483994695",
+      "scriptVersion": 1,
+      "adultOwnVoice": true,
+      "creatorApproved": true,
+      "byteLength": 41516
+    },
+    {
+      "filename": "st-continuation.wav",
+      "sha256": "b48f361bb6c676e44da6b805a31a8a885d2d789b3b6b31c38d360c726767fd18",
+      "scriptVersion": 1,
+      "adultOwnVoice": true,
+      "creatorApproved": true,
+      "byteLength": 149036
+    }
+  ],
+  "translationUsage": {
+    "actualUsd": 0.012112,
+    "tokens": {
+      "input": 494,
+      "output": 927
+    }
+  },
+  "invoiceVerified": false,
+  "corrections": [],
+  "provenanceNotice": "Preserve mixed actual sources: existing Codex-authored English, real-generated images/translations, creator edits and consenting adult recordings. No synthetic Sesotho speech."
+}

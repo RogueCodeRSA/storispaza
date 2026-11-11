@@ -2,6 +2,7 @@ import { execFileSync } from "node:child_process";
 import { existsSync, readFileSync, readdirSync } from "node:fs";
 import { resolve } from "node:path";
 import { pathToFileURL } from "node:url";
+import { reviewedSpeechPack } from "./reviewed-speech.mjs";
 
 export function privatePath(path) {
   const name = path.replaceAll("\\", "/");
@@ -29,11 +30,33 @@ export function scanRepository(staged = false) {
   const git = args => execFileSync("git", args, { encoding: "utf8", maxBuffer: 25_000_000 });
   const paths = [...new Set(git(staged ? ["ls-files", "-z"] : ["ls-files", "--cached", "--others", "--exclude-standard", "-z"]).split("\0").filter(Boolean))];
   const secrets = localSecrets(); const failures = []; let files = 0; let artifacts = 0;
+  const index = new Map();
+  if (staged && paths.length) {
+    if (paths.some(path => /[\r\n]/.test(path))) throw new Error("Unsupported index path.");
+    // One binary-safe process avoids hundreds of slow Windows Git launches.
+    const output = execFileSync("git", ["cat-file", "--batch"], { input: paths.map(path => `:${path}\n`).join(""), maxBuffer: 128_000_000 });
+    let offset = 0;
+    for (const path of paths) {
+      const end = output.indexOf(10, offset); const header = output.toString("ascii", offset, end);
+      const match = /^[a-f0-9]+ blob (\d+)$/.exec(header);
+      if (!match) throw new Error("Could not read index blob.");
+      const size = Number(match[1]); const start = end + 1;
+      index.set(path, output.subarray(start, start + size)); offset = start + size + 1;
+    }
+  }
+  const read = path => staged ? index.get(path) ?? (() => { throw new Error("Missing index file."); })() : readFileSync(path);
+  const approvedPaths = new Set();
+  if (paths.some(path => path.startsWith("fixtures/approved-speech/"))) {
+    try {
+      const pack = reviewedSpeechPack(read);
+      for (const path of pack.files.keys()) approvedPaths.add(path);
+      for (const name of ["manifest.json", "reader.json", "CONSENT.md"]) approvedPaths.add(`fixtures/approved-speech/${name}`);
+    } catch { failures.push("fixtures/approved-speech/: consent/approval/hash validation failed"); }
+  }
   const check = (path, bytes) => { if (containsCredential(bytes, secrets)) failures.push(`${path}: credential pattern or local credential value`); };
   for (const path of paths) {
-    if (privatePath(path)) failures.push(`${path}: private/generated path`);
-    if (staged) check(path, Buffer.from(git(["show", `:${path}`])));
-    else if (existsSync(path)) check(path, readFileSync(path));
+    if (privatePath(path) && !approvedPaths.has(path)) failures.push(`${path}: private/generated path`);
+    if (staged || existsSync(path)) check(path, read(path));
     files++;
   }
   function artifactsIn(directory) {

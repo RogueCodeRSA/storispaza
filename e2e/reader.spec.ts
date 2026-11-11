@@ -9,9 +9,14 @@ async function denyMicrophone(page: Page) {
   await page.addInitScript(() => { navigator.mediaDevices.getUserMedia = async () => { throw new Error("M5 must not request a microphone"); }; });
 }
 async function injectBook(page: Page, book: ReaderBook) { await page.route("**/api/reader", route => route.fulfill({ json: { book } })); }
+async function injectLegacyDemo(page: Page) {
+  const book = readerBook(initialSpeechProject(structuredClone(demoStory), randomUUID(), "mock"));
+  for (const entry of book.pages) for (const language of ["en", "st"] as const) entry.text[language].audio = { id: `demo-${language}-${entry.number}`, url: "/api/reader?demoTone=1", seconds: 6, provisional: true };
+  await injectBook(page, book);
+}
 
 test("M5 bilingual page reading, pause/resume, next-page preload and keyboard navigation", async ({ page }, info) => {
-  await denyMicrophone(page);
+  await denyMicrophone(page); await injectLegacyDemo(page);
   const requests: string[] = []; page.on("request", request => requests.push(request.url()));
   await page.goto("/play");
   await expect(page.getByRole("heading", { name: "Page 1 · English", exact: true })).toBeVisible();
@@ -95,6 +100,7 @@ test("M5 current reviewed vocabulary and a full recorded opening/response/contin
 test("M5 reduced-data mode skips preloads and audio errors keep text, position and retry usable", async ({ page }) => {
   await page.addInitScript(() => { Object.defineProperty(navigator,"connection",{value:{saveData:true,effectiveType:"2g"}}); });
   const imageRequests: string[]=[]; page.on("request",request=>{if(request.url().includes("/api/reader?image="))imageRequests.push(request.url());});
+  await injectLegacyDemo(page);
   let failed = false;
   await page.route("**/api/reader?demoTone=1", route=> { if(!failed){ failed=true; return route.abort(); } return route.continue(); });
   await page.goto("/play"); await expect(page.getByRole("heading",{name:"Page 1 · English",exact:true})).toBeVisible();

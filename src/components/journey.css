@@ -14,7 +14,7 @@
 .mock-app p { margin: .7rem 0; }
 .mock-header, .mock-main, .mock-footer { max-width: 1180px; margin: auto; }
 .mock-header { display: flex; align-items: center; justify-content: space-between; gap: .5rem; flex-wrap: wrap; padding: 1.2rem 1.5rem; border-bottom: 1px solid #d6d3c2; }
-.mock-brand { font-size: 1.6rem; font-weight: 800; letter-spacing: -.06em; }
+.mock-brand { font-size: 1.6rem; font-weight: 800; letter-spacing: -.06em; color:var(--ink); text-decoration:none; }
 .mock-brand span { color: var(--rust); }
 .mock-label { font-size: .8rem; border: 1px solid #b9c7b0; background: #e7ecdf; padding: .3rem .8rem; border-radius: 2rem; font-weight: bold; }
 .mock-main { padding: 1.5rem; }

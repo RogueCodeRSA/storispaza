@@ -20,13 +20,16 @@ export type PageField = "title" | "narrative" | "illustrationDescription" | "lea
 export const DRAFT_KEY = "storispaza-mock-draft-v1";
 export const PROVISIONAL = "Provisional / unreviewed";
 
-export function newMockDraft(): MockDraft {
-  const story = structuredClone(demoStory);
+export function newMockDraft(seed?: Story): MockDraft {
+  const story = structuredClone(seed ?? demoStory);
+  story.assumptionsConfirmed = false; story.visibility = "private"; story.sharingConsent = false;
   story.pages.forEach(page => {
     const image = reviewedImageFixtures.find(image => image.page === page.number);
-    if (image) { page.illustrationAssetId = image.source.assetId; page.assetSources.illustration = structuredClone(image.source); page.assetHistory = structuredClone(image.history); }
-    page.translation = { text: `[Sesotho placeholder for page ${page.number}. Creator translation pending.]`, status: "machine-translated" };
-    page.assetSources.translation = fixtureSource(`demo-translation-${page.number}`, "local-placeholder");
+    if (image) { page.illustrationAssetId = image.source.assetId; page.assetSources.illustration = structuredClone(image.source); page.assetHistory = structuredClone(seed ? page.assetHistory : image.history); }
+    if (seed) for (const source of Object.values(page.assetSources.narration)) if (source) page.assetHistory.push(structuredClone(source));
+    page.translation = seed && page.translation ? { ...page.translation, status: "edited" } : { text: `[Sesotho placeholder for page ${page.number}. Creator translation pending.]`, status: "machine-translated" };
+    if (!seed) page.assetSources.translation = fixtureSource(`demo-translation-${page.number}`, "local-placeholder");
+    page.provenance = "provisional-fixture"; page.approvals = { text:false, illustration:false, audio:false }; page.narrationAssetIds = { en:null, st:null };
     page.assetSources.narration = { en: fixtureSource("demo-tone-en", "local-placeholder"), st: fixtureSource("demo-tone-st", "local-placeholder") };
   });
   return {

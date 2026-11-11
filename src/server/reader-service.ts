@@ -1,6 +1,7 @@
 import "server-only";
 import { createHash } from "node:crypto";
-import { existsSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
+import { reviewedSpeechPack } from "../../scripts/reviewed-speech.mjs";
 import { join } from "node:path";
 import { DatabaseSync } from "node:sqlite";
 import { z } from "zod";
@@ -27,10 +28,12 @@ export function readerMedia(bytes: Uint8Array, mime: string, range: string | nul
     if (!Number.isSafeInteger(start) || !Number.isSafeInteger(end) || start > end || start >= bytes.length) return new Response(null, { status: 416, headers: { ...headers, "Content-Range": `bytes */${bytes.length}` } });
     partial = true;
   }
-  const body = bytes.slice(start, end + 1);
+  // Buffer.slice is a view; copy to an exact-sized ArrayBuffer so range replies
+  // cannot leak the rest of a recording or unrelated pooled buffer bytes.
+  const body = new Uint8Array(bytes.subarray(start, end + 1));
   return new Response(body.buffer as ArrayBuffer, { status: partial ? 206 : 200, headers: { ...headers, "Content-Length": String(body.length), ...(partial ? { "Content-Range": `bytes ${start}-${end}/${bytes.length}` } : {}) } });
 }
-export function createReaderHandler(config: typeof readConfig = readConfig) {
+export function createReaderHandler(config: typeof readConfig = readConfig, fixtureDirectory: string | null = "fixtures/approved-speech") {
   return async (request: Request) => {
     let db: DatabaseSync | undefined;
     try {
@@ -45,6 +48,15 @@ export function createReaderHandler(config: typeof readConfig = readConfig) {
       if (project && project.mode !== settings.AI_PROVIDER) throw new AppError("INVALID_INPUT", "Reader mode differs from this workspace; restore in the matching app mode.", 409);
       const demo = !project;
       const demoSignal = demo && settings.AI_PROVIDER === "mock";
+      const needsFixture = url.searchParams.has("fixtureClip") || demo && !["demoTone", "clip", "image"].some(key => url.searchParams.has(key));
+      const pack = needsFixture && fixtureDirectory && existsSync(join(fixtureDirectory, "manifest.json")) ? reviewedSpeechPack(path => readFileSync(join(fixtureDirectory, path.replace("fixtures/approved-speech/", "")))) : null;
+      if (url.searchParams.has("fixtureClip")) {
+        const id = url.searchParams.get("fixtureClip");
+        const bytes = pack?.files.get(`fixtures/approved-speech/${id}.wav`);
+        if (!bytes) throw new AppError("NOT_FOUND", "No approved fixture recording.", 404);
+        return readerMedia(bytes, "audio/wav", request.headers.get("range"));
+      }
+      if (demo && pack && !["demoTone", "clip", "image"].some(key => url.searchParams.has(key))) return Response.json({ book: pack.book }, { headers: privateHeaders });
       if (demo) project = initialSpeechProject(newMockDraft().story, "00000000-0000-4000-8000-000000000005", "mock");
       if (url.searchParams.has("demoTone")) {
         if (!demoSignal) throw new AppError("NOT_FOUND", "No demo signal is available in this private workspace.", 404);

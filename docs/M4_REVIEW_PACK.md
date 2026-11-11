@@ -1,5 +1,7 @@
 # M4 review pack — pending scripts and focused recording order
 
+**Historical review worksheet.** The creator subsequently completed all 24 script and clip reviews and consented to publication of all 24 adult clips, with none skipped. The frozen current snapshot is in `fixtures/approved-speech/manifest.json`; this earlier wording/checklist is retained unchanged as review history, not live status.
+
 Read-only snapshot: **11 November 2026 at 17:47 SAST**, real workspace **revision 25**. Exact saved wording, versions and statuses are copied without editing or approving anything. No recording, speech synthesis, provider request, consent change or fixture freeze was performed. All checkboxes are blank.
 
 Existing saved state: **17/24 scripts** and **2/24 current clips** already have in-app approval. **7 scripts remain pending**; **22 clips remain outstanding overall**. Frozen: **no**. Redistribution consent saved: **no**. These are observed pre-existing states, not approvals made by this document.
